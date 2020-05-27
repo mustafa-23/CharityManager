@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0dc9746d-5d83-4534-a75e-0e5579ac5790" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:9110/CharityService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="91f31dfe-fa84-4396-b93f-14b79cc83de9" SourceId="1" SourceUrl="net.tcp://localhost:9110/CharityService/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="2ebb0b1c-423d-46c1-a893-e59581d5c6dc" SourceId="1" SourceUrl="net.tcp://localhost:9110/CharityService/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="b0c3e5fe-96be-4019-8849-a254bee2297c" SourceId="1" SourceUrl="net.tcp://localhost:9110/CharityService/mex" />
+    <MetadataFile FileName="CharityManager.Service1.xsd" MetadataType="Schema" ID="d4d05724-5ea0-43a5-9ab2-800976a9c34f" SourceId="1" SourceUrl="net.tcp://localhost:9110/CharityService/mex" />
+    <MetadataFile FileName="CharityManager.DTO1.xsd" MetadataType="Schema" ID="11a4abc9-b887-4300-aaed-21f681d1f3e1" SourceId="1" SourceUrl="net.tcp://localhost:9110/CharityService/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="8185c7c0-8d4f-4f53-9aec-e023fca48a78" SourceId="1" SourceUrl="net.tcp://localhost:9110/CharityService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

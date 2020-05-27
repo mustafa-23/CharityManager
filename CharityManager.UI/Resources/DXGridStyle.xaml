@@ -1,0 +1,158 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+                    xmlns:dxgi="http://schemas.devexpress.com/winfx/2008/xaml/grid/internal">
+
+    <ControlTemplate x:Key="{dxgt:GridControlThemeKey ResourceKey=BorderTemplate,IsThemeIndependent=True}" TargetType="ContentControl">
+        <Border Background="{DynamicResource Brushes.Main}">
+            <ContentPresenter/>
+        </Border>
+    </ControlTemplate>
+    
+    <Style TargetType="dxg:GridControl">
+        <Setter Property="dx:ScrollBarExtensions.ScrollBarMode" Value="TouchOverlap"/>
+    </Style>
+    
+    
+    
+    <!--#region TableView-->
+    <Style x:Key="{x:Type dxg:TableView}" TargetType="dxg:TableView">
+        <Setter Property="AllowPerPixelScrolling" Value="True"/>
+        <Setter Property="AllowEditing" Value="False"/>
+        <Setter Property="ShowIndicator" Value="False"/>
+        <Setter Property="IsColumnMenuEnabled" Value="True"/>
+        <Setter Property="AllowCascadeUpdate" Value="True"/>
+        <Setter Property="ShowVerticalLines" Value="False"/>
+        <Setter Property="ShowHorizontalLines" Value="True"/>
+        <Setter Property="ShowCheckBoxSelectorColumn" Value="True"/>
+        <Setter Property="RowAnimationKind" Value="Opacity"/>
+        <Setter Property="NavigationStyle" Value="Row"/>
+        <Setter Property="ShowGroupPanel" Value="False"/>
+        <Setter Property="AutoWidth" Value="True"/>
+        <Setter Property="AlternateRowBackground" Value="{DynamicResource Brushes.Divider}"/>
+        <Setter Property="ColumnHeaderContentStyle">
+            <Setter.Value>
+                <Style TargetType="dxg:HeaderContentControl">
+                    <Setter Property="TextBlock.Foreground" Value="#676C7F"/>
+                    <Setter Property="Margin" Value="10,0"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region ColumnHeader-->
+    
+    <!--Each Cell Template-->
+    <ControlTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=ControlTemplate, IsThemeIndependent=True}"
+                   TargetType="{x:Type dxg:GridColumnHeaderBase}">
+        <dxg:ColumnHeaderDockPanel x:Name="PART_LayoutPanel" Height="50" Margin="0,0,0,15"
+                               ContentMargin="{StaticResource {dxgt:GridColumnHeaderThemeKey ResourceKey=ContentMargin}}">
+            <Border Background="{DynamicResource Grid.Brushes.ColumnHeaderBack}"/>
+            <Border x:Name="PART_Border" Height="25" BorderBrush="{DynamicResource Grid.Brushes.ColumnHeaderSeparator}" BorderThickness="0"/>
+        </dxg:ColumnHeaderDockPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="dxg:ColumnBase.HeaderPresenterType" Value="GroupPanel">
+                <Setter Property="Margin" TargetName="PART_Border">
+                    <Setter.Value>
+                        <Binding Path="(dxg:GridColumn.MergeWithPreviousGroup)">
+                            <Binding.Converter>
+                                <dx:BoolToObjectConverter FalseValue="2,0" TrueValue="-3,0,2,0" />
+                            </Binding.Converter>
+                        </Binding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ContentMargin" Value="7,4" TargetName="PART_LayoutPanel"/>
+                <Setter Property="Margin" TargetName="PART_LayoutPanel">
+                    <Setter.Value>
+                        <Binding Path="(dxg:GridColumn.GroupLevel)">
+                            <Binding.Converter>
+                                <dxg:GroupPanelPaddingConverter Offset="5"/>
+                            </Binding.Converter>
+                        </Binding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="VerticalAlignment" Value="Top" TargetName="PART_LayoutPanel"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <DataTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=FixedColumnsDelimiterTemplate, IsThemeIndependent=True}">
+        <Border Background="Transparent"/>
+    </DataTemplate>
+    <!--#endregion-->
+
+    <!--#region Row Style-->
+    <ControlTemplate x:Key="RowTemplate" TargetType="dxg:RowControl">
+        <Grid>
+            <Border x:Name="Background" Background="{TemplateBinding Background}">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="1" Direction="270" ShadowDepth="2" Opacity="0"/>
+                </Border.Effect>
+            </Border>
+            <Border x:Name="HoverState" Background="{DynamicResource Grid.Brushes.Row.HoverBack}" CornerRadius="5" Opacity="0"/>
+            <Grid x:Name="PART_LayoutPanel"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsAlternateRow" Value="True">
+                <Setter Property="Background" Value="Transparent"/>
+            </Trigger>
+            <Trigger Property="FadeSelection" Value="True">
+                <Setter Property="Opacity" Value="0.5" TargetName="Background"/>
+            </Trigger>
+            <!-- HoverStyle -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="HoverState"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             Duration="0:0:0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="HoverState"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0"
+                                             Duration="0:0:0.3"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+                <Setter Property="Foreground" Value="{DynamicResource Grid.Brushes.Row.HoverFore}" />
+            </Trigger>
+            <!-- SelectedStyle -->
+            <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                <Setter TargetName="Background" Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource Colors.Level2}" Opacity="0.2"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource Brushes.Level1}" />
+            </DataTrigger>
+            <!-- FocusedStyle -->
+            <Trigger Property="dxg:GridViewBase.IsFocusedRow" Value="True">
+                <Setter TargetName="Background" Property="Background" Value="{DynamicResource Grid.Brushes.Row.FocusedBack}" />
+                <Setter Property="Foreground" Value="{DynamicResource Grid.Brushes.Row.FocusedFore}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="dxg:RowControl">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource Colors.Divider}" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level3}"/>
+        <Setter Property="Template" Value="{StaticResource RowTemplate}"/>
+        <Setter Property="Height" Value="40"/>
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>

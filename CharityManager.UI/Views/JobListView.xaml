@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.JobListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:m="clr-namespace:CharityManager.UI.Models"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type=vm:JobListViewModel}"
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <x:Array x:Key="JobList" Type="{x:Type m:JobModel}">
+            <m:JobModel Title="برنامه نیس" Income="16000" Phone="09391648703"
+                        Address="میدان امام،خیابان تولید دارو، پلاک 316"/>
+        </x:Array>
+
+        <Style TargetType="Label" BasedOn="{StaticResource FieldValue}">
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+
+        <DataTemplate DataType="{x:Type m:JobModel}">
+
+            <DockPanel>
+                <TextBlock Style="{StaticResource Heading_5}" VerticalAlignment="Top" Text="{Binding Tag}"
+                           Width="100" DockPanel.Dock="Left" Foreground="{DynamicResource Brushes.Level2}"/>
+                
+                <Grid Margin="0,0,0,24">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Tag="عنوان" Content="{Binding Title}"/>
+                    <Label Tag="شماره تماس" Content="{Binding Phone}" Grid.Column="1"/>
+                    <Label Style="{StaticResource FieldValue}" Tag="درآمد" 
+                           Content="{Binding Income,Converter={StaticResource MoneyWithUnit}}"
+                           Grid.Column="2"/>
+                    
+                    <Label Tag="نشانی" Content="{Binding Address}"
+                           Grid.Row="1" Grid.ColumnSpan="3" Margin="0,12,0,0"/>
+                    
+                    <Border Grid.Row="2" Grid.ColumnSpan="4" Style="{StaticResource Separator}"
+                            Background="{DynamicResource Brushes.Level3}"
+                            Margin="0,12,0,0"/>
+                </Grid>
+            </DockPanel>
+
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <UniformGrid x:Name="actionPanel" Columns="2">
+            <TextBlock Style="{StaticResource Header}" Text="اطلاعات درآمدی" VerticalAlignment="Center"/>
+            <Button Style="{StaticResource TextButton}" Content="افزودن درآمد"
+                Command="{Binding AddJobCommand}"
+                Grid.Column="1" HorizontalAlignment="Right" Tag="{StaticResource ic_Plus}"/>
+        </UniformGrid>
+        
+        <ListView ItemsSource="{Binding JobList}" Grid.Row="1"
+                  Margin="20,32,0,0"
+                  Style="{StaticResource Transparent}" ItemContainerStyle="{StaticResource Simple}"/>
+
+    </Grid>
+
+</UserControl>

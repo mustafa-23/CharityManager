@@ -1,0 +1,464 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                    xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
+                    xmlns:cnv="clr-namespace:Araneo.WPF.Converters;assembly=Araneo.WPF"
+                    xmlns:ccnv="clr-namespace:CharityManager.UI.Converters">
+
+    <!--region Converters -->
+    <cnv:StringToBool x:Key="Bool.FromString"/>
+    <cnv:DateToPersianString x:Key="PersianDate.FromDateTime"/>
+    <ccnv:IDToTitle x:Key="IDToTitle"/>
+    <ccnv:Money x:Key="Money"/>
+    <ccnv:Money x:Key="MoneyWithUnit" Unit="True"/>
+    <dx:NullableToVisibilityConverter x:Key="Visibility.FromNullable"/>
+    <ccnv:LongToSize x:Key="Size.FromLong"/>
+
+    <!--endregion-->
+
+    <CubicEase x:Key="CubicEaseOut" EasingMode="EaseOut"/>
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="dx:ScrollBarExtensions.ScrollBarMode" Value="TouchOverlap"/>
+    </Style>
+
+    <!--#region TextBlock -->
+    <Style TargetType="TextBlock" x:Key="Test">
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="FontSize" Value="48"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="Header">
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level1}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="HeadingBase" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="IRANSharp(FaNum)"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Accent_Level_03}"/>
+    </Style>
+
+    <Style x:Key="Display" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="72"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="Body" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    
+    <Style x:Key="Caption" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    
+    <Style x:Key="Heading_1" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="Heading_2" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="Heading_3" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="Heading_4" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
+    <Style x:Key="Heading_5" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    
+    <Style x:Key="Heading_6" TargetType="TextBlock" BasedOn="{StaticResource HeadingBase}">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region FocusStyle -->
+    <Style x:Key="MyFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Name="Border" BorderBrush="{DynamicResource Brushes.Level1}" BorderThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+    </Style>
+
+    <Style x:Key="GlobalStyle" TargetType="FrameworkElement">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Shapes -->
+    <Style TargetType="Ellipse" x:Key="Circle">
+        <Setter Property="Height" Value="{Binding Width,RelativeSource={RelativeSource Self}}"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Windows -->
+    <Style TargetType="Window" x:Key="Window.Default">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="FontFamily" Value="IRANSharp"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Border -->
+    <Style TargetType="Border" x:Key="Separator">
+        <Setter Property="Background" Value="{DynamicResource Brushes.Level2}"/>
+        <Setter Property="Height" Value="1"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Label -->
+    <Style TargetType="Label" x:Key="FieldValue">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level1}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <StackPanel>
+                        <ContentPresenter/>
+                        <TextBlock Text="{Binding Tag,RelativeSource={RelativeSource TemplatedParent}}" 
+                                       Foreground="{DynamicResource Brushes.Level3}" FontSize="12"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region PasswordBox -->
+    <ControlTemplate x:Key="PasswordBox.Templates.Base" TargetType="PasswordBox">
+        <Border Name="Border" CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="0.5">
+            <Grid>
+                <ScrollViewer VerticalAlignment="Center" Margin="10,0,0,0" x:Name="PART_ContentHost"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <!--#endregion-->
+
+    <!--#region Button -->
+    <Style x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource GlobalStyle}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{DynamicResource Brushes.Level2}"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="ce:Common.ExtraColor" Value="{DynamicResource Brushes.Accent}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="border" Background="{TemplateBinding Background}"/>
+                        <ContentPresenter HorizontalAlignment="Center" RecognizesAccessKey="True"
+                                          VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Accent}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="Hyperlink" BasedOn="{StaticResource GlobalStyle}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Foreground" Value="#003066"/>
+        <Setter Property="ce:Common.ExtraColor" Value="Red"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <TextBlock x:Name="text" Text="{TemplateBinding Content}" Margin="2"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#A2A4A5"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="text" Property="TextDecorations" Value="Underline"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="Button.Iconic" BasedOn="{StaticResource GlobalStyle}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Foreground" Value="#BFBFBF"/>
+        <Setter Property="Padding" Value="16,8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                            <DockPanel HorizontalAlignment="Center">
+                                <Viewbox Margin="{TemplateBinding Padding}" DockPanel.Dock="Left">
+                                    <Grid>
+                                        <Path Name="icon" Data="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
+                                          Fill="{TemplateBinding Foreground}"/>
+                                    </Grid>
+                                </Viewbox>
+                                <ContentPresenter x:Name="content" TextBlock.Foreground="{Binding Fill,ElementName=icon}"
+                                                      VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </Border>
+                        <Border Background="White" Opacity="0"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="icon" Property="Fill" Value="{DynamicResource Brushes.Accent}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="icon" Property="Fill" Value="{DynamicResource Brushes.Accent}"/>
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter TargetName="content" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="TextButton" BasedOn="{StaticResource Button.Iconic}">
+        <Setter Property="Foreground" Value="{StaticResource Brushes.Accent_Level_03}"/>
+    </Style>
+
+    <Style TargetType="Button" x:Key="Button.Segoe">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Foreground" Value="#BFBFBF"/>
+        <Setter Property="Padding" Value="16,8"/>
+        <Setter Property="ce:Common.ExtraColor" Value="#0077FF"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                            <Viewbox Margin="{TemplateBinding Padding}" DockPanel.Dock="Left">
+                                <ContentPresenter x:Name="content" VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Viewbox>
+                        </Border>
+                        <Border Background="White" Opacity="0"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="content" Property="TextBlock.Foreground" 
+                                        Value="{Binding (ce:Common.ExtraColor),RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="content" Property="TextBlock.Foreground" 
+                                        Value="{Binding (ce:Common.ExtraColor),RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter TargetName="content" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region ToggleButton -->
+    <Style TargetType="ToggleButton" x:Key="{x:Type ToggleButton}" BasedOn="{StaticResource GlobalStyle}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="ce:Common.ExtraColor" Value="RoyalBlue"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Grid.Background>
+                        <DockPanel>
+                            <Border x:Name="border" Background="{Binding (ce:Common.ExtraColor), RelativeSource={RelativeSource TemplatedParent}}"
+                                    Width="6" Visibility="Hidden"/>
+                            <Viewbox Width="{Binding (ce:Common.IconSize),RelativeSource={RelativeSource TemplatedParent}}" 
+                                     Margin="{TemplateBinding Padding}"
+                                     Stretch="Uniform" DockPanel.Dock="Left">
+                                <Path x:Name="icon" Fill="{TemplateBinding Foreground}" 
+                                      Data="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            </Viewbox>
+                            <ContentPresenter TextBlock.Foreground="{Binding Fill,ElementName=icon}" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="icon" Property="Fill" 
+                                        Value="{Binding (ce:Common.ExtraColor), RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="icon" Property="Fill" 
+                                        Value="{Binding (ce:Common.ExtraColor), RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region TabControl -->
+    <Style TargetType="TabItem">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level3}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="6"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="ContentSite" Foreground="{TemplateBinding Foreground}" Style="{StaticResource Heading_4}" Text="{TemplateBinding Header}" TextWrapping="Wrap"
+                                   VerticalAlignment="Center" Margin="12,0,12,8"/>
+                        <!--<Border x:Name="sel" Height="6" Background="Blue" Grid.Row="1" Visibility="Collapsed"/>-->
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Blue"/>
+                            <!--<Setter TargetName="sel" Property="Visibility" Value="Visible"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="TabControl">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+                            <StackPanel x:Name="HeaderPanel" Orientation="Horizontal" IsItemsHost="True"
+                                        KeyboardNavigation.TabIndex="1"/>
+                        </ScrollViewer>
+
+                        <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"
+                                          KeyboardNavigation.TabNavigation="Local" Grid.Row="1"
+                                          KeyboardNavigation.DirectionalNavigation="Contained"
+                                          KeyboardNavigation.TabIndex="2"
+                                          Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ActualWidth}"
+                                          Height="{DXBinding '@p.ActualHeight-40'}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region CustomNotification -->
+    <DataTemplate x:Key="CustomNotificationTemplate">
+        <Border Name="Border" Height="64" MinWidth="280" Background="{Binding Background}"
+                FlowDirection="RightToLeft">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="1" Direction="270" ShadowDepth="0" Opacity="0.2"/>
+            </Border.Effect>
+            <Grid>
+                <DockPanel Margin="8">
+                    <Grid Width="48" Height="48" Margin="0,0,24,0" DockPanel.Dock="Left">
+                        <Image Source="../Images/notif.png" Stretch="Uniform"/>
+                        <Image Source="{Binding Image}" Stretch="Uniform" Height="25"/>
+                    </Grid>
+                    <StackPanel Margin="0,4">
+                        <TextBlock Style="{StaticResource Heading_3}" Text="{Binding Caption}" Foreground="{Binding TitleFore}"/>
+                        <TextBlock Style="{StaticResource Heading_6}" Text="{Binding Content}" TextWrapping="Wrap"
+                                   Foreground="{Binding Foreground}" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+                <ProgressBar Grid.Row="1" Value="{Binding Time}" Height="8" Opacity="0.4" VerticalAlignment="Bottom"
+                             FlowDirection="LeftToRight" Foreground="White" Background="Transparent"/>
+            </Grid>
+        </Border>
+        <DataTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Opacity"
+                                             To="1" Duration="0:0:0.1"/>
+                            <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Effect.(DropShadowEffect.ShadowDepth)"
+                                             To="2" Duration="0:0:0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Opacity"
+                                             To="0.8" Duration="0:0:0.3"/>
+                            <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Effect.(DropShadowEffect.ShadowDepth)"
+                                             To="0" Duration="0:0:0.3"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+    <!--#endregion-->
+
+    <!--#region ListViewItem -->
+    <Style TargetType="ListViewItem" x:Key="Simple">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ContentPresenter/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region ListView -->
+    <Style TargetType="ListView" x:Key="Transparent">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <ScrollViewer>
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4cfc2832f5c24f0d9cd3941d788d49cd" Name="Diagram1" ShowGrid="false" ZoomLevel="97">
+        <EntityTypeShape EntityType="CharityModel.Package" Width="1.5" PointX="6" PointY="2.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="CharityModel.PackageItem" Width="1.5" PointX="6" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="CharityModel.Permission" Width="1.5" PointX="11.375" PointY="2.75" IsExpanded="false" FillColor="192, 192, 0" />
+        <EntityTypeShape EntityType="CharityModel.Person" Width="1.5" PointX="5.875" PointY="4.375" IsExpanded="false" FillColor="255, 255, 192" />
+        <EntityTypeShape EntityType="CharityModel.User" Width="1.5" PointX="8" PointY="4.375" IsExpanded="false" FillColor="255, 255, 128" />
+        <EntityTypeShape EntityType="CharityModel.UserPermission" Width="1.5" PointX="10" PointY="3.5" IsExpanded="false" FillColor="Yellow" />
+        <AssociationConnector Association="CharityModel.FK_PackageItem_Package" ManuallyRouted="false" />
+        <AssociationConnector Association="CharityModel.FK_UserPermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="CharityModel.FK_User_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="CharityModel.FK_UserPermission_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CharityModel.Login" Width="1.5" PointX="10" PointY="4.375" IsExpanded="false" FillColor="Yellow" />
+        <AssociationConnector Association="CharityModel.FK_Login_User" />
+        <EntityTypeShape EntityType="CharityModel.Patron" Width="1.5" PointX="3.75" PointY="4.375" IsExpanded="false" FillColor="255, 255, 128" />
+        <AssociationConnector Association="CharityModel.FK_Patron_Person" />
+        <EntityTypeShape EntityType="CharityModel.Address" Width="1.5" PointX="1.5" PointY="3.25" IsExpanded="false" FillColor="Yellow" />
+        <AssociationConnector Association="CharityModel.FK_Address_Patron" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CharityModel.Entity" Width="1.5" PointX="4.25" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="CharityModel.Family" Width="1.5" PointX="1.5" PointY="4" IsExpanded="false" FillColor="Yellow" />
+        <AssociationConnector Association="CharityModel.FK_Sponsorship_Patron" ManuallyRouted="true" >
+          <ConnectorPoint PointX="3.75" PointY="4.5375" />
+          <ConnectorPoint PointX="3.2637458036078217" PointY="4.5375" />
+          <ConnectorPoint PointX="3.2637458036078217" PointY="4.2" />
+          <ConnectorPoint PointX="3" PointY="4.2" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CharityModel.Asset" Width="1.5" PointX="1.5" PointY="4.625" IsExpanded="false" FillColor="Yellow" />
+        <EntityTypeShape EntityType="CharityModel.Job" Width="1.5" PointX="1.5" PointY="5.375" IsExpanded="false" FillColor="Yellow" />
+        <AssociationConnector Association="CharityModel.FK_Asset_Patron" />
+        <AssociationConnector Association="CharityModel.FK_Job_Patron" />
+        <EntityTypeShape EntityType="CharityModel.Picture" Width="1.5" PointX="5.875" PointY="3.25" IsExpanded="false" FillColor="255, 255, 128" />
+        <AssociationConnector Association="CharityModel.FK_Picture_Person" />
+        <EntityTypeShape EntityType="CharityModel.Document" Width="1.5" PointX="3.375" PointY="3.25" IsExpanded="false" FillColor="Yellow" />
+        <AssociationConnector Association="CharityModel.FK_Document_Patron" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.PatronInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type=vm:PatronInfoViewModel}"
+             d:DesignHeight="1350" d:DesignWidth="860">
+
+    <UserControl.Resources>
+        <Thickness x:Key="middle">8,12</Thickness>
+        <Thickness x:Key="first">0,12,16,12</Thickness>
+        <Thickness x:Key="last">16,12,0,12</Thickness>
+    </UserControl.Resources>
+
+    <ScrollViewer dx:ScrollBarExtensions.ScrollBarMode="TouchOverlap">
+        <StackPanel Margin="0,0,15,0">
+            <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.Picture}"/>
+            <Grid Margin="0,24,0,0" HorizontalAlignment="Left">
+                <Ellipse Style="{StaticResource Circle}" Width="120" Stroke="{DynamicResource Brushes.Level1}"
+                         StrokeThickness="2" HorizontalAlignment="Left" FlowDirection="LeftToRight">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding PersonImage}" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_Plus}"
+                        Padding="0" Command="{Binding SetImageCommand}"
+                        Width="15" Height="15" Foreground="{DynamicResource Brushes.Level2}"
+                        HorizontalAlignment="Center"/>
+            </Grid>
+            <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
+            
+            <!--#region اطلاعات شخصی -->
+            <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.PersonalInfo}"/>
+            <UniformGrid Rows="3" Columns="3" Margin="0,32,0,0">
+
+                <cc:Field Style="{StaticResource TextInput}"
+                          FieldTitle="{StaticResource NationalNo}" Comment="وارد کردن کد ملی الزامی است"
+                          Value="{Binding Person.NationalNo,Mode=TwoWay}"
+                          Margin="{StaticResource first}">
+                    <dxmvvm:Interaction.Behaviors>
+                        <dxmvvm:FocusBehavior/>
+                    </dxmvvm:Interaction.Behaviors>
+                </cc:Field>
+
+                <Grid>
+                    <cc:Field Style="{StaticResource TextInput}" 
+                          FieldTitle="{StaticResource RegNo}" Comment="در صورت یکی بودن با شماره ملی از کلید انتقال کد ملی استفاده کنید"
+                          Value="{Binding Person.RegNo,Mode=TwoWay}"
+                          Margin="{StaticResource middle}"/>
+                    <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_add_person}" Grid.Row="3"
+                            Foreground="{DynamicResource Brushes.Level3}" 
+                            Command="{DXCommand 'Person.RegNo=Person.NationalNo;'}"
+                            Height="30" Margin="0,0,10,12" Padding="6" Cursor="Hand"
+                            VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <cc:Field Style="{StaticResource TextInput}" 
+                          FieldTitle="{StaticResource MobileNo}"
+                          Value="{Binding Person.MobileNo,Mode=TwoWay}"
+                          Margin="{StaticResource last}"/>
+
+                <cc:Field Style="{StaticResource TextInput}" 
+                          FieldTitle="{StaticResource FirstName}"
+                          Value="{Binding Person.FirstName,Mode=TwoWay}"
+                          Margin="{StaticResource first}"/>
+
+                <cc:Field Style="{StaticResource TextInput}" 
+                          FieldTitle="{StaticResource LastName}"
+                          Value="{Binding Person.LastName,Mode=TwoWay}"
+                          Margin="{StaticResource middle}"/>
+
+                <cc:Field Style="{StaticResource TextInput}" 
+                          FieldTitle="{StaticResource FatherName}"
+                          Value="{Binding Person.FatherName,Mode=TwoWay}"
+                          Margin="{StaticResource last}"/>
+
+                <cc:Field Style="{StaticResource DateTime}" FieldTitle="{StaticResource BirthDate}"
+                          Value="{Binding Person.BirthDate,Mode=TwoWay}"
+                          Margin="{StaticResource first}"/>
+
+                <cc:Field Style="{StaticResource TextInput}" FieldTitle="{StaticResource BirthPlace}"
+                          Value="{Binding Person.BirthPlace,Mode=TwoWay}"
+                          Margin="{StaticResource middle}"/>
+
+                <cc:Field Style="{StaticResource TextInput}" FieldTitle="{StaticResource RegPlace}"
+                          Value="{Binding Person.RegPlace,Mode=TwoWay}"
+                          Margin="{StaticResource last}"/>
+
+            </UniformGrid>
+            <!--#endregion-->
+            
+            <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
+            
+            <!--#region اطلاعات تاهل -->
+            <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.MariageInfo}"/>
+            <UniformGrid Rows="1" Columns="3" Margin="0,32,0,0">
+                <cc:Field Style="{StaticResource ComboBox}" FieldTitle="{StaticResource MaritalStatus}"
+                          Tag="{StaticResource List.Martial}"
+                          Value="{Binding Model.MaritalStatus,Mode=TwoWay}"
+                          ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="Key"
+                          Margin="{StaticResource first}"/>
+                <cc:Field Style="{StaticResource TextInput}" FieldTitle="{StaticResource Children}"
+                          Value="{Binding Model.Children,Mode=TwoWay}"
+                          Margin="{StaticResource middle}"/>
+            </UniformGrid>
+            <!--#endregion-->
+            
+            <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
+            
+            <!--#region وضعیت سلامت -->
+            <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.HealthInfo}"/>
+            <UniformGrid Rows="1" Columns="3" Margin="0,32,0,0">
+                <cc:Field Style="{StaticResource ComboBox}" FieldTitle="{StaticResource BloodType}" 
+                          Tag="{StaticResource List.BloodType}"
+                          Value="{Binding Model.BloodType,Mode=TwoWay}"
+                          Margin="{StaticResource first}"/>
+                <cc:Field Style="{StaticResource TextInput}" FieldTitle="{StaticResource SpecialDisease}" 
+                          Value="{Binding Model.SpecialDisease,Mode=TwoWay}"
+                          Margin="{StaticResource middle}"/>
+            </UniformGrid>
+            <!--#endregion-->
+
+            <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
+            <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.Other}"/>
+            <UniformGrid Rows="2" Columns="3" Margin="0,20,0,0">
+                <cc:Field Style="{StaticResource ComboBox}" FieldTitle="{StaticResource Religion}"
+                          Value="{Binding Model.Religion,Mode=TwoWay}"
+                          Tag="{StaticResource List.Religion}"
+                          Margin="{StaticResource first}"/>
+                <cc:Field Style="{StaticResource ComboBox}" FieldTitle="{StaticResource Sect}"
+                          Value="{Binding Model.Sect,Mode=TwoWay}"
+                          Tag="{StaticResource List.Sect}"
+                          Margin="{StaticResource middle}"/>
+                <cc:Field Style="{StaticResource ComboBox}" FieldTitle="{StaticResource NationEntityID}"
+                          Value="{Binding Person.NationEntityID,Mode=TwoWay}"
+                          ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="ID"
+                          Tag="{x:Static ui:AppConfigs.Nations}"
+                          Margin="{StaticResource middle}"/>
+                <cc:Field Style="{StaticResource ComboBox}" FieldTitle="{StaticResource EducationEntityID}"
+                          Value="{Binding Person.EducationEntityID,Mode=TwoWay}"
+                          ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="ID"
+                          Tag="{x:Static ui:AppConfigs.Educations}"
+                          Margin="{StaticResource first}"/>
+            </UniformGrid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,28 @@
+﻿<Window x:Class="CharityManager.UI.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:ui="clr-namespace:CharityManager.UI"
+        xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+        Style="{StaticResource Window.Default}"
+        FlowDirection="{DynamicResource AppDirection}"
+        WindowStartupLocation="CenterScreen"
+        Width="700" Height="400"
+        UseLayoutRounding="True"
+        Background="Transparent"
+        DataContext="{dxmvvm:ViewModelSource Type=vm:ShellViewModel}"
+        mc:Ignorable="d">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:NotificationService x:Name="CustomNotificationService" CustomNotificationPosition="BottomRight" 
+                                    CustomNotificationTemplate="{DynamicResource CustomNotificationTemplate}"
+                                    CustomNotificationDuration="0:0:6"/>
+        <dxmvvm:OpenFileDialogService x:Name="OpenFileService" CheckFileExists="True" CheckPathExists="True"
+                                      RestorePreviouslySelectedDirectory="True"
+                                      FilterIndex="0"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Shell}" Margin="8"/>
+</Window>

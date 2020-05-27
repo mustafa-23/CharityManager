@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             mc:Ignorable="d"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:MainViewModel}"
+             d:DesignHeight="768" d:DesignWidth="1366" 
+             x:Name="parent">
+
+    <UserControl.Background>
+        <SolidColorBrush Color="{DynamicResource Colors.Main}"/>
+    </UserControl.Background>
+
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="SliderStates">
+                <VisualState x:Name="Closed">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="slider" Storyboard.TargetProperty="Width"
+                                         To="0" Duration="0:0:0.5" EasingFunction="{StaticResource CubicEaseOut}"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Opened">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="slider" Storyboard.TargetProperty="Width"
+                                         To="520" Duration="0:0:0.5" EasingFunction="{StaticResource CubicEaseOut}"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="ProfileState">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition To="Hide" From="*" GeneratedDuration="0:0:0.3"
+                                      GeneratedEasingFunction="{StaticResource CubicEaseOut}"/>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="Hide"/>
+                <VisualState x:Name="Show">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="profile" Storyboard.TargetProperty="Width"
+                                         To="368" Duration="0:0:0.5" EasingFunction="{StaticResource CubicEaseOut}"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <i:Interaction.Triggers>
+            
+            <ei:PropertyChangedTrigger Binding="{Binding SliderState,Source={x:Static ui:AppUIManager.Default}}">
+                <ei:GoToStateAction StateName="{Binding SliderState,Source={x:Static ui:AppUIManager.Default}}"/>
+            </ei:PropertyChangedTrigger>
+            
+            <ei:PropertyChangedTrigger Binding="{Binding ProfileState,Source={x:Static ui:AppUIManager.Default}}">
+                <ei:GoToStateAction StateName="{Binding ProfileState,Source={x:Static ui:AppUIManager.Default}}"/>
+            </ei:PropertyChangedTrigger>
+            
+        </i:Interaction.Triggers>
+
+        <DockPanel>
+            <Border BorderBrush="{DynamicResource Brushes.Divider}" BorderThickness="0,0,1,0" 
+                DockPanel.Dock="Left">
+                <v:MenuView/>
+            </Border>
+            <Border BorderBrush="{DynamicResource Brushes.Divider}" BorderThickness="0,1,0,0" 
+                DockPanel.Dock="Bottom" Height="64">
+
+                <Button Command="{x:Static ui:Commands.ShowProfile}" Background="Transparent"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Style="{StaticResource Circle}" Width="32">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Path=Person.Image,Source={x:Static ui:GlobalVar.User}}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!---->
+            </Border>
+            <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Main}"/>
+        </DockPanel>
+
+        <Border Width="0" HorizontalAlignment="Left" BorderBrush="{DynamicResource Brushes.Divider}"
+                BorderThickness="0,0,1,0" Background="{DynamicResource Brushes.Main}" Name="slider">
+            <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Slider}"
+                  Margin="50,40,75,40"/>
+        </Border>
+
+        <!--#region UserProfile -->
+        <Border Width="0" HorizontalAlignment="Right" Background="{DynamicResource Brushes.Neutral}"
+                x:Name="profile">
+            <StackPanel>
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}"
+                        HorizontalAlignment="Right" Command="{x:Static ui:Commands.HideProfile}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_eye}"
+                        HorizontalAlignment="Right"/>
+                    <Border Style="{StaticResource Separator}" Width="18" Margin="0,0,10,0"/>
+
+                    <Grid>
+                        <Ellipse Style="{StaticResource Circle}" Width="100"
+                             Stroke="{DynamicResource Brushes.Accent}"/>
+                        <Ellipse Style="{StaticResource Circle}" Width="94">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Person.Image,Source={x:Static ui:GlobalVar.User}}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+
+                    <Border Style="{StaticResource Separator}" Width="18" Margin="10,0,0,0"/>
+                    <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_logout}"
+                            Command="{x:Static ui:Commands.Logout}"
+                            HorizontalAlignment="Right"/>
+
+                </StackPanel>
+                <TextBlock Style="{StaticResource Heading_4}" HorizontalAlignment="Center"
+                           Text="{Binding Person.Name,Source={x:Static ui:GlobalVar.User}}"
+                           Margin="0,24,0,32"/>
+                <Border Style="{StaticResource Separator}" Background="{DynamicResource Brushes.Divider}"/>
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Normal" Command="{Binding NormalCommand}" Margin="5,0"/>
+                <Button Content="Success" Command="{Binding SuccessCommand}" Margin="5,0"/>
+                <Button Content="Caution" Command="{Binding CautionCommand}" Margin="5,0"/>
+                <Button Content="Warning" Command="{Binding WarningCommand}" Margin="5,0"/>
+                <Button Content="Error" Command="{Binding ErrorCommand}" Margin="5,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Accent}}"/>
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Accent},Converter={StaticResource ColorToLevel01}}"/>
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Accent},Converter={StaticResource ColorToLevel02}}"/>
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Accent},Converter={StaticResource ColorToLevel03}}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Main}}"/>
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Main},Converter={StaticResource ColorToLevel01}}"/>
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Main},Converter={StaticResource ColorToLevel02}}"/>
+                <Ellipse Style="{StaticResource Circle}" Width="50"
+                         Fill="{Binding Source={StaticResource Brushes.Main},Converter={StaticResource ColorToLevel03}}"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ColorAnimation Storyboard.TargetName="parent"
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    From="{StaticResource Colors.Accent}" Duration="0:0:1"
+                                    EasingFunction="{StaticResource CubicEaseOut}"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+</UserControl>

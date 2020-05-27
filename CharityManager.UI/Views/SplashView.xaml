@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.SplashView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:SplashViewModel}"
+             d:DesignHeight="400" d:DesignWidth="700" 
+             FlowDirection="RightToLeft"
+             FontFamily="IRANSharp">
+
+    <UserControl.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#0077FF" Offset="0"/>
+                <GradientStop Color="#30B9F6" Offset="1"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </UserControl.Background>
+
+    <UserControl.Resources>
+        <Visibility x:Key="initial">Visible</Visibility>
+        <s:Double x:Key="InitialOpacity">1</s:Double>
+        <CubicEase x:Key="CubicEaseOut" EasingMode="EaseOut"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup Name="FormEffects">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition From="*" To="Normal" GeneratedDuration="0:0:1" 
+                                      GeneratedEasingFunction="{StaticResource CubicEaseOut}"/>
+                </VisualStateGroup.Transitions>
+                <VisualState Name="Normal"/>
+                <VisualState Name="Blured">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="grid"
+                                         Storyboard.TargetProperty="Effect.(BlurEffect.Radius)"
+                                         To="30" Duration="0:0:1" EasingFunction="{StaticResource CubicEaseOut}"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup Name="FormStates">
+                <VisualState Name="Splash"/>
+                <VisualState Name="Login">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="login"
+                                         Storyboard.TargetProperty="Width"
+                                         To="400" Duration="0:0:1" 
+                                         EasingFunction="{StaticResource CubicEaseOut}"/>
+                        <DoubleAnimation Storyboard.TargetName="login"
+                                         Storyboard.TargetProperty="Opacity"
+                                         From="0" To="1" Duration="0:0:1" 
+                                         EasingFunction="{StaticResource CubicEaseOut}"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+        </VisualStateManager.VisualStateGroups>
+
+        <i:Interaction.Triggers>
+            <ie:PropertyChangedTrigger Binding="{Binding FormEffect}">
+                <ie:GoToStateAction StateName="{Binding FormEffect}"/>
+            </ie:PropertyChangedTrigger>
+            <ie:PropertyChangedTrigger Binding="{Binding FormState}">
+                <ie:GoToStateAction StateName="{Binding FormState}"/>
+            </ie:PropertyChangedTrigger>
+        </i:Interaction.Triggers>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_cancel}"
+                Command="{x:Static ui:Commands.Shutdown}" Margin="16,16,0,0"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
+
+        <Grid x:Name="grid" Margin="20,22,20,15">
+            <Grid.Effect>
+                <BlurEffect Radius="0"/>
+            </Grid.Effect>
+
+
+            <StackPanel x:Name="logo" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Opacity="{StaticResource InitialOpacity}">
+                <Grid x:Name="icon" Width="90">
+                    <Image Source="..\Images\logo.png" Stretch="Uniform" Width="90" HorizontalAlignment="Center"/>
+                </Grid>
+                <TextBlock Style="{StaticResource Heading_2}" Text="{StaticResource ApplicationName}"
+                           Margin="0,20,0,0" HorizontalAlignment="Center" Foreground="White"/>
+            </StackPanel>
+
+            <StackPanel x:Name="version" Opacity="0" VerticalAlignment="Bottom">
+                <TextBlock Text="نسخه 1" Style="{StaticResource Heading_6}" FontWeight="Bold"
+                           VerticalAlignment="Bottom" Foreground="White"/>
+                <TextBlock Text="برنامه مدیریت امور نیازمندان موسسات خیریه و نیکوکاری"
+                           Style="{StaticResource Heading_6}" FontWeight="Bold"
+                           Foreground="White"
+                           VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+        </Grid>
+
+        <v:LoginView x:Name="login" DataContext="{dxmvvm:ViewModelSource Type=vm:LoginViewModel}"
+                     Width="0" Grid.Column="1"/>
+    </Grid>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="icon" Storyboard.TargetProperty="Width"
+                                     Duration="0:0:0.8" From="10" To="90" EasingFunction="{StaticResource CubicEaseOut}"/>
+                    <DoubleAnimation Storyboard.TargetName="logo" Storyboard.TargetProperty="Opacity"
+                                     Duration="0:0:2" From="0" To="1"/>
+                    <DoubleAnimation Storyboard.TargetName="version" Storyboard.TargetProperty="Opacity"
+                                     BeginTime="0:0:2" Duration="0:0:0.3" From="0" To="0.5"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+</UserControl>

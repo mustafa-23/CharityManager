@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Charity" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="Charity_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICharity_PersonSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:PersonSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PersonSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:PersonGet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PersonGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:PersonGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PersonGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonPictureSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:PersonPictureSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonPictureSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PersonPictureSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonPictureGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:PersonPictureGet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PersonPictureGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PersonPictureGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_UserSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_UserSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_UserGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserGet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_UserGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_UserGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_UserGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_EntityGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:EntityGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_EntityGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EntityGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PatronSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:PatronSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PatronSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PatronSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PatronGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:PatronGet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PatronGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PatronGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PatronGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:PatronGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_PatronGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PatronGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AddressSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddressSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AddressSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddressSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AddressSetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddressSetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AddressSetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddressSetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AddressGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddressGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AddressGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddressGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_FamilySet_InputMessage">
+    <wsdl:part name="parameters" element="tns:FamilySet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_FamilySet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FamilySetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_FamilySetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:FamilySetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_FamilySetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FamilySetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_FamilyGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:FamilyGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_FamilyGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FamilyGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_JobSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:JobSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_JobSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JobSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_JobSetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:JobSetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_JobSetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JobSetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_JobGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:JobGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_JobGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JobGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AssetSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssetSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AssetSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssetSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AssetSetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssetSetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AssetSetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssetSetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AssetGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssetGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_AssetGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssetGetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_DocumentSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:DocumentSet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_DocumentSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DocumentSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_DocumentGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:DocumentGet" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_DocumentGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DocumentGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_DocumentGetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:DocumentGetList" />
+  </wsdl:message>
+  <wsdl:message name="ICharity_DocumentGetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DocumentGetListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICharity">
+    <wsdl:operation name="PersonSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PersonSet" message="tns:ICharity_PersonSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PersonSetResponse" message="tns:ICharity_PersonSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PersonGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PersonGet" message="tns:ICharity_PersonGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PersonGetResponse" message="tns:ICharity_PersonGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PersonGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PersonGetList" message="tns:ICharity_PersonGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PersonGetListResponse" message="tns:ICharity_PersonGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PersonPictureSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PersonPictureSet" message="tns:ICharity_PersonPictureSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PersonPictureSetResponse" message="tns:ICharity_PersonPictureSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PersonPictureGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PersonPictureGet" message="tns:ICharity_PersonPictureGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PersonPictureGetResponse" message="tns:ICharity_PersonPictureGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/UserSet" message="tns:ICharity_UserSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/UserSetResponse" message="tns:ICharity_UserSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/UserGet" message="tns:ICharity_UserGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/UserGetResponse" message="tns:ICharity_UserGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/UserGetList" message="tns:ICharity_UserGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/UserGetListResponse" message="tns:ICharity_UserGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/Login" message="tns:ICharity_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/LoginResponse" message="tns:ICharity_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EntityGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/EntityGetList" message="tns:ICharity_EntityGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/EntityGetListResponse" message="tns:ICharity_EntityGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PatronSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PatronSet" message="tns:ICharity_PatronSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PatronSetResponse" message="tns:ICharity_PatronSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PatronGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PatronGet" message="tns:ICharity_PatronGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PatronGetResponse" message="tns:ICharity_PatronGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PatronGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/PatronGetList" message="tns:ICharity_PatronGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/PatronGetListResponse" message="tns:ICharity_PatronGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddressSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/AddressSet" message="tns:ICharity_AddressSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/AddressSetResponse" message="tns:ICharity_AddressSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddressSetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/AddressSetList" message="tns:ICharity_AddressSetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/AddressSetListResponse" message="tns:ICharity_AddressSetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddressGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/AddressGetList" message="tns:ICharity_AddressGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/AddressGetListResponse" message="tns:ICharity_AddressGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FamilySet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/FamilySet" message="tns:ICharity_FamilySet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/FamilySetResponse" message="tns:ICharity_FamilySet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FamilySetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/FamilySetList" message="tns:ICharity_FamilySetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/FamilySetListResponse" message="tns:ICharity_FamilySetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FamilyGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/FamilyGetList" message="tns:ICharity_FamilyGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/FamilyGetListResponse" message="tns:ICharity_FamilyGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JobSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/JobSet" message="tns:ICharity_JobSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/JobSetResponse" message="tns:ICharity_JobSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JobSetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/JobSetList" message="tns:ICharity_JobSetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/JobSetListResponse" message="tns:ICharity_JobSetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JobGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/JobGetList" message="tns:ICharity_JobGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/JobGetListResponse" message="tns:ICharity_JobGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssetSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/AssetSet" message="tns:ICharity_AssetSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/AssetSetResponse" message="tns:ICharity_AssetSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssetSetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/AssetSetList" message="tns:ICharity_AssetSetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/AssetSetListResponse" message="tns:ICharity_AssetSetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssetGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/AssetGetList" message="tns:ICharity_AssetGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/AssetGetListResponse" message="tns:ICharity_AssetGetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DocumentSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/DocumentSet" message="tns:ICharity_DocumentSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/DocumentSetResponse" message="tns:ICharity_DocumentSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DocumentGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/DocumentGet" message="tns:ICharity_DocumentGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/DocumentGetResponse" message="tns:ICharity_DocumentGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DocumentGetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICharity/DocumentGetList" message="tns:ICharity_DocumentGetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICharity/DocumentGetListResponse" message="tns:ICharity_DocumentGetList_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Charity" type="tns:ICharity">
+    <wsp:PolicyReference URI="#Charity_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="PersonSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PersonSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonGet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PersonGet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PersonGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonPictureSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PersonPictureSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonPictureGet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PersonPictureGet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/UserSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserGet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/UserGet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/UserGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EntityGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/EntityGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatronSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PatronSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatronGet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PatronGet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatronGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/PatronGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddressSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/AddressSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddressSetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/AddressSetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddressGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/AddressGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FamilySet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/FamilySet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FamilySetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/FamilySetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FamilyGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/FamilyGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JobSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/JobSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JobSetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/JobSetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JobGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/JobGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssetSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/AssetSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssetSetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/AssetSetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssetGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/AssetGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DocumentSet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/DocumentSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DocumentGet">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/DocumentGet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DocumentGetList">
+      <soap12:operation soapAction="http://tempuri.org/ICharity/DocumentGetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Charity">
+    <wsdl:port name="Charity" binding="tns:Charity">
+      <soap12:address location="net.tcp://localhost:9110/CharityService/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:9110/CharityService/</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

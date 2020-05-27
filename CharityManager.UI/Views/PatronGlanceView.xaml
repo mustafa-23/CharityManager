@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.PatronGlanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:ctrl="clr-namespace:CharityManager.UI.Controls"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             mc:Ignorable="d"
+             x:Name="parent"
+             DataContext="{dxmvvm:ViewModelSource Type=vm:PatronGlanceViewModel}"
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource Button.Segoe}">
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="Width" Value="40"/>
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <Button Content="{StaticResource segoe_delete}" Margin="12,0"/>
+            
+            <Button Content="{StaticResource segoe_edit}" Margin="12,0" 
+                    Command="{x:Static ui:Commands.EditPerson}"
+                    CommandParameter="{Binding Model}"/>
+            
+            <Button Content="{StaticResource segoe_print}" Margin="12,0"/>
+            
+            <Button Tag="{StaticResource ic_excel}" Margin="12,0"/>
+            
+            <Button Tag="{StaticResource ic_gear}" Margin="12,0"/>
+            
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" Margin="24,20,0,0">
+            <Ellipse Style="{StaticResource Circle}" Width="72"
+                     DockPanel.Dock="Left">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding PersonImage}" Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <StackPanel Margin="32,20,0,0">
+                <TextBlock Text="{Binding Model.Person.Name}" Foreground="{DynamicResource Brushes.Level1}"
+                           FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Model.Person.NationalNo}"
+                           FontSize="14" FontWeight="Bold"
+                           Foreground="{DynamicResource Brushes.Level3}"/>
+            </StackPanel>
+        </DockPanel>
+
+        <ctrl:AnimatedTabControl Grid.Row="2" Margin="0,32,0,0" InitialIndicatorWidth="90">
+
+            <TabItem Header="هویت فردی" Margin="130,0,0,0">
+                <ScrollViewer>
+                    <Grid Margin="21,32,0,0" VerticalAlignment="Top">
+
+                        <Grid.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource FieldValue}">
+                                <Setter Property="Margin" Value="12,0"/>
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            </Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource Heading_5}">
+                                <Setter Property="Foreground" Value="{DynamicResource Brushes.Level2}"/>
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                            </Style>
+                        </Grid.Resources>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="ارتباط"/>
+                        <TextBlock Grid.Row="1" Text="هویت"/>
+                        <TextBlock Grid.Row="2" Text="سلامت"/>
+                        <TextBlock Grid.Row="3" Text="سایر"/>
+
+                        <StackPanel Grid.Column="1">
+                            <Label Content="{Binding Model.Person.MobileNo}" Tag="شماره تماس"/>
+                            <Border Style="{StaticResource Separator}" 
+                                Background="{DynamicResource Brushes.Divider}" Margin="16,12,0,24"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <UniformGrid Columns="4" Rows="2">
+                                <Label Content="{Binding Model.Person.FatherName}" Tag="نام پدر"/>
+                                <Label Content="{Binding Model.Person.RegNo}" Tag="شماره شناسنامه"/>
+                                <Label Content="{Binding Model.Person.BirthDate,Converter={StaticResource PersianDate.FromDateTime}}" Tag="تاریخ تولد"/>
+                                <Label Content="{Binding Model.Person.BirthPlace}" Tag="محل تولد"/>
+                                <Label Content="{Binding Model.Person.RegPlace}" Tag="محل صدور"
+                                       Margin="12,12,0,0"/>
+                                <Label Content="{Binding Model.MaritalStatus}" Tag="وضعیت تاهل"/>
+                                <Label Content="{Binding Model.Children}" Tag="تعداد فرزند"/>
+                            </UniformGrid>
+                            <Border Style="{StaticResource Separator}"
+                                    Background="{DynamicResource Brushes.Divider}" Margin="16,12,0,24"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <UniformGrid Columns="4">
+                                <Label Content="{Binding Model.BloodType}" Tag="گروه خونی"/>
+                                <Label Content="{Binding Model.SpecialDisease}" Tag="بیماری خاص"/>
+                            </UniformGrid>
+                            <Border Style="{StaticResource Separator}"
+                                Background="{DynamicResource Brushes.Level3}" Margin="16,12,0,24"/>
+                        </StackPanel>
+
+                        <UniformGrid Columns="4" 
+                                     Grid.Row="3" Grid.Column="1">
+                            <Label Content="{Binding Model.Religion}" Tag="دین"/>
+                            <Label Content="{Binding Model.Sect}" Tag="مذهب"/>
+                            <Label Content="{Binding Model.Person.EducationEntityID,Converter={StaticResource IDToTitle},
+                                    ConverterParameter={x:Static ui:IDToTitleEntity.Entity}}" Tag="سطح تحصیلات"/>
+                        </UniformGrid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="محل سکونت">
+                <v:AddressListView dxmvvm:ViewModelExtensions.Parameter="{Binding ElementName=parent,Path=DataContext.Model.ID}"
+                                   ShowActionPanel="False"/>
+            </TabItem>
+
+            <TabItem Header="خانواده اقوام">
+                <v:FamilyListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.Model.ID,ElementName=parent}"
+                                  ShowActionPanel="False"/>
+            </TabItem>
+
+            <TabItem Header="کار و درآمد">
+                <v:JobListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.Model.ID,ElementName=parent}"
+                               ShowActionPanel="False"/>
+            </TabItem>
+
+            <TabItem Header="دارایی ها">
+                <v:AssetListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.Model.ID,ElementName=parent}"
+                                 ShowActionPanel="False"/>
+            </TabItem>
+
+            <TabItem Header="مدارک">
+                <v:DocumentListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.Model.ID,ElementName=parent}"
+                                 ShowActionPanel="False"/>
+            </TabItem>
+
+            <!--<TabItem Header="مدارک"/>
+
+                <TabItem Header="کمک ها"/>
+
+                <TabItem Header="سایر"/>-->
+
+        </ctrl:AnimatedTabControl>
+    </Grid>
+</UserControl>

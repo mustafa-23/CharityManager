@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.PersonInputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             xmlns:m="clr-namespace:CharityManager.UI.Models"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             mc:Ignorable="d"
+             Name="parent"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:PersonInputViewModel}"
+             d:DesignHeight="768 " d:DesignWidth="845">
+    
+    <UserControl.Resources>
+        <Thickness x:Key="TabItemMargin">28,24,32,0</Thickness>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Brushes.Main}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Height="76">
+            <Button Content="ذخیره" Command="{Binding ApplyCommand}" Width="86" Height="42"
+                    Background="{DynamicResource Brushes.Level2}" HorizontalAlignment="Left"
+                    Margin="24,0,0,0"/>
+        </Border>
+
+        <TabControl Name="tab" Margin="0,38,0,0" SelectionChanged="tab_SelectionChanged"
+                    Background="Red" Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex,Mode=TwoWay}">
+
+            <TabItem Header="{StaticResource PersonInput.Info}">
+                <v:PatronInfoView Margin="{StaticResource TabItemMargin}"
+                                  dxmvvm:ViewModelExtensions.ParentViewModel="{Binding DataContext,ElementName=parent}"/>
+            </TabItem>
+
+            <TabItem Header="{StaticResource PersonInput.Address}" 
+                     Visibility="{Binding ExtraTabVisibility}">
+                <v:AddressListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.PatronID,ElementName=parent}"
+                                   Margin="{StaticResource TabItemMargin}" ShowActionPanel="True"/>
+            </TabItem>
+
+            <TabItem Header="{StaticResource PersonInput.Family}"
+                     Visibility="{Binding ExtraTabVisibility}">
+                <v:FamilyListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.PatronID,ElementName=parent}"
+                                  Margin="{StaticResource TabItemMargin}" ShowActionPanel="True"/>
+            </TabItem>
+
+            <TabItem Header="{StaticResource PersonInput.Job}" Visibility="{Binding ExtraTabVisibility}">
+                <v:JobListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.PatronID,ElementName=parent}"
+                                Margin="{StaticResource TabItemMargin}" ShowActionPanel="True"/>
+            </TabItem>
+
+            <TabItem Header="{StaticResource PersonInput.Assets}"
+                     Visibility="{Binding ExtraTabVisibility}">
+                <v:AssetListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.PatronID,ElementName=parent}"
+                                Margin="{StaticResource TabItemMargin}" ShowActionPanel="True"/>
+            </TabItem>
+            
+            <TabItem Header="{StaticResource PersonInput.Documents}"
+                     Visibility="{Binding ExtraTabVisibility}">
+                <v:DocumentListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.PatronID,ElementName=parent}"
+                                Margin="{StaticResource TabItemMargin}" ShowActionPanel="True"/>
+            </TabItem>
+
+            <!--<TabItem Header="{StaticResource PersonInput.Helps}" 
+                     Visibility="{Binding ExtraTabVisibility}">
+                <v:HelpInputView/>
+            </TabItem>-->
+
+            <TabItem Header="{StaticResource PersonInput.Other}" Visibility="{Binding ExtraTabVisibility}">
+                <StackPanel Margin="{StaticResource TabItemMargin}">
+                    <TextBlock Style="{StaticResource Header}" Text="نحوه آشنایی"/>
+                    <cc:Field Style="{StaticResource ComboBox}" FieldTitle="نحوه آشنایی و اطلاع از موسسه"
+                              Margin="0,24,0,0" Width="250" HorizontalAlignment="Left"
+                              Comment="آیا تحت پوشش هر گونه نهاد دولتی یا خصوصی قرار دارد؟"/>
+                    <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
+                    <TextBlock Style="{StaticResource Header}" Text="اطلاعات معرف"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+                        <cc:Field Style="{StaticResource TextInput}" FieldTitle="نام معرف"
+                                  Width="250" HorizontalAlignment="Left"/>
+                        <cc:Field Style="{StaticResource TextInput}" FieldTitle="شماره نامه"
+                              Margin="24,0,0,0" Width="250" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+
+        <Border x:Name="border" Height="6" Background="Blue" VerticalAlignment="Top"
+                Margin="0,65,0,0" HorizontalAlignment="Left" Width="0" Grid.Row="1">
+            <Border.RenderTransform>
+                <TranslateTransform X="0"/>
+            </Border.RenderTransform>
+        </Border>
+
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,144 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib">
+
+    <FlowDirection x:Key="AppDirection">RightToLeft</FlowDirection>
+
+    <s:String x:Key="ApplicationName">دانیکو</s:String>
+    <s:String x:Key="Telegram">@Mustafa23</s:String>
+    <s:String x:Key="Mobile">09391648703</s:String>
+    <s:String x:Key="ApplicationSubtitle">برنامه مدیریت امور نیازمندان موسسات خیریه و نیکوکاری</s:String>
+
+    <!--#region Views -->
+    <!--#region Splash -->
+    <s:String x:Key="Splash.Cancel">لغو اجرا</s:String>
+    <s:String x:Key="Splash.Credits">برنامه نویس: مصطفی رضایی،محمد جواد قاسمی طراح رابط‌کاربری: محمد باقر رضایی</s:String>
+    <s:String x:Key="Splash.Copyright">کلیه حقوق این برنامه محفوظ و هرگونه کپی برداری از آن بدون کسب اجازه از مولف شرعا مجاز نبوده
+و قابل پیگیری قانونی است. طراحی و اجرا شده به سفارش صندوق قرض الحسنه درودگران قم</s:String>
+    <!--#endregion-->
+
+    <!--#region Licence -->
+    <s:String x:Key="Licence.Message">لطفا سریال زیر را از طریق یکی از راه های ارتباطی زیر ارسال نمایید</s:String>
+    <s:String x:Key="Licence.InputMessage">
+        کد را با تلفن هوشمند اسکن کرده و به شماره پیش فرض ارسال کنید.
+        پس از اندکی کد فعال سازی دریافت خواهید کرد.
+        روی دکمه ورود شناسه کلیک کنید و کد دریافتی را وارد نمایید.
+    </s:String>
+
+    <!--#endregion-->
+
+    <!--#region Login -->
+    <s:String x:Key="Login.Message">لطفا کلمه عبور خود را در کادر پایین وارد نمایید.</s:String>
+    <s:String x:Key="Login.ForgetMessage">در صورتی که رمز عبور را به یاد ندارید روی اینجا کلیک کنید</s:String>
+    <s:String x:Key="Login.WelcomeMessage">امیدوارم روز کاری خوبی داشته باشید</s:String>
+    <!--#endregion-->
+
+    <!--#region Menu -->
+    <s:String x:Key="Menu.Person">اطلاعات افراد</s:String>
+    <s:String x:Key="Menu.Request">درخواست ها</s:String>
+    <s:String x:Key="Menu.Reports">گزارش ها</s:String>
+    <s:String x:Key="Menu.NightMode">حالت شب</s:String>
+    <s:String x:Key="Menu.Backup">پشتیبان</s:String>
+    <s:String x:Key="Menu.Settings">پیکربندی</s:String>
+    <s:String x:Key="Menu.Exit">خروج</s:String>
+    <!--#endregion-->
+
+    <!--#region Person -->
+    <s:String x:Key="Person.NoDataTitle">اطلاعاتی موجود نیست</s:String>
+    <s:String x:Key="Person.NoDataMessage">هیچ اطلاعاتی برای افراد متقاضی ثبت نشده است.در صورت تمایل برای ثبت متقاضی، با زدن دکمه زیر آغاز نمایید.</s:String>
+    <s:String x:Key="Person.NoDataCaption">ثبت متقاضی</s:String>
+    <!--#endregion-->
+
+    <!--#region PersonInput -->
+    <s:String x:Key="PersonInput.Info">هویت فردی</s:String>
+    <s:String x:Key="PersonInput.Address">محل سکونت</s:String>
+    <s:String x:Key="PersonInput.Family">خانواده و اقوام</s:String>
+    <s:String x:Key="PersonInput.Job">کار و درآمد</s:String>
+    <s:String x:Key="PersonInput.Assets">دارایی ها</s:String>
+    <s:String x:Key="PersonInput.Documents">مدارک</s:String>
+    <s:String x:Key="PersonInput.Helps">کمک ها</s:String>
+    <s:String x:Key="PersonInput.Other">سایر</s:String>
+    <!--#endregion-->
+
+    <!--#region PersonInfo -->
+    <s:String x:Key="PersonInfo.Picture">تصویر فرد</s:String>
+    <s:String x:Key="PersonInfo.PersonalInfo">اطلاعات شخصی</s:String>
+    <s:String x:Key="PersonInfo.MariageInfo">اطلاعات تاهل</s:String>
+    <s:String x:Key="PersonInfo.HealthInfo">وضعیت سلامت</s:String>
+    <s:String x:Key="PersonInfo.Other">سایر موارد</s:String>
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--#region Models -->
+    <s:String x:Key="ID">شناسه</s:String>
+    <s:String x:Key="FirstName">نام</s:String>
+    <s:String x:Key="LastName">نام خانوادگی</s:String>
+    <s:String x:Key="FatherName">نام پدر</s:String>
+    <s:String x:Key="BirthDate">تاریخ تولد</s:String>
+    <s:String x:Key="NationalNo">کد ملی</s:String>
+    <s:String x:Key="BirthPlace">محل تولد</s:String>
+    <s:String x:Key="RegNo">شماره شناسنامه</s:String>
+    <s:String x:Key="RegPlace">محل صدور</s:String>
+    <s:String x:Key="MobileNo">شماره همراه</s:String>
+    <s:String x:Key="CreateDate">تاریخ ثبت</s:String>
+    <s:String x:Key="CreateUser">کاربر ثبت کننده</s:String>
+    <s:String x:Key="ModifyDate">تاریخ تغییر</s:String>
+    <s:String x:Key="ModifyUser">کاربر تغییر دهنده</s:String>
+    <s:String x:Key="Active">فعال</s:String>
+    <s:String x:Key="MaritalStatus">وضعیت تاهل</s:String>
+    <s:String x:Key="Children">تعداد فرزندان</s:String>
+    <s:String x:Key="BloodType">گروه خونی</s:String>
+    <s:String x:Key="SpecialDisease">بیماری خاص</s:String>
+    <s:String x:Key="Religion">دین</s:String>
+    <s:String x:Key="Sect">مذهب</s:String>
+    <s:String x:Key="NationEntityID">ملیت</s:String>
+    <s:String x:Key="EducationEntityID">تحصیلات</s:String>
+    <!--#endregion-->
+
+    <sc:ArrayList x:Key="List.Martial">
+        <sc:DictionaryEntry Key="0" Value="مجرد"/>
+        <sc:DictionaryEntry Key="1" Value="متاهل"/>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.AddressType">
+        <sc:DictionaryEntry Key="0" Value="محل سکونت"/>
+        <sc:DictionaryEntry Key="1" Value="محل کار"/>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.EducationStatus">
+        <sc:DictionaryEntry Key="0" Value="در حال تحصیل"/>
+        <sc:DictionaryEntry Key="1" Value="فارغ التحصیل"/>
+        <sc:DictionaryEntry Key="2" Value="ترک تحصیل"/>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.EmploymentStatus">
+        <sc:DictionaryEntry Key="0" Value="شاغل"/>
+        <sc:DictionaryEntry Key="1" Value="شاغل پاره وقت"/>
+        <sc:DictionaryEntry Key="2" Value="بیکار"/>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.DocumentType">
+        <sc:DictionaryEntry Key="0" Value="نوع 1"/>
+        <sc:DictionaryEntry Key="1" Value="نوع 2"/>
+        <sc:DictionaryEntry Key="2" Value="نوع 3"/>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.BloodType">
+        <s:String>O+</s:String>
+        <s:String>O-</s:String>
+        <s:String>A+</s:String>
+        <s:String>A-</s:String>
+        <s:String>B+</s:String>
+        <s:String>B-</s:String>
+        <s:String>AB+</s:String>
+        <s:String>AB-</s:String>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.Religion">
+        <s:String>اسلام</s:String>
+        <s:String>مسیحیت</s:String>
+        <s:String>یهود</s:String>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.Sect">
+        <s:String>شیعه</s:String>
+        <s:String>سنی</s:String>
+        <s:String>سایر</s:String>
+    </sc:ArrayList>
+
+</ResourceDictionary>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 227 284.2" style="enable-background:new 0 0 227 284.2;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:none;}
+	.st2{clip-path:url(#SVGID_2_);}
+	.st3{fill:#50E6FF;}
+	.st4{fill:#45D0F6;}
+	.st5{fill:#3ABBEC;}
+	.st6{fill:#2FA5E3;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="99.5521" y1="-19.0722" x2="140.2035" y2="299.1506">
+	<stop  offset="0" style="stop-color:#1490DF"/>
+	<stop  offset="1" style="stop-color:#0050A6"/>
+</linearGradient>
+<path class="st0" d="M113.5,284.2C113.5,284.2,113.5,284.2,113.5,284.2C73.6,280,0,260.2,0,170.7L0,0l46.7,0
+	C72.5,0,97,11.1,114,30.5l0,0l1-1.1C131.9,10.7,155.9,0,181.2,0L227,0v170.7C227,253.1,153.3,278.9,113.5,284.2z"/>
+<path id="SVGID_3_" class="st1" d="M113.5,284.2C113.5,284.2,113.5,284.2,113.5,284.2C73.6,280,0,260.2,0,170.7V0h46.7
+	C72.5,0,97,11.1,114,30.5l0,0l1-1.1C131.9,10.7,155.9,0,181.2,0H227v170.7C227,253.1,153.3,278.9,113.5,284.2z"/>
+<g>
+	<defs>
+		<path id="SVGID_7_" d="M113.5,284.2C113.5,284.2,113.5,284.2,113.5,284.2C73.6,280,0,260.2,0,170.7L0,0l46.7,0
+			C72.5,0,97,11.1,114,30.5l0,0l1-1.1C131.9,10.7,155.9,0,181.2,0L227,0v170.7C227,253.1,153.3,278.9,113.5,284.2z"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_7_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st2">
+		<g>
+			
+				<image style="overflow:visible;opacity:0.2;" width="1665" height="1665" xlink:href="39395B43.png"  transform="matrix(0.24 0 0 0.24 -85.8799 -4.5428)">
+			</image>
+			<g>
+				
+					<rect x="-6.1" y="80.2" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -108.2069 139.2056)" class="st3" width="240" height="240"/>
+			</g>
+		</g>
+		
+			<rect x="-4" y="145.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -153.1917 157.8389)" class="st4" width="235.9" height="235.9"/>
+		
+			<rect x="-2" y="211.5" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -198.1765 176.4722)" class="st5" width="231.8" height="231.8"/>
+		
+			<rect x="0.1" y="277.2" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -243.1613 195.1055)" class="st6" width="227.7" height="227.7"/>
+	</g>
+</g>
+</svg>

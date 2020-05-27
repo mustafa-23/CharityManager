@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.PersonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             xmlns:m="clr-namespace:CharityManager.UI.Models"
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             mc:Ignorable="d"
+             Name="parent"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:PersonViewModel}"
+             d:DesignHeight="768" d:DesignWidth="1366 "
+             Background="{DynamicResource Brushes.Main}">
+
+    <UserControl.Resources>
+        <x:Array x:Key="Models" Type="{x:Type m:PatronModel}">
+            <m:PatronModel>
+                <m:PatronModel.Person>
+                    <m:PersonModel FirstName="مصطفی" LastName="رضایی" NationalNo="0370805941"/>
+                </m:PatronModel.Person>
+            </m:PatronModel>
+            <m:PatronModel>
+                <m:PatronModel.Person>
+                    <m:PersonModel FirstName="محمد باقر" LastName="رضایی" NationalNo="0370426002"/>
+                </m:PatronModel.Person>
+            </m:PatronModel>
+        </x:Array>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region ActionBar -->
+        <Border BorderBrush="{DynamicResource Brushes.Divider}"
+                BorderThickness="0,0,1,0">
+            <StackPanel Margin="0,48,0,0">
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_add_person}" Grid.Row="3"
+                        Foreground="{DynamicResource Brushes.Level3}" Height="48"
+                        Padding="15" Command="{Binding AddPersonCommand}"/>
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_people}" Grid.Row="3"
+                        Foreground="{DynamicResource Brushes.Level3}" Height="48"
+                        Padding="15"/>
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_excel}" Grid.Row="3"
+                        Foreground="{DynamicResource Brushes.Level3}" Height="48"
+                        Padding="15"/>
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+        <Border BorderBrush="{DynamicResource Brushes.Divider}"
+                Grid.Column="1"
+                BorderThickness="0,0,1,0">
+            <Grid>
+                <cc:NoData VerticalAlignment="Center" 
+                       Title="{StaticResource Person.NoDataTitle}"
+                       Message="{StaticResource Person.NoDataMessage}"
+                       Command="{Binding AddPersonCommand}"
+                       CommandCaption="{StaticResource Person.NoDataCaption}"/>
+
+                <dxg:GridControl ItemsSource="{Binding Models}" 
+                                 SelectedItem="{Binding SelectedModel,Mode=TwoWay}">
+                    
+                    <dxg:GridColumn FieldName="Person.Name" Header="{StaticResource FirstName}"/>
+                    <dxg:GridColumn FieldName="Person.NationalNo" Header="{StaticResource NationalNo}"/>
+                    <dxg:GridColumn FieldName="Person.MobileNo" Header="{StaticResource MobileNo}"/>
+
+                </dxg:GridControl>
+            </Grid>
+        </Border>
+
+        <v:PatronGlanceView Grid.Column="2" Margin="20,32,0,0" 
+                            dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.SelectedModel,ElementName=parent}"
+                            Visibility="{Binding DataContext.SelectedModel,ElementName=parent,Converter={StaticResource Visibility.FromNullable}}"/>
+        <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Person}" Grid.Column="2"/>
+
+        <TextBlock Style="{StaticResource Test}" Text="{Binding ElementName=grid,Path=SelectedItem.Religion}"
+                   Grid.ColumnSpan="3"/>
+
+    </Grid>
+</UserControl>
