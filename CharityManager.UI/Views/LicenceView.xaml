@@ -142,15 +142,15 @@
                     <Border Visibility="{DXBinding '@e(rdbManual).IsChecked?`Visible`:`Collapsed`'}" Width="150" Height="150"
                             HorizontalAlignment="Center">
                         <StackPanel Margin="0,15,0,0">
-                            <TextBlock Style="{StaticResource Heading_3}" Text="{Binding SerialNo}"
+                            <TextBlock Style="{StaticResource Heading}" Tag="3" Text="{Binding SerialNo}"
                                        TextWrapping="Wrap"
                                        Foreground="White" FontFamily="Arial" Cursor="Hand">
                                 <dxmvvm:Interaction.Behaviors>
                                     <dxmvvm:EventToCommand EventName="MouseLeftButtonDown" Command="{Binding CopySerialNoCommand}"/>
                                 </dxmvvm:Interaction.Behaviors>
                             </TextBlock>
-                            <TextBlock Style="{StaticResource Heading_3}" Text="{StaticResource Telegram}"/>
-                            <TextBlock Style="{StaticResource Heading_3}" Text="{StaticResource Mobile}"/>
+                            <TextBlock Style="{StaticResource Heading}" Tag="3" Text="{StaticResource Telegram}"/>
+                            <TextBlock Style="{StaticResource Heading}" Tag="3" Text="{StaticResource Mobile}"/>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -168,7 +168,7 @@
                         <TranslateTransform X="0"/>
                     </StackPanel.RenderTransform>
                     
-                    <TextBlock Style="{StaticResource Heading_2}" Text="{Binding Message}"
+                    <TextBlock Style="{StaticResource Heading}" Tag="2" Text="{Binding Message}"
                            Foreground="White" TextWrapping="Wrap"/>
                     <TextBlock Style="{StaticResource Body}"
                            TextWrapping="Wrap" Margin="0,14,0,0" LineHeight="24"
@@ -182,9 +182,9 @@
                         <TranslateTransform X="-30"/>
                     </StackPanel.RenderTransform>
                     
-                    <TextBlock Style="{StaticResource Heading_4}" Text="کد فعال سازی"
+                    <TextBlock Style="{StaticResource Heading}" Tag="4" Text="کد فعال سازی"
                                Foreground="White"/>
-                    <TextBlock Style="{StaticResource Heading_6}" Text="لطفا کد دریافت شده را در کادر زیر وارد کرده و کلید Enter را بزنید"
+                    <TextBlock Style="{StaticResource Heading}" Tag="6" Text="لطفا کد دریافت شده را در کادر زیر وارد کرده و کلید Enter را بزنید"
                                Margin="0,8,0,12" Foreground="{StaticResource half_white}"/>
                     <TextBox Width="250" Background="Transparent" BorderThickness="2"
                              BorderBrush="{StaticResource half_white}" Text="{Binding Licence,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">

@@ -5,6 +5,7 @@
     <ccnv:ColorBrightnessConverter Brightness="-0.25" x:Key="ColorToLevel01"/>
     <ccnv:ColorBrightnessConverter Brightness="-0.50" x:Key="ColorToLevel02"/>
     <ccnv:ColorBrightnessConverter Brightness="-0.75" x:Key="ColorToLevel03"/>
+    <ccnv:ColorBrightnessConverter Brightness="-0.15" x:Key="ColorToLevel85"/>
 
     <Color x:Key="Colors.Main">#F5F5F5</Color>
     <Color x:Key="Colors.Accent">#0077FF</Color>

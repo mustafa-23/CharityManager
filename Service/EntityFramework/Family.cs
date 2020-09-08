@@ -22,13 +22,13 @@ namespace CharityManager.Service.EntityFramework
         public Nullable<short> EmploymentStatus { get; set; }
         public Nullable<int> Income { get; set; }
         public Nullable<int> RelationEntityID { get; set; }
+        public Nullable<short> EducationStatus { get; set; }
         public int EducationEntityID { get; set; }
         public int CreateUser { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUser { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public bool Active { get; set; }
-        public short EducationStatus { get; set; }
     
         public virtual Patron Patron { get; set; }
     }

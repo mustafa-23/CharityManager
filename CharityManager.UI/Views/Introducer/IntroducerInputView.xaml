@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.IntroducerInputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             mc:Ignorable="d"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:IntroducerInputViewModel}"
+             d:DesignHeight="768" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Thickness x:Key="middle">8,12</Thickness>
+        <Thickness x:Key="first">0,12,16,12</Thickness>
+        <Thickness x:Key="last">16,12,0,12</Thickness>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource Brushes.Accent}"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding Background}" BorderThickness="1">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="76"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Height="76">
+            <Button Content="ذخیره" Command="{Binding ApplyCommand}" Width="86" Height="42"
+                    Background="{DynamicResource Brushes.Accent_Level_01}" HorizontalAlignment="Left"
+                    Margin="24,0,0,0"/>
+        </Border>
+
+        <StackPanel Orientation="Horizontal" Margin="0,15" Grid.Row="1" HorizontalAlignment="Center">
+            <RadioButton Content="حقیقی" IsChecked="True"/>
+            <RadioButton Content="حقوقی" IsChecked="{Binding Model.Type,Mode=TwoWay}"/>
+        </StackPanel>
+        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}"
+                Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"
+                Margin="24,0,0,0" Command="{Binding BackCommand}"/>
+
+
+        <ScrollViewer dx:ScrollBarExtensions.ScrollBarMode="TouchOverlap"
+                      Grid.Row="2">
+            <Grid Margin="24,0,24,0">
+                <StackPanel Visibility="{Binding Visibility,ElementName=companyIntroducer,
+                            Converter={StaticResource Visibility.Inverse}}" >
+                    <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.Picture}"/>
+                    <Grid Margin="0,24,0,0" HorizontalAlignment="Left">
+                        <Ellipse Style="{StaticResource Circle}" Width="120" Stroke="{DynamicResource Brushes.Accent_Level_03}"
+                         StrokeThickness="2" HorizontalAlignment="Left" FlowDirection="LeftToRight">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Person.Image}" Stretch="UniformToFill"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_Plus}"
+                                Command="{x:Static ui:Commands.PersonSetImage}" CommandParameter="{Binding Person}"
+                                Padding="0" Width="15" Height="15" Foreground="{DynamicResource Brushes.Accent}"
+                                HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
+                    <TextBlock Style="{StaticResource Header}" Text="{StaticResource PersonInfo.PersonalInfo}"/>
+                    <UniformGrid Rows="3" Columns="3" Margin="0,32,0,0">
+
+                        <cc:Field Style="{StaticResource Transformer}"
+                                  FieldTitle="{StaticResource NationalNo}" Comment="وارد کردن کد ملی الزامی است"
+                                  Value="{Binding Person.NationalNo,Mode=TwoWay}"
+                                  Margin="{StaticResource first}">
+                            <dxmvvm:Interaction.Behaviors>
+                                <dxmvvm:FocusBehavior/>
+                            </dxmvvm:Interaction.Behaviors>
+                        </cc:Field>
+
+                        <Grid>
+                            <cc:Field Style="{StaticResource Transformer}" 
+                                      FieldTitle="{StaticResource RegNo}" Comment="در صورت یکی بودن با شماره ملی از کلید انتقال کد ملی استفاده کنید"
+                                      Value="{Binding Person.RegNo,Mode=TwoWay}"
+                                      Margin="{StaticResource middle}"/>
+                            <Button Style="{StaticResource Button.Iconic}" 
+                                    Tag="{StaticResource ic_copy}" Grid.Row="3"
+                                    Command="{DXCommand 'Person.RegNo=Person.NationalNo;'}"
+                                    Height="25" Width="25" Margin="0,0,10,18" Padding="6" Cursor="Hand"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                        </Grid>
+
+                        <cc:Field Style="{StaticResource Transformer}" 
+                                  FieldTitle="{StaticResource MobileNo}"
+                                  Value="{Binding Person.MobileNo,Mode=TwoWay}"
+                                  Margin="{StaticResource last}"/>
+
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="{StaticResource FirstName}"
+                                  Value="{Binding Person.FirstName,Mode=TwoWay}"
+                                  Margin="{StaticResource first}"/>
+
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="{StaticResource LastName}"
+                                  Value="{Binding Person.LastName,Mode=TwoWay}"
+                                  Margin="{StaticResource middle}"/>
+
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="{StaticResource FatherName}"
+                                  Value="{Binding Person.FatherName,Mode=TwoWay}" Margin="{StaticResource last}"/>
+
+                        <cc:Field Style="{StaticResource Transformer}" InputType="DateTime" FieldTitle="{StaticResource BirthDate}"
+                                  Value="{Binding Person.BirthDate,Mode=TwoWay}"
+                                  Margin="{StaticResource first}"/>
+
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="{StaticResource BirthPlace}"
+                                  Value="{Binding Person.BirthPlace,Mode=TwoWay}"
+                                  Margin="{StaticResource middle}"/>
+
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="{StaticResource RegPlace}"
+                                  Value="{Binding Person.RegPlace,Mode=TwoWay}"
+                                  Margin="{StaticResource last}"/>
+
+                    </UniformGrid>
+                </StackPanel>
+                <StackPanel x:Name="companyIntroducer" Visibility="{Binding Model.Type,Converter={StaticResource Visibility.FromBool}}">
+                    <UniformGrid Rows="3" Columns="3" Margin="0,32,0,0">
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="عنوان"
+                                  Value="{Binding Model.Title,Mode=TwoWay}"/>
+                    </UniformGrid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

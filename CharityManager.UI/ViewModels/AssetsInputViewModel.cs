@@ -1,4 +1,6 @@
-﻿using CharityManager.UI.Models;
+﻿using Araneo.Common;
+using CharityManager.UI.CharityService;
+using CharityManager.UI.Models;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.DataAnnotations;
 
@@ -8,30 +10,26 @@ namespace CharityManager.UI.ViewModels
     public class AssetsInputViewModel : ISupportParameter
     {
         public virtual AssetModel Model { get; set; }
-        public AssetsInputViewModel()
-        {
-            Model = new AssetModel();
-        }
 
         #region Commands
         public void Confirm()
         {
-            if (Parameter is IAssetInputListener listener)
-            {
-                listener.OnAssetConfirm(Model);
-                SliderHelper.Close();
-            }
+            var request = new AssetRequest { DTO = Mapper.Map(Model, new AssetDTO()) };
+            var response = Helper.Call(s => s.AssetSet(request));
+            ServiceResponseHelper.CheckServiceResponse(response, "AssetSet",request);
+            Messenger.Default.Send(Messages.Asset.Refresh);
+            SliderHelper.Close();
         }
         #endregion
 
         #region ISupportParameter
         public virtual object Parameter { get; set; }
-        #endregion
-
-        #region Interfaces
-        public interface IAssetInputListener
+        protected void OnParameterChanged()
         {
-            void OnAssetConfirm(AssetModel asset);
+            if (Parameter is int patronID)
+                Model = new AssetModel { PatronID = patronID };
+            else if (Parameter is AssetModel model)
+                Model = model;
         }
         #endregion
     }

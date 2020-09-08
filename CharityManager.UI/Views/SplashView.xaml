@@ -12,7 +12,7 @@
              xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
              d:DataContext="{dxmvvm:ViewModelSource Type=vm:SplashViewModel}"
-             d:DesignHeight="400" d:DesignWidth="700" 
+             Height="400" Width="700" 
              FlowDirection="RightToLeft"
              FontFamily="IRANSharp">
 
@@ -45,6 +45,11 @@
                         <DoubleAnimation Storyboard.TargetName="grid"
                                          Storyboard.TargetProperty="Effect.(BlurEffect.Radius)"
                                          To="30" Duration="0:0:1" EasingFunction="{StaticResource CubicEaseOut}"/>
+                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="grid"
+                                         Storyboard.TargetProperty="IsEnabled">
+                            <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                        </BooleanAnimationUsingKeyFrames>
+                                        
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
@@ -53,14 +58,34 @@
                 <VisualState Name="Splash"/>
                 <VisualState Name="Login">
                     <Storyboard>
-                        <DoubleAnimation Storyboard.TargetName="login"
+                        <DoubleAnimation Storyboard.TargetName="side"
                                          Storyboard.TargetProperty="Width"
                                          To="400" Duration="0:0:1" 
                                          EasingFunction="{StaticResource CubicEaseOut}"/>
-                        <DoubleAnimation Storyboard.TargetName="login"
+                        <DoubleAnimation Storyboard.TargetName="side"
                                          Storyboard.TargetProperty="Opacity"
                                          From="0" To="1" Duration="0:0:1" 
                                          EasingFunction="{StaticResource CubicEaseOut}"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="login"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState Name="AddUser">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="side"
+                                         Storyboard.TargetProperty="Width"
+                                         To="400" Duration="0:0:1" 
+                                         EasingFunction="{StaticResource CubicEaseOut}"/>
+                        <DoubleAnimation Storyboard.TargetName="side"
+                                         Storyboard.TargetProperty="Opacity"
+                                         From="0" To="1" Duration="0:0:1" 
+                                         EasingFunction="{StaticResource CubicEaseOut}"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="addUser"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
@@ -76,43 +101,60 @@
             </ie:PropertyChangedTrigger>
         </i:Interaction.Triggers>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-
-        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_cancel}"
+        <Button x:Name="btnClose" Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_cancel}"
                 Command="{x:Static ui:Commands.Shutdown}" Margin="16,16,0,0"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
 
-        <Grid x:Name="grid" Margin="20,22,20,15">
+        <Grid x:Name="grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <Grid.Effect>
                 <BlurEffect Radius="0"/>
             </Grid.Effect>
-
 
             <StackPanel x:Name="logo" VerticalAlignment="Center" HorizontalAlignment="Center"
                         Opacity="{StaticResource InitialOpacity}">
                 <Grid x:Name="icon" Width="90">
                     <Image Source="..\Images\logo.png" Stretch="Uniform" Width="90" HorizontalAlignment="Center"/>
                 </Grid>
-                <TextBlock Style="{StaticResource Heading_2}" Text="{StaticResource ApplicationName}"
-                           Margin="0,20,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                <Image Source="..\Images\name.png" Height="38" Stretch="Uniform"
+                           Margin="0,20,0,0" HorizontalAlignment="Center"/>
             </StackPanel>
 
-            <StackPanel x:Name="version" Opacity="0" VerticalAlignment="Bottom">
-                <TextBlock Text="نسخه 1" Style="{StaticResource Heading_6}" FontWeight="Bold"
+            <StackPanel x:Name="version" Opacity="0" VerticalAlignment="Bottom" Margin="24,15">
+                <TextBlock Text="نسخه 1" Style="{StaticResource Heading}" Tag="6" FontWeight="Bold"
                            VerticalAlignment="Bottom" Foreground="White"/>
                 <TextBlock Text="برنامه مدیریت امور نیازمندان موسسات خیریه و نیکوکاری"
-                           Style="{StaticResource Heading_6}" FontWeight="Bold"
+                           Style="{StaticResource Heading}" Tag="6" FontWeight="Bold"
                            Foreground="White"
                            VerticalAlignment="Bottom"/>
             </StackPanel>
 
+            <Grid x:Name="side" Background="{DynamicResource Brushes.Accent_Level_01}" 
+              Width="0" Opacity="0" Grid.Column="1">
+                <v:LoginView x:Name="login" DataContext="{dxmvvm:ViewModelSource Type=vm:LoginViewModel}"
+                         Visibility="Collapsed"/>
+
+                <DockPanel x:Name="addUser" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Visibility="Collapsed">
+                    <Grid Margin="0,0,24,0">
+                        <Ellipse Style="{StaticResource Circle}" Width="48"
+                         Fill="{DynamicResource Brushes.Accent}"/>
+                        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_Plus}"
+                            Padding="0" Foreground="White" Width="22"
+                            Command="{Binding AddUserCommand}"/>
+                    </Grid>
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Style="{StaticResource Heading}" Tag="4" Text="ساخت حساب کاربری" Foreground="White"/>
+                        <TextBlock Style="{StaticResource Caption}" Text="هیچ حساب کاربری یافت نشد"
+                               Foreground="White" Opacity="0.5"/>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
         </Grid>
 
-        <v:LoginView x:Name="login" DataContext="{dxmvvm:ViewModelSource Type=vm:LoginViewModel}"
-                     Width="0" Grid.Column="1"/>
     </Grid>
 
     <UserControl.Triggers>

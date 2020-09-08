@@ -55,7 +55,6 @@ namespace CharityManager.UI.ViewModels
                     Helper.NotifySuccess("اطلاعات با موفقیت ذخیره شد");
                     Model.ID = response.ResultID;
                     MyParent.PatronID = Model.ID;
-                    Messenger.Default.Send(PersonViewModel.Message.RefreshPatronList);
                 }
                 else
                     Helper.NotifyError(response.UserMessage);
@@ -116,8 +115,10 @@ namespace CharityManager.UI.ViewModels
             {
                 Picture = new PictureDTO
                 {
+                    ID = pictureDTO?.ID ?? 0,
                     PersonID = Person.ID,
                     Data = imageBytes,
+                    CreateUser = GlobalVar.User.ID,
                 }
             };
             var response = Helper.Call(s => s.PersonPictureSet(request));

@@ -8,8 +8,8 @@
 
     <Style x:Key="{x:Type cc:AdvancedPasswordBox}" TargetType="cc:AdvancedPasswordBox">
         <Setter Property="Height" Value="60"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Brushes.Level1}"/>
-        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level1}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brushes.Neutral}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Accent_Level_03}"/>
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -38,6 +38,9 @@
                         <Trigger Property="Title" Value="{x:Null}">
                             <Setter TargetName="title" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
+                        <Trigger SourceName="PART_Password" Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="BorderBrush" Value="#0077FF"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -45,7 +48,9 @@
     </Style>
 
     <Style TargetType="cc:NoData">
-        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level2}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Accent_Level_01}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="cc:NoData">
@@ -57,8 +62,8 @@
                                        TextWrapping="Wrap" TextAlignment="Center"
                                        Margin="0,12,0,0" Foreground="{TemplateBinding Foreground}"/>
                         <Button Content="{TemplateBinding CommandCaption}" Margin="0,48,0,0"
-                                    Width="128" Height="42" Background="{TemplateBinding Foreground}"
-                                    Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
+                                MinWidth="128" Height="42" Background="{TemplateBinding Foreground}"
+                                Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
@@ -106,6 +111,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            <Border Background="Black" Opacity="0" Grid.ColumnSpan="2"/>
             <ContentPresenter x:Name="ContentSite"
                               Content="{TemplateBinding SelectionBoxItem}"
                               ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -124,232 +130,126 @@
                 </Border>
             </Popup>
 
-            <ToggleButton x:Name="ToggleButton" Grid.Column="1" Focusable="false" ClickMode="Press" Width="30"
+            <ToggleButton x:Name="ToggleButton" Grid.Column="1" Focusable="false" ClickMode="Press" Width="30" VerticalAlignment="Center"
                           Cursor="Hand" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
                 <ToggleButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Ellipse Width="15" Height="15" Fill="Red"/>
+                        <Grid>
+                            <Border Background="Black" Opacity="0"/>
+                            <Viewbox Width="15" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin=".5,.5">
+                                <Viewbox.RenderTransform>
+                                    <RotateTransform Angle="90"/>
+                                </Viewbox.RenderTransform>
+                                <Path Data="M5,14.5c-0.1,0-0.3,0-0.4-0.1c-0.2-0.2-0.2-0.5,0-0.7L10.3,8L4.6,2.4c-0.2-0.2-0.2-0.5,
+                                  0-0.7s0.5-0.2,0.7,0l6,6 c0.2,0.2,0.2,0.5,0,0.7l-6,6C5.3,14.5,5.1,14.5,5,14.5z" 
+                                  Fill="{TemplateBinding Foreground}"/>
+                            </Viewbox>
+                        </Grid>
                     </ControlTemplate>
                 </ToggleButton.Template>
+
             </ToggleButton>
         </Grid>
-
-    </ControlTemplate>
+    </ControlTemplate>    
     <!--#endregion-->
 
-    <Style TargetType="cc:Field" x:Key="TextInput">
-        <Setter Property="Template">
+    <Style x:Key="BaseField" TargetType="cc:Field" BasedOn="{StaticResource NoErrorTemplate}">
+        <Setter Property="Foreground" Value="{StaticResource Brushes.Accent_Level_03}"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="BorderBrush">
             <Setter.Value>
-                <ControlTemplate TargetType="cc:Field">
-                    <Grid>
-
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup Name="ValidationStates">
-                                <VisualState Name="Valid"/>
-                                <VisualState Name="InvalidUnfocused">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="error"
-                                                           Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}" KeyTime="0"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="comment"
-                                                           Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame Value="{x:Static Visibility.Collapsed}" KeyTime="0"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ColorAnimation Storyboard.TargetName="border" 
-                                                        Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)"
-                                                        To="#D6001B" Duration="0:0:0.3" />
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        
-                        <Label Content="{TemplateBinding FieldTitle}" FontSize="14"/>
-                        <TextBlock x:Name="comment" Text="{TemplateBinding Comment}" FontSize="8" Margin="0,8,0,12" Grid.Row="1"/>
-                        <TextBlock Name="error" Visibility="Collapsed" FontSize="8" Margin="0,8,0,12" Grid.Row="1"
-                                   Foreground="#D6001B"
-                                   Text="{Binding (Validation.Errors)[0].ErrorContent,RelativeSource={RelativeSource TemplatedParent}}"/>
-
-                        <Border Name="border" 
-                                Background="{DynamicResource Brushes.Neutral}"
-                                BorderBrush="{DynamicResource Brushes.Level1}" BorderThickness="1" 
-                                Grid.Row="2" MinHeight="30">
-
-                            <TextBox Name="value" Template="{StaticResource Void}" VerticalAlignment="Center"
-                                     Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"/>
-
-                        </Border>
-
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Value" Value="{x:Null}">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Main}"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                        <Trigger SourceName="value" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Neutral}"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                        <Trigger SourceName="value" Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Neutral}"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brushes.Accent}"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
+                <SolidColorBrush Color="{Binding Source={StaticResource Colors.Accent},Converter={StaticResource ColorToLevel03}}" Opacity="0.7"/>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style TargetType="cc:Field" x:Key="MaskTextInput">
+    <Style TargetType="cc:Field" x:Key="Transformer" BasedOn="{StaticResource NoErrorTemplate}">
+        <Setter Property="Margin" Value="5,0,5,24"/>
+        <Setter Property="Height" Value="89"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="#003066" Opacity="0.7"/>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="cc:Field">
                     <Grid>
-                        
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup Name="ValidationStates">
-                                <VisualState Name="Valid"/>
-                                <VisualState Name="InvalidUnfocused">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="error"
-                                                           Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}" KeyTime="0"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="comment"
-                                                           Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame Value="{x:Static Visibility.Collapsed}" KeyTime="0"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ColorAnimation Storyboard.TargetName="border" 
-                                                        Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)"
-                                                        To="#D6001B" Duration="0:0:0.3" />
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <!--#region Header -->
-                        <Label Content="{TemplateBinding FieldTitle}" FontSize="14"/>
-                        <TextBlock x:Name="comment" Text="{TemplateBinding Comment}" FontSize="8" Margin="0,8,0,12" Grid.Row="1"/>
-                        <TextBlock Name="error" Visibility="Collapsed" FontSize="8" Margin="0,8,0,12" Grid.Row="1" 
-                                   Text="{Binding (Validation.Errors)[0].ErrorContent,RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <!--#region Title -->
+                        <Label Content="{TemplateBinding FieldTitle}" FontSize="14" 
+                               Foreground="{DynamicResource Brushes.Accent_Level_03}" Height="24"
+                               Padding="0"/>
                         <!--#endregion-->
 
-                        <!--region Input-->
-                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Grid.Row="2" MinHeight="30">
-                            <dxe:TextEdit Name="value" Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                        <!--#region Comment & Error -->
+                        <Grid Margin="0,8,0,12" Height="14" Grid.Row="1">
+                            <TextBlock Text="{TemplateBinding Comment}" FontSize="8"
+                                   Foreground="{DynamicResource Brushes.Accent_Level_01}"
+                                   Visibility="{Binding Visibility,ElementName=error,Converter={StaticResource Visibility.Inverse}}"/>
+                            <TextBlock x:Name="error" Foreground="Red" FontSize="8"
+                                   Visibility="{Binding Path=(Validation.HasError),RelativeSource={RelativeSource TemplatedParent},
+                                                        Converter={StaticResource Visibility.FromBool}}"
+                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                                  Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Grid>
+                        <!--#endregion-->
+
+                        <Border Name="border" Background="White"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" 
+                                Grid.Row="2" Height="30">
+                            <Grid VerticalAlignment="Center">
+                                <Border x:Name="back" Background="Black" Opacity="0"/>
+                                <dxe:TextEdit Name="textValue" Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
                                           MaskType="{Binding (ce:TextField.MaskType), RelativeSource={RelativeSource TemplatedParent}}"
                                           Mask="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Background="Transparent" MaskUseAsDisplayFormat="True" Visibility="Collapsed"/>
+                                <cc:DateTimeSelect Name="dateValue" Grid.Row="2" Height="30" Template="{StaticResource DateTimeSelect.FieldTemplate}"
+                                           BorderBrush="{TemplateBinding BorderBrush}" Background="Transparent" BorderThickness="1" IsTabStop="False"
+                                            Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Value,Mode=TwoWay}"
+                                                   Visibility="Collapsed"/>
+                                <ComboBox Name="comboValue" Template="{StaticResource FieldTemplate}" Margin="5,0,0,0"
                                           Background="Transparent"
-                                          MaskUseAsDisplayFormat="True"/>
-                        </Border>
-                        <!--endregion-->
-
-                    </Grid>
-                    
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Value" Value="{x:Null}">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Main}"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Neutral}"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                        <Trigger SourceName="value" Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Neutral}"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brushes.Accent}"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                    
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="cc:Field" x:Key="DateTime">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="cc:Field">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{TemplateBinding FieldTitle}" FontSize="14"/>
-                        <TextBlock Text="{TemplateBinding Comment}" FontSize="8" Margin="0,8,0,12" Grid.Row="1"/>
-                        <cc:DateTimeSelect Name="value" Grid.Row="2" MinHeight="30" Template="{StaticResource DateTimeSelect.FieldTemplate}"
-                                           BorderBrush="Black" Background="White" BorderThickness="1" IsTabStop="False"
-                                            Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Value,Mode=TwoWay}"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Value" Value="{x:Null}">
-                            <Setter TargetName="value" Property="Background" Value="{DynamicResource Brushes.Main}"/>
-                            <Setter TargetName="value" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="value" Property="Background" Value="{DynamicResource Brushes.Neutral}"/>
-                            <Setter TargetName="value" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                        <Trigger SourceName="value" Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter TargetName="value" Property="Background" Value="{DynamicResource Brushes.Neutral}"/>
-                            <Setter TargetName="value" Property="BorderBrush" Value="{DynamicResource Brushes.Accent}"/>
-                            <Setter TargetName="value" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="cc:Field" x:Key="ComboBox">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="cc:Field">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{TemplateBinding FieldTitle}" FontSize="14"/>
-                        <TextBlock Text="{TemplateBinding Comment}" FontSize="8" Margin="0,8,0,12" Grid.Row="1"/>
-                        <Border Name="border" BorderBrush="Black" BorderThickness="1" Grid.Row="2" MinHeight="30">
-                            <ComboBox Name="value" Template="{StaticResource FieldTemplate}" Margin="5,0,0,0"
-                                      Background="Transparent"
-                                      ItemsSource="{Binding Tag,RelativeSource={RelativeSource TemplatedParent}}"
-                                      DisplayMemberPath="{Binding (ce:ComboBox.DisplayPath),RelativeSource={RelativeSource TemplatedParent}}"
-                                      SelectedValuePath="{Binding (ce:ComboBox.ValuePath),RelativeSource={RelativeSource TemplatedParent}}"
-                                      SelectedValue="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"/>
+                                          ItemsSource="{Binding Tag,RelativeSource={RelativeSource TemplatedParent}}"
+                                          DisplayMemberPath="{Binding (ce:ComboBox.DisplayPath),RelativeSource={RelativeSource TemplatedParent}}"
+                                          SelectedValuePath="{Binding (ce:ComboBox.ValuePath),RelativeSource={RelativeSource TemplatedParent}}"
+                                          SelectedValue="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                          Visibility="Collapsed"/>
+                            </Grid>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="InputType" Value="Text">
+                            <Setter TargetName="textValue" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="InputType" Value="DateTime">
+                            <Setter TargetName="dateValue" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="border" Property="BorderThickness" Value="0"/>
+                        </Trigger>
+                        <Trigger Property="InputType" Value="ComboBox">
+                            <Setter TargetName="comboValue" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="InputType" Value="Number">
+                            <Setter TargetName="textValue" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="textValue" Property="MaskType" Value="Numeric"/>
+                        </Trigger>
                         <Trigger Property="Value" Value="{x:Null}">
                             <Setter TargetName="border" Property="Background" Value="Transparent"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
                         </Trigger>
-                        <Trigger SourceName="value" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="White"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                        <Trigger Property="Value" Value="">
+                            <Setter TargetName="border" Property="Background" Value="Transparent"/>
                         </Trigger>
-                        <Trigger SourceName="value" Property="IsKeyboardFocusWithin" Value="True">
+                        <Trigger SourceName="border" Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="White"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="Blue"/>
-                            <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                        <Trigger SourceName="border" Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="White"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brushes.Accent}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -358,9 +258,15 @@
     </Style>
 
     <!--#region QuickStyle -->
-    <Style TargetType="cc:Field" x:Key="ConfigCombo" BasedOn="{StaticResource ComboBox}">
-        <Setter Property="ce:ComboBox.DisplayPath" Value="Value"/>
+    <Style TargetType="cc:Field" x:Key="ConfigCombo" BasedOn="{StaticResource Transformer}">
+        <Setter Property="ce:ComboBox.DisplayPath" Value="Title"/>
         <Setter Property="ce:ComboBox.ValuePath" Value="ID"/>
+        <Setter Property="InputType" Value="ComboBox"/>
+    </Style>
+    <Style TargetType="cc:Field" x:Key="KeyValueCombo" BasedOn="{StaticResource Transformer}">
+        <Setter Property="ce:ComboBox.DisplayPath" Value="Value"/>
+        <Setter Property="ce:ComboBox.ValuePath" Value="Key"/>
+        <Setter Property="InputType" Value="ComboBox"/>
     </Style>
     <!--#endregion-->
 
@@ -380,8 +286,9 @@
                             <StackPanel x:Name="HeaderPanel" Orientation="Horizontal" IsItemsHost="True"
                                         KeyboardNavigation.TabIndex="1"/>
                         </ScrollViewer>
-                        <Border x:Name="PART_Indicator" Height="6" Background="Blue" VerticalAlignment="Top"
-                                    HorizontalAlignment="Left" Width="0" Grid.Row="1">
+                        <Border x:Name="PART_Indicator" Height="6" Background="Blue" 
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="0" Grid.Row="1" 
+                                Margin="{Binding IndicatorMargin,RelativeSource={RelativeSource TemplatedParent}}">
                             <Border.RenderTransform>
                                 <TranslateTransform X="0"/>
                             </Border.RenderTransform>

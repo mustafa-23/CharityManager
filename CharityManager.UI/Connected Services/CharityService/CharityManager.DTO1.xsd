@@ -90,6 +90,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="PersonID" type="xs:int" />
+          <xs:element minOccurs="0" name="RoleEntityID" type="xs:int" />
           <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
@@ -113,10 +114,25 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UserFilter" nillable="true" type="tns:UserFilter" />
+  <xs:complexType name="LoginDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DTOBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LoginDTO" nillable="true" type="tns:LoginDTO" />
+  <xs:complexType name="ArrayOfLoginDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LoginDTO" nillable="true" type="tns:LoginDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLoginDTO" nillable="true" type="tns:ArrayOfLoginDTO" />
   <xs:complexType name="EntityDTO">
     <xs:sequence>
+      <xs:element minOccurs="0" name="EntityKey" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ID" type="xs:int" />
-      <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -137,12 +153,42 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="EntityFilter" nillable="true" type="tns:EntityFilter" />
+  <xs:complexType name="IntroducerDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DTOBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Person" nillable="true" type="tns:PersonDTO" />
+          <xs:element minOccurs="0" name="PersonID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Type" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="IntroducerDTO" nillable="true" type="tns:IntroducerDTO" />
+  <xs:complexType name="ArrayOfIntroducerDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="IntroducerDTO" nillable="true" type="tns:IntroducerDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfIntroducerDTO" nillable="true" type="tns:ArrayOfIntroducerDTO" />
+  <xs:complexType name="IntroducerFilter">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FilterBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PersonID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="IntroducerFilter" nillable="true" type="tns:IntroducerFilter" />
   <xs:complexType name="PatronDTO">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:DTOBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="BloodType" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Children" type="xs:int" />
+          <xs:element minOccurs="0" name="IntroducerID" nillable="true" type="xs:int" />
           <xs:element minOccurs="0" name="MaritalStatus" type="xs:int" />
           <xs:element minOccurs="0" name="Person" nillable="true" type="tns:PersonDTO" />
           <xs:element minOccurs="0" name="PersonID" type="xs:int" />
@@ -209,6 +255,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime" />
           <xs:element minOccurs="0" name="EducationEntityID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="EducationStatus" nillable="true" type="xs:short" />
           <xs:element minOccurs="0" name="EmploymentStatus" nillable="true" type="xs:short" />
           <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Income" nillable="true" type="xs:int" />
@@ -324,4 +371,70 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="DocumentFilter" nillable="true" type="tns:DocumentFilter" />
+  <xs:complexType name="RequestDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DTOBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EstimatedValue" type="xs:int" />
+          <xs:element minOccurs="0" name="IssueDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PatronID" type="xs:int" />
+          <xs:element minOccurs="0" name="ResearchDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Status" type="xs:unsignedByte" />
+          <xs:element minOccurs="0" name="TypeEntityID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestDTO" nillable="true" type="tns:RequestDTO" />
+  <xs:complexType name="ArrayOfRequestDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RequestDTO" nillable="true" type="tns:RequestDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRequestDTO" nillable="true" type="tns:ArrayOfRequestDTO" />
+  <xs:complexType name="RequestFilter">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FilterBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PatronID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestFilter" nillable="true" type="tns:RequestFilter" />
+  <xs:complexType name="ResearchDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DTOBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cost" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="NeedTypeEntityID" type="xs:int" />
+          <xs:element minOccurs="0" name="Place" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RequestID" type="xs:int" />
+          <xs:element minOccurs="0" name="ResearchDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResearchDTO" nillable="true" type="tns:ResearchDTO" />
+  <xs:complexType name="ArrayOfResearchDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResearchDTO" nillable="true" type="tns:ResearchDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResearchDTO" nillable="true" type="tns:ArrayOfResearchDTO" />
+  <xs:complexType name="ResearchFilter">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FilterBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RequestID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResearchFilter" nillable="true" type="tns:ResearchFilter" />
 </xs:schema>

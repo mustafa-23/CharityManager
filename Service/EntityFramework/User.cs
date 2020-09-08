@@ -19,6 +19,7 @@ namespace CharityManager.Service.EntityFramework
         {
             this.UserPermissions = new HashSet<UserPermission>();
             this.Logins = new HashSet<Login>();
+            this.Researches = new HashSet<Research>();
         }
     
         public int ID { get; set; }
@@ -30,11 +31,14 @@ namespace CharityManager.Service.EntityFramework
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<int> ModifyUser { get; set; }
         public bool Active { get; set; }
+        public Nullable<int> RoleEntityID { get; set; }
     
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPermission> UserPermissions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Login> Logins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Research> Researches { get; set; }
     }
 }

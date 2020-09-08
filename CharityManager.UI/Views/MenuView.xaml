@@ -6,9 +6,9 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
-             xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
              xmlns:ui="clr-namespace:CharityManager.UI"
              xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
              mc:Ignorable="d"
              Name="parent"
              DataContext="{dxmvvm:ViewModelSource Type=vm:MenuViewModel}"
@@ -16,21 +16,13 @@
 
     <UserControl.Resources>
         <Style TargetType="ToggleButton" BasedOn="{StaticResource ResourceKey={x:Type ToggleButton}}">
-            <Setter Property="Height" Value="32"/>
-            <Setter Property="Padding" Value="10,0,0,0"/>
-            <Setter Property="Margin" Value="0,8"/>
-            <Setter Property="ce:Common.IconSize" Value="17"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="18,0,26,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
-
-        <Style TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="{DynamicResource Brushes.Level3}"/>
-            <Setter Property="Margin" Value="5,0,0,0"/>
-        </Style>
-        
     </UserControl.Resources>
 
-    <Grid>
+    <Grid MouseMove="tgbMenu_MouseMove" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup Name="ViewStates">
@@ -53,62 +45,58 @@
                 <ei:GoToStateAction StateName="{DXBinding '@e(tgbMenu).IsChecked?`Open`:`Close`'}"/>
             </ei:PropertyChangedTrigger>
         </i:Interaction.Triggers>
-        
-        <Grid VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <ToggleButton x:Name="tgbMenu" Tag="{StaticResource ic_threelinemenu}"/>
+        <Border Background="Black" Opacity="0"/>
+        <StackPanel VerticalAlignment="Top">
+            <ToggleButton x:Name="tgbMenu" Tag="{StaticResource ic_threelinemenu}"
+                          Content="دانیکو | نسخه 1.0" Background="RoyalBlue">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <DockPanel>
+                                <Grid Width="48" Height="48">
+                                    <Image Source="..\Images\logo.png" Margin="14"/>
+                                    <Border Width="6" HorizontalAlignment="Left" Margin="0,8"
+                                        Background="{TemplateBinding Background}"
+                                        Visibility="{Binding IsChecked,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Visibility.FromBool}}"/>
+                                </Grid>
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
             
             <ToggleButton Tag="{StaticResource ic_person}" Grid.Row="1"
+                          Content="{StaticResource Menu.Person}"
                           IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Person}"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{StaticResource Menu.Person}"/>
-
             
-            <ToggleButton Tag="{StaticResource ic_jobs}" Grid.Row="2"
+            <ToggleButton Tag="{StaticResource ic_introducer}" Grid.Row="1"
+                          Content="{StaticResource Menu.Introducer}"
+                          IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Introducer}"/>
+            
+            <ToggleButton Tag="{StaticResource ic_jobs}" Grid.Row="2" Content="{StaticResource Menu.Request}"
                           IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Request}"/>
-            <TextBlock Text="{StaticResource Menu.Request}" Grid.Row="2" Grid.Column="1"/>
             
-            <ToggleButton Tag="{StaticResource ic_dashboard}" Grid.Row="3"
-                          IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Report}"/>
-            <TextBlock Text="{StaticResource Menu.Reports}" Grid.Row="3" Grid.Column="1"/>
-        </Grid>
+            <!--<ToggleButton Tag="{StaticResource ic_dashboard}" Grid.Row="3" Content="{StaticResource Menu.Reports}" 
+                          IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Report}"/>-->
+        </StackPanel>
         
-        <Grid VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Bottom">
 
-            <ToggleButton Tag="{StaticResource ic_night}"/>
-            <TextBlock Grid.Column="1" Text="{StaticResource Menu.NightMode}"/>
+            <!--<ToggleButton Tag="{StaticResource ic_night}" Content="{StaticResource Menu.NightMode}"/>
 
-            <ToggleButton Tag="{StaticResource ic_save}" Grid.Row="1"
+            <ToggleButton Tag="{StaticResource ic_save}" Grid.Row="1" Content="{StaticResource Menu.Backup}"
                           IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Backup}"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{StaticResource Menu.Backup}"/>
 
 
-            <ToggleButton Tag="{StaticResource ic_gear}" Grid.Row="2"
-                          IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Setting}"/>
-            <TextBlock Text="{StaticResource Menu.Settings}" Grid.Row="2" Grid.Column="1"/>
+            <ToggleButton Tag="{StaticResource ic_gear}" Grid.Row="2" Content="{StaticResource Menu.Settings}"
+                          IsChecked="{Binding Menu,Source={x:Static ui:AppUIManager.Default},Converter={StaticResource Bool.FromString},ConverterParameter=Setting}"/>-->
 
             <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_close}" Grid.Row="3"
-                    Height="48" Padding="17" Command="{x:Static ui:Commands.Shutdown}"/>
-            <TextBlock Text="{StaticResource Menu.Exit}" Grid.Row="3" Grid.Column="1"/>
-        </Grid>
+                    Width="Auto" HorizontalAlignment="Left" Padding="16,8,16,8"
+                    Foreground="Red"
+                    Command="{x:Static ui:Commands.Shutdown}" Content="{StaticResource Menu.Exit}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

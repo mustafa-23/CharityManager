@@ -1,27 +1,30 @@
-﻿using CharityManager.UI.ViewModels;
+﻿using CharityManager.UI.CharityService;
+using CharityManager.UI.Models;
+using CharityManager.UI.ViewModels;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.ModuleInjection;
 using DevExpress.Mvvm.POCO;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace CharityManager.UI
 {
     public static class Helper
     {
-        public static T Call<T>(Func<CharityService.CharityClient, T> method)
+        public static T Call<T>(Func<CharityClient, T> method)
         {
-            CharityService.CharityClient client = null;
+            CharityClient client = null;
             try
             {
-                client = new CharityService.CharityClient();
+                client = new CharityClient();
                 client.Open();
-                var result = method.Invoke(client);
-                return result;
+                return method.Invoke(client);
             }
             catch (Exception ex)
             {
@@ -42,7 +45,7 @@ namespace CharityManager.UI
         }
 
         #region Notification
-        public static void Show(string caption, string message, CustomNotificationViewModel.NotificationType type)
+        public static void Show(string caption, string message, NotificationType type)
         {
             var service = (AppUIManager.Application.MainWindow.DataContext as ShellViewModel).NotificationService;
             if (service == null) throw new NullReferenceException("customeService sent to ShowCustomeNotification Method is null");
@@ -51,14 +54,15 @@ namespace CharityManager.UI
             vm.Content = message;
             vm.Type = type;
             vm.Caption = caption;
+            AppUIManager.Default.AddNotification(caption, message, type);
             INotification notification = service.CreateCustomNotification(vm);
             notification.ShowAsync();
         }
-        public static void Notify(string message, string caption = "پیام") => Show(caption, message, CustomNotificationViewModel.NotificationType.Normal);
-        public static void NotifyCaution(string message, string caption = "پیام") => Show(caption, message, CustomNotificationViewModel.NotificationType.Caution);
-        public static void NotifySuccess(string message, string caption = "اعلان") => Show(caption, message, CustomNotificationViewModel.NotificationType.Success);
-        public static void NotifyWarning(string message, string caption = "هشدار") => Show(caption, message, CustomNotificationViewModel.NotificationType.Warning);
-        public static void NotifyError(string message, string caption = "خطا") => Show(caption, message, CustomNotificationViewModel.NotificationType.Error);
+        public static void Notify(string message, string caption = "پیام") => Show(caption, message, NotificationType.Normal);
+        public static void NotifyCaution(string message, string caption = "پیام") => Show(caption, message, NotificationType.Caution);
+        public static void NotifySuccess(string message, string caption = "اعلان") => Show(caption, message, NotificationType.Success);
+        public static void NotifyWarning(string message, string caption = "هشدار") => Show(caption, message, NotificationType.Warning);
+        public static void NotifyError(string message, string caption = "خطا") => Show(caption, message, NotificationType.Error);
         #endregion
 
         #region Image
@@ -110,6 +114,8 @@ namespace CharityManager.UI
             }
         }
         #endregion
+
+        public static void InvokeMainThread(Action callback) => Application.Current.Dispatcher.Invoke(callback);
     }
 
     public static class DialogHelper
@@ -144,6 +150,39 @@ namespace CharityManager.UI
         {
             AppUIManager.Manager.Clear(AppRegions.Slider);
             AppUIManager.Default.SliderState = AppUIManager.SLIDER_CLOSE;
+        }
+    }
+
+    public static class ServiceResponseHelper
+    {
+        public static void CheckServiceResponse(ResponseBase response, string serviceName, object request = null)
+        {
+            if (response == null)
+                throw new CallServiceException(serviceName, $"response is null", "پاسخص از سرویس دریافت نشد", request);
+            if (response.Success == false)
+                throw new CallServiceException(serviceName, response.Message, response.UserMessage, request);
+        }
+    }
+
+    public static class QuickServiceCall
+    {
+        public static PersonDTO PersonByNationalNo(string nationalNo)
+        {
+            if (nationalNo?.Length == 0)
+                return null;
+            var request = new PersonRequest { Filter = new PersonFilter { NationalNo = nationalNo } };
+            var response = Helper.Call(s => s.PersonGet(request));
+            ServiceResponseHelper.CheckServiceResponse(response, "PersonGet", request);
+            return response.Result;
+        }
+
+        public static BitmapImage LoadPersonImage(int id)
+        {
+            var request = new PersonRequest { Filter = new PersonFilter { ID = id } };
+            var response = Helper.Call(s => s.PersonPictureGet(request));
+            if (response?.Success == true)
+                return response.ResultList.FirstOrDefault()?.Data.ToBitmapImage();
+            return null;
         }
     }
 }

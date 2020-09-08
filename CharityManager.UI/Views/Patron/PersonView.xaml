@@ -6,30 +6,13 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
              xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
-             xmlns:m="clr-namespace:CharityManager.UI.Models"
              xmlns:v="clr-namespace:CharityManager.UI.Views"
              xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
              xmlns:ui="clr-namespace:CharityManager.UI"
              mc:Ignorable="d"
              Name="parent"
              d:DataContext="{dxmvvm:ViewModelSource Type=vm:PersonViewModel}"
-             d:DesignHeight="768" d:DesignWidth="1366 "
-             Background="{DynamicResource Brushes.Main}">
-
-    <UserControl.Resources>
-        <x:Array x:Key="Models" Type="{x:Type m:PatronModel}">
-            <m:PatronModel>
-                <m:PatronModel.Person>
-                    <m:PersonModel FirstName="مصطفی" LastName="رضایی" NationalNo="0370805941"/>
-                </m:PatronModel.Person>
-            </m:PatronModel>
-            <m:PatronModel>
-                <m:PatronModel.Person>
-                    <m:PersonModel FirstName="محمد باقر" LastName="رضایی" NationalNo="0370426002"/>
-                </m:PatronModel.Person>
-            </m:PatronModel>
-        </x:Array>
-    </UserControl.Resources>
+             d:DesignHeight="768" d:DesignWidth="1366 ">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,23 +22,26 @@
         </Grid.ColumnDefinitions>
 
         <!--#region ActionBar -->
-        <Border BorderBrush="{DynamicResource Brushes.Divider}"
-                BorderThickness="0,0,1,0">
+        <Border Style="{StaticResource Overlay}" BorderBrush="{DynamicResource Brushes.Divider}" BorderThickness="0,0,1,0">
             <StackPanel Margin="0,48,0,0">
-                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_add_person}" Grid.Row="3"
-                        Foreground="{DynamicResource Brushes.Level3}" Height="48"
-                        Padding="15" Command="{Binding AddPersonCommand}"/>
-                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_people}" Grid.Row="3"
-                        Foreground="{DynamicResource Brushes.Level3}" Height="48"
-                        Padding="15"/>
-                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_excel}" Grid.Row="3"
-                        Foreground="{DynamicResource Brushes.Level3}" Height="48"
-                        Padding="15"/>
+
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource Button.Iconic}">
+                        <Setter Property="Height" Value="48"/>
+                        <Setter Property="Width" Value="48"/>
+                        <Setter Property="Padding" Value="16"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Brushes.Main_Level_01}"/>
+                    </Style>
+                    <Style TargetType="ToolTip" BasedOn="{StaticResource Tooltip.Alpha}"/>
+                </StackPanel.Resources>
+
+                <Button Tag="{StaticResource ic_add_person}" Command="{Binding AddPersonCommand}"
+                        ToolTip="افزودن شخص"/>
             </StackPanel>
         </Border>
         <!--#endregion-->
 
-        <Border BorderBrush="{DynamicResource Brushes.Divider}"
+        <Border Style="{StaticResource Overlay}" BorderBrush="{DynamicResource Brushes.Divider}"
                 Grid.Column="1"
                 BorderThickness="0,0,1,0">
             <Grid>
@@ -63,11 +49,14 @@
                        Title="{StaticResource Person.NoDataTitle}"
                        Message="{StaticResource Person.NoDataMessage}"
                        Command="{Binding AddPersonCommand}"
-                       CommandCaption="{StaticResource Person.NoDataCaption}"/>
+                       CommandCaption="{StaticResource Person.NoDataCaption}"
+                           Visibility="{Binding Visibility, Converter={StaticResource Visibility.Inverse}, ElementName=grid}"/>
 
-                <dxg:GridControl ItemsSource="{Binding Models}" 
-                                 SelectedItem="{Binding SelectedModel,Mode=TwoWay}">
-                    
+                <dxg:GridControl x:Name="grid" ItemsSource="{Binding Models}" Margin="0,110,0,0"
+                                 SelectedItem="{Binding SelectedModel,Mode=TwoWay}"
+                                 Visibility="{Binding Models.Count,Converter={StaticResource Visibility.FromNumber}}">
+
+                    <dxg:GridColumn Tag="Row"/>
                     <dxg:GridColumn FieldName="Person.Name" Header="{StaticResource FirstName}"/>
                     <dxg:GridColumn FieldName="Person.NationalNo" Header="{StaticResource NationalNo}"/>
                     <dxg:GridColumn FieldName="Person.MobileNo" Header="{StaticResource MobileNo}"/>
@@ -75,14 +64,17 @@
                 </dxg:GridControl>
             </Grid>
         </Border>
-
-        <v:PatronGlanceView Grid.Column="2" Margin="20,32,0,0" 
+<!--load glance view with injection-->
+        <v:PatronGlanceView x:Name="glanceView" Grid.Column="2" Margin="20,32,0,0" 
                             dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.SelectedModel,ElementName=parent}"
                             Visibility="{Binding DataContext.SelectedModel,ElementName=parent,Converter={StaticResource Visibility.FromNullable}}"/>
-        <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Person}" Grid.Column="2"/>
 
-        <TextBlock Style="{StaticResource Test}" Text="{Binding ElementName=grid,Path=SelectedItem.Religion}"
-                   Grid.ColumnSpan="3"/>
+        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}"
+                Visibility="{Binding ElementName=glanceView,Path=Visibility}"
+                Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Margin="50,210,0,0" Command="{Binding BackCommand}"/>
+
+        <Grid x:Name="person" dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Person}" Grid.Column="2"/>
 
     </Grid>
 </UserControl>

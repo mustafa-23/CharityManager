@@ -113,6 +113,7 @@
     <Compile Include="Common\Commands.cs" />
     <Compile Include="Common\Controls.cs" />
     <Compile Include="Common\Converters.cs" />
+    <Compile Include="Common\Exceptions.cs" />
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Connected Services\CharityService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -135,12 +136,22 @@
     <Compile Include="ViewModels\FamilyInputViewModel.cs" />
     <Compile Include="ViewModels\FamilyListViewModel.cs" />
     <Compile Include="ViewModels\HelpInputViewModel.cs" />
+    <Compile Include="ViewModels\Introducer\IntroducerInputViewModel.cs" />
     <Compile Include="ViewModels\JobInputViewModel.cs" />
     <Compile Include="ViewModels\JobListViewModel.cs" />
     <Compile Include="ViewModels\LicenceViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ManagerViewPointViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\Request\ManagerViewPointInputViewModel.cs" />
+    <Compile Include="ViewModels\Request\RequestInputViewModel.cs" />
+    <Compile Include="ViewModels\Request\RequestViewModel.cs" />
+    <Compile Include="ViewModels\Request\ResearchInputViewModel.cs" />
+    <Compile Include="ViewModels\Request\ResearchListViewModel.cs" />
+    <Compile Include="ViewModels\SelectPatronViewModel.cs" />
+    <Compile Include="ViewModels\Tools\NotesViewModel.cs" />
+    <Compile Include="ViewModels\Tools\NotificationCenterViewModel.cs" />
     <Compile Include="ViewModels\PatronGlanceViewModel.cs" />
     <Compile Include="ViewModels\PatronInfoViewModel.cs" />
     <Compile Include="ViewModels\PersonInputViewModel.cs" />
@@ -148,6 +159,7 @@
     <Compile Include="ViewModels\QuicAddUserViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SplashViewModel.cs" />
+    <Compile Include="ViewModels\Tools\UserProfileViewModel.cs" />
     <Compile Include="Views\AddressListView.xaml.cs">
       <DependentUpon>AddressListView.xaml</DependentUpon>
     </Compile>
@@ -163,11 +175,45 @@
     <Compile Include="Views\FamilyListView.xaml.cs">
       <DependentUpon>FamilyListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Introducer\IntroducerInputView.xaml.cs">
+      <DependentUpon>IntroducerInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Introducer\IntroducerView.xaml.cs">
+      <DependentUpon>IntroducerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Introducer\IntroducerViewModel.cs" />
     <Compile Include="Views\JobListView.xaml.cs">
       <DependentUpon>JobListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LicenceView.xaml.cs">
       <DependentUpon>LicenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagerViewPointView.xaml.cs">
+      <DependentUpon>ManagerViewPointView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\ManagerViewPointInputView.xaml.cs">
+      <DependentUpon>ManagerViewPointInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\RequestInputView.xaml.cs">
+      <DependentUpon>RequestInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\RequestView.xaml.cs">
+      <DependentUpon>RequestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\ResearchInputView.xaml.cs">
+      <DependentUpon>ResearchInputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Request\ResearchListView.xaml.cs">
+      <DependentUpon>ResearchListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectPatronView.xaml.cs">
+      <DependentUpon>SelectPatronView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tools\NotesView.xaml.cs">
+      <DependentUpon>NotesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tools\NotificationCenterView.xaml.cs">
+      <DependentUpon>NotificationCenterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PatronGlanceView.xaml.cs">
       <DependentUpon>PatronGlanceView.xaml</DependentUpon>
@@ -211,11 +257,18 @@
     <Compile Include="Views\SplashView.xaml.cs">
       <DependentUpon>SplashView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Tools\UserProfileView.xaml.cs">
+      <DependentUpon>UserProfileView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Dialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Localizations\fa-IR.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,11 +327,55 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Introducer\IntroducerInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Introducer\IntroducerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\JobListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LicenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagerViewPointView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\ManagerViewPointInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\RequestInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\RequestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\ResearchInputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Request\ResearchListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectPatronView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tools\NotesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tools\NotificationCenterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,6 +435,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Tools\UserProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -381,7 +482,13 @@
     <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.FamilyResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.IntroducerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.JobResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.LoginResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.PatronResponse.datasource">
@@ -391,6 +498,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.PictureResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.RequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.ResearchResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\CharityService\CharityManager.UI.CharityService.ResponseBase.datasource">
@@ -437,10 +550,6 @@
     <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\left.png" />
-    <Resource Include="Images\right.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="daniko.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -462,6 +571,13 @@
     <Resource Include="Images\info.png" />
     <Resource Include="Images\success.png" />
     <Resource Include="Images\warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\congrates.png" />
+    <Resource Include="Images\name.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

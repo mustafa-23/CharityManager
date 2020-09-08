@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm.DataAnnotations;
+using DevExpress.Mvvm.POCO;
 
 namespace CharityManager.UI.ViewModels
 {
@@ -8,6 +9,8 @@ namespace CharityManager.UI.ViewModels
         public string Test { get; set; } = nameof(MainViewModel);
         public MainViewModel()
         {
+            if (POCOViewModelExtensions.IsInDesignMode(this))
+                return;
             AppUIManager.Application.MainWindow.WindowState = System.Windows.WindowState.Maximized;
         }
         public void Normal()

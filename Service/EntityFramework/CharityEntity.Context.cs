@@ -34,11 +34,15 @@ namespace CharityManager.Service.EntityFramework
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Patron> Patrons { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Entity> Entities { get; set; }
-        public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<Asset> Assets { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<Entity> Entities { get; set; }
+        public virtual DbSet<Introducer> Introducers { get; set; }
+        public virtual DbSet<Family> Families { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Research> Researches { get; set; }
+        public virtual DbSet<ManagerViewpoint> ManagerViewpoints { get; set; }
     }
 }

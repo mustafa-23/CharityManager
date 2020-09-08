@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.ManagerViewPointView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels" 
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             xmlns:local="clr-namespace:CharityManager.UI"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type=vm:ManagerViewPointViewModel}"
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid>
+        <cc:NoData Message="برای ثبت نظر مدیریت روی دکمه ثبت نظر کلیک کنید."
+                   Title="هیچ نظری یافت نشد" CommandCaption="ثبت نظر" 
+                   Command="{x:Static local:Commands.AddViewPoint}"
+                   Visibility="{Binding Visibility, Converter={StaticResource Visibility.Inverse}, ElementName=list}"/>
+        <ListView x:Name="list" Style="{StaticResource Transparent}" ItemsSource="{Binding Models}"
+                  Visibility="{Binding Models.Count,Converter={StaticResource Visibility.FromNumber}}"/>
+    </Grid>
+</UserControl>

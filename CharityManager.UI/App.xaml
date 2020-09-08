@@ -1,17 +1,17 @@
 ﻿<Application x:Class="CharityManager.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CharityManager.UI">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Localizations/fa-IR.xaml"/>
+                <ResourceDictionary Source="/Resources/Converters.xaml"/>
                 <ResourceDictionary Source="/Skins/Blue.xaml"/>
                 <ResourceDictionary Source="/Resources/RawIcons.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles.xaml"/>
                 <ResourceDictionary Source="/Resources/Generic.xaml"/>
-				<ResourceDictionary Source="/Resources/DXGridStyle.xaml"/>
+                <ResourceDictionary Source="/Resources/DXGridStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

@@ -6,7 +6,7 @@
                     xmlns:dxgi="http://schemas.devexpress.com/winfx/2008/xaml/grid/internal">
 
     <ControlTemplate x:Key="{dxgt:GridControlThemeKey ResourceKey=BorderTemplate,IsThemeIndependent=True}" TargetType="ContentControl">
-        <Border Background="{DynamicResource Brushes.Main}">
+        <Border Background="Transparent">
             <ContentPresenter/>
         </Border>
     </ControlTemplate>
@@ -14,9 +14,7 @@
     <Style TargetType="dxg:GridControl">
         <Setter Property="dx:ScrollBarExtensions.ScrollBarMode" Value="TouchOverlap"/>
     </Style>
-    
-    
-    
+
     <!--#region TableView-->
     <Style x:Key="{x:Type dxg:TableView}" TargetType="dxg:TableView">
         <Setter Property="AllowPerPixelScrolling" Value="True"/>
@@ -36,19 +34,54 @@
             <Setter.Value>
                 <Style TargetType="dxg:HeaderContentControl">
                     <Setter Property="TextBlock.Foreground" Value="#676C7F"/>
-                    <Setter Property="Margin" Value="10,0"/>
+                    <Setter Property="Margin" Value="0,0"/>
                 </Style>
             </Setter.Value>
         </Setter>
     </Style>
     <!--#endregion-->
 
+    <!--region DisplayTemplate-->
+    <ControlTemplate x:Key="DisplayTemplate.Default">
+            <TextBlock Text="{Binding DisplayText,RelativeSource={RelativeSource TemplatedParent}}"
+                       Foreground="{DynamicResource Brushes.Main_Level_01}" Margin="10,0,0,0"
+                       ToolTip="{Binding RelativeSource={RelativeSource Mode=Self},Path=Text}"
+                       VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DisplayTemplate.Row">
+        <TextBlock Text="{DXBinding 'RowData.RowHandle.Value + 1'}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Foreground="{DynamicResource Brushes.Main_Level_02}"/>
+    </ControlTemplate>
+
+    <!--Template Chooser-->
+    <Style TargetType="dxg:GridColumn">
+        <Setter Property="IsSmart" Value="True"/>
+        <!--<Setter Property="DisplayTemplate" Value="{StaticResource DisplayTemplate.Default}"/>-->
+        <Setter Property="ColumnFilterMode" Value="DisplayText"/>
+        <Style.Triggers>
+            <Trigger Property="Tag" Value="Row">
+                <Setter Property="DisplayTemplate" Value="{StaticResource DisplayTemplate.Row}"/>
+                <Setter Property="Width" Value="40"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Header" Value="Selection"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="DisplayTemplate" Value="{x:Null}"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--endregion-->
+
     <!--#region ColumnHeader-->
     
     <!--Each Cell Template-->
     <ControlTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=ControlTemplate, IsThemeIndependent=True}"
                    TargetType="{x:Type dxg:GridColumnHeaderBase}">
-        <dxg:ColumnHeaderDockPanel x:Name="PART_LayoutPanel" Height="50" Margin="0,0,0,15"
+        <dxg:ColumnHeaderDockPanel x:Name="PART_LayoutPanel" Height="50" Margin="0,0,0,0"
                                ContentMargin="{StaticResource {dxgt:GridColumnHeaderThemeKey ResourceKey=ContentMargin}}">
             <Border Background="{DynamicResource Grid.Brushes.ColumnHeaderBack}"/>
             <Border x:Name="PART_Border" Height="25" BorderBrush="{DynamicResource Grid.Brushes.ColumnHeaderSeparator}" BorderThickness="0"/>
@@ -64,7 +97,6 @@
                         </Binding>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="ContentMargin" Value="7,4" TargetName="PART_LayoutPanel"/>
                 <Setter Property="Margin" TargetName="PART_LayoutPanel">
                     <Setter.Value>
                         <Binding Path="(dxg:GridColumn.GroupLevel)">
@@ -87,53 +119,31 @@
     <!--#region Row Style-->
     <ControlTemplate x:Key="RowTemplate" TargetType="dxg:RowControl">
         <Grid>
-            <Border x:Name="Background" Background="{TemplateBinding Background}">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="1" Direction="270" ShadowDepth="2" Opacity="0"/>
-                </Border.Effect>
-            </Border>
-            <Border x:Name="HoverState" Background="{DynamicResource Grid.Brushes.Row.HoverBack}" CornerRadius="5" Opacity="0"/>
+            <Border x:Name="Background" Background="{TemplateBinding Background}"/>
             <Grid x:Name="PART_LayoutPanel"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsAlternateRow" Value="True">
                 <Setter Property="Background" Value="Transparent"/>
             </Trigger>
-            <Trigger Property="FadeSelection" Value="True">
-                <Setter Property="Opacity" Value="0.5" TargetName="Background"/>
-            </Trigger>
+
             <!-- HoverStyle -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="HoverState"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="1"
-                                             Duration="0:0:0.1"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="HoverState"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="0"
-                                             Duration="0:0:0.3"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.ExitActions>
-                <Setter Property="Foreground" Value="{DynamicResource Grid.Brushes.Row.HoverFore}" />
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource Colors.Accent}" Opacity="0.25"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource Brushes.Main}"/>
             </Trigger>
             <!-- SelectedStyle -->
             <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
-                <Setter TargetName="Background" Property="Background">
+                <Setter Property="Background">
                     <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource Colors.Level2}" Opacity="0.2"/>
+                        <SolidColorBrush Color="{Binding Source={StaticResource Colors.Accent},Converter={StaticResource ColorToLevel01}}" Opacity="0.2"/>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Foreground" Value="{DynamicResource Brushes.Level1}" />
+                <Setter Property="Foreground" Value="{DynamicResource Brushes.Accent_Level_03}"/>
             </DataTrigger>
             <!-- FocusedStyle -->
             <Trigger Property="dxg:GridViewBase.IsFocusedRow" Value="True">
@@ -149,7 +159,7 @@
                 <SolidColorBrush Color="{DynamicResource Colors.Divider}" Opacity="0.2"/>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource Brushes.Level3}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.Main_Level_01}"/>
         <Setter Property="Template" Value="{StaticResource RowTemplate}"/>
         <Setter Property="Height" Value="40"/>
     </Style>

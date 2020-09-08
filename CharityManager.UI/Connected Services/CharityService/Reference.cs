@@ -21,6 +21,8 @@ namespace CharityManager.UI.CharityService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.UserRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfEntityDTOEntityFilter4YdhPXyL))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.EntityRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.IntroducerRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfPatronDTOPatronFilter4YdhPXyL))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PatronRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfAddressDTOAddressFilter4YdhPXyL))]
@@ -33,12 +35,19 @@ namespace CharityManager.UI.CharityService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.AssetRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfDocumentDTODocumentFilter4YdhPXyL))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.DocumentRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfRequestDTORequestFilter4YdhPXyL))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestRequest))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfResearchDTOResearchFilter4YdhPXyL))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResearchRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestTemplateOfPersonDTOPersonFilter4YdhPXyL))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PersonRequest))]
     public partial class RequestBase : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -47,6 +56,19 @@ namespace CharityManager.UI.CharityService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserID {
+            get {
+                return this.UserIDField;
+            }
+            set {
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
+                }
             }
         }
         
@@ -184,6 +206,85 @@ namespace CharityManager.UI.CharityService {
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityRequest", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
     [System.SerializableAttribute()]
     public partial class EntityRequest : CharityManager.UI.CharityService.RequestTemplateOfEntityDTOEntityFilter4YdhPXyL {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.IntroducerRequest))]
+    public partial class RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL : CharityManager.UI.CharityService.RequestBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.IntroducerDTO DTOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.IntroducerDTO[] DTOListField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.IntroducerFilter FilterField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.IntroducerDTO DTO {
+            get {
+                return this.DTOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DTOField, value) != true)) {
+                    this.DTOField = value;
+                    this.RaisePropertyChanged("DTO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.IntroducerDTO[] DTOList {
+            get {
+                return this.DTOListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DTOListField, value) != true)) {
+                    this.DTOListField = value;
+                    this.RaisePropertyChanged("DTOList");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.IntroducerFilter Filter {
+            get {
+                return this.FilterField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FilterField, value) != true)) {
+                    this.FilterField = value;
+                    this.RaisePropertyChanged("Filter");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="IntroducerRequest", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class IntroducerRequest : CharityManager.UI.CharityService.RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool LoadPersonField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool LoadPerson {
+            get {
+                return this.LoadPersonField;
+            }
+            set {
+                if ((this.LoadPersonField.Equals(value) != true)) {
+                    this.LoadPersonField = value;
+                    this.RaisePropertyChanged("LoadPerson");
+                }
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -582,6 +683,132 @@ namespace CharityManager.UI.CharityService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestTemplateOfRequestDTORequestFilter4YdhPXyL", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestRequest))]
+    public partial class RequestTemplateOfRequestDTORequestFilter4YdhPXyL : CharityManager.UI.CharityService.RequestBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.RequestDTO DTOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.RequestDTO[] DTOListField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.RequestFilter FilterField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.RequestDTO DTO {
+            get {
+                return this.DTOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DTOField, value) != true)) {
+                    this.DTOField = value;
+                    this.RaisePropertyChanged("DTO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.RequestDTO[] DTOList {
+            get {
+                return this.DTOListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DTOListField, value) != true)) {
+                    this.DTOListField = value;
+                    this.RaisePropertyChanged("DTOList");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.RequestFilter Filter {
+            get {
+                return this.FilterField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FilterField, value) != true)) {
+                    this.FilterField = value;
+                    this.RaisePropertyChanged("Filter");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestRequest", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class RequestRequest : CharityManager.UI.CharityService.RequestTemplateOfRequestDTORequestFilter4YdhPXyL {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestTemplateOfResearchDTOResearchFilter4YdhPXyL", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResearchRequest))]
+    public partial class RequestTemplateOfResearchDTOResearchFilter4YdhPXyL : CharityManager.UI.CharityService.RequestBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.ResearchDTO DTOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.ResearchDTO[] DTOListField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.ResearchFilter FilterField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.ResearchDTO DTO {
+            get {
+                return this.DTOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DTOField, value) != true)) {
+                    this.DTOField = value;
+                    this.RaisePropertyChanged("DTO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.ResearchDTO[] DTOList {
+            get {
+                return this.DTOListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DTOListField, value) != true)) {
+                    this.DTOListField = value;
+                    this.RaisePropertyChanged("DTOList");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.ResearchFilter Filter {
+            get {
+                return this.FilterField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FilterField, value) != true)) {
+                    this.FilterField = value;
+                    this.RaisePropertyChanged("Filter");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResearchRequest", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class ResearchRequest : CharityManager.UI.CharityService.RequestTemplateOfResearchDTOResearchFilter4YdhPXyL {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RequestTemplateOfPersonDTOPersonFilter4YdhPXyL", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PersonRequest))]
@@ -949,6 +1176,9 @@ namespace CharityManager.UI.CharityService {
         private int PersonIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RoleEntityIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UserNameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -973,6 +1203,19 @@ namespace CharityManager.UI.CharityService {
                 if ((this.PersonIDField.Equals(value) != true)) {
                     this.PersonIDField = value;
                     this.RaisePropertyChanged("PersonID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RoleEntityID {
+            get {
+                return this.RoleEntityIDField;
+            }
+            set {
+                if ((this.RoleEntityIDField.Equals(value) != true)) {
+                    this.RoleEntityIDField = value;
+                    this.RaisePropertyChanged("RoleEntityID");
                 }
             }
         }
@@ -1036,12 +1279,16 @@ namespace CharityManager.UI.CharityService {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PersonDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PictureDTO))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.LoginDTO))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.IntroducerDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PatronDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.AddressDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.FamilyDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.JobDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.AssetDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.DocumentDTO))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestDTO))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResearchDTO))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.UserDTO))]
     public partial class DTOBase : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1166,6 +1413,84 @@ namespace CharityManager.UI.CharityService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LoginDTO", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class LoginDTO : CharityManager.UI.CharityService.DTOBase {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="IntroducerDTO", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class IntroducerDTO : CharityManager.UI.CharityService.DTOBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.PersonDTO PersonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PersonIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TypeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.PersonDTO Person {
+            get {
+                return this.PersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PersonField, value) != true)) {
+                    this.PersonField = value;
+                    this.RaisePropertyChanged("Person");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PersonID {
+            get {
+                return this.PersonIDField;
+            }
+            set {
+                if ((this.PersonIDField.Equals(value) != true)) {
+                    this.PersonIDField = value;
+                    this.RaisePropertyChanged("PersonID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title {
+            get {
+                return this.TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((this.TypeField.Equals(value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PatronDTO", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
     [System.SerializableAttribute()]
     public partial class PatronDTO : CharityManager.UI.CharityService.DTOBase {
@@ -1175,6 +1500,9 @@ namespace CharityManager.UI.CharityService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ChildrenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IntroducerIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MaritalStatusField;
@@ -1216,6 +1544,19 @@ namespace CharityManager.UI.CharityService {
                 if ((this.ChildrenField.Equals(value) != true)) {
                     this.ChildrenField = value;
                     this.RaisePropertyChanged("Children");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IntroducerID {
+            get {
+                return this.IntroducerIDField;
+            }
+            set {
+                if ((this.IntroducerIDField.Equals(value) != true)) {
+                    this.IntroducerIDField = value;
+                    this.RaisePropertyChanged("IntroducerID");
                 }
             }
         }
@@ -1431,6 +1772,9 @@ namespace CharityManager.UI.CharityService {
         private System.Nullable<int> EducationEntityIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<short> EducationStatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<short> EmploymentStatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1470,6 +1814,19 @@ namespace CharityManager.UI.CharityService {
                 if ((this.EducationEntityIDField.Equals(value) != true)) {
                     this.EducationEntityIDField = value;
                     this.RaisePropertyChanged("EducationEntityID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<short> EducationStatus {
+            get {
+                return this.EducationStatusField;
+            }
+            set {
+                if ((this.EducationStatusField.Equals(value) != true)) {
+                    this.EducationStatusField = value;
+                    this.RaisePropertyChanged("EducationStatus");
                 }
             }
         }
@@ -1784,16 +2141,273 @@ namespace CharityManager.UI.CharityService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestDTO", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class RequestDTO : CharityManager.UI.CharityService.DTOBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstimatedValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime IssueDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PatronIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ResearchDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte StatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TypeEntityIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Comment {
+            get {
+                return this.CommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CommentField, value) != true)) {
+                    this.CommentField = value;
+                    this.RaisePropertyChanged("Comment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstimatedValue {
+            get {
+                return this.EstimatedValueField;
+            }
+            set {
+                if ((this.EstimatedValueField.Equals(value) != true)) {
+                    this.EstimatedValueField = value;
+                    this.RaisePropertyChanged("EstimatedValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime IssueDate {
+            get {
+                return this.IssueDateField;
+            }
+            set {
+                if ((this.IssueDateField.Equals(value) != true)) {
+                    this.IssueDateField = value;
+                    this.RaisePropertyChanged("IssueDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string No {
+            get {
+                return this.NoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NoField, value) != true)) {
+                    this.NoField = value;
+                    this.RaisePropertyChanged("No");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PatronID {
+            get {
+                return this.PatronIDField;
+            }
+            set {
+                if ((this.PatronIDField.Equals(value) != true)) {
+                    this.PatronIDField = value;
+                    this.RaisePropertyChanged("PatronID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ResearchDate {
+            get {
+                return this.ResearchDateField;
+            }
+            set {
+                if ((this.ResearchDateField.Equals(value) != true)) {
+                    this.ResearchDateField = value;
+                    this.RaisePropertyChanged("ResearchDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((this.StatusField.Equals(value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TypeEntityID {
+            get {
+                return this.TypeEntityIDField;
+            }
+            set {
+                if ((this.TypeEntityIDField.Equals(value) != true)) {
+                    this.TypeEntityIDField = value;
+                    this.RaisePropertyChanged("TypeEntityID");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResearchDTO", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class ResearchDTO : CharityManager.UI.CharityService.DTOBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CostField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NeedTypeEntityIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PlaceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RequestIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ResearchDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> UserIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Comment {
+            get {
+                return this.CommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CommentField, value) != true)) {
+                    this.CommentField = value;
+                    this.RaisePropertyChanged("Comment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Cost {
+            get {
+                return this.CostField;
+            }
+            set {
+                if ((this.CostField.Equals(value) != true)) {
+                    this.CostField = value;
+                    this.RaisePropertyChanged("Cost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NeedTypeEntityID {
+            get {
+                return this.NeedTypeEntityIDField;
+            }
+            set {
+                if ((this.NeedTypeEntityIDField.Equals(value) != true)) {
+                    this.NeedTypeEntityIDField = value;
+                    this.RaisePropertyChanged("NeedTypeEntityID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Place {
+            get {
+                return this.PlaceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PlaceField, value) != true)) {
+                    this.PlaceField = value;
+                    this.RaisePropertyChanged("Place");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RequestID {
+            get {
+                return this.RequestIDField;
+            }
+            set {
+                if ((this.RequestIDField.Equals(value) != true)) {
+                    this.RequestIDField = value;
+                    this.RaisePropertyChanged("RequestID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ResearchDate {
+            get {
+                return this.ResearchDateField;
+            }
+            set {
+                if ((this.ResearchDateField.Equals(value) != true)) {
+                    this.ResearchDateField = value;
+                    this.RaisePropertyChanged("ResearchDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> UserID {
+            get {
+                return this.UserIDField;
+            }
+            set {
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FilterBase", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PersonFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.EntityFilter))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.IntroducerFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PatronFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.AddressFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.FamilyFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.JobFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.AssetFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.DocumentFilter))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestFilter))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResearchFilter))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.UserFilter))]
     public partial class FilterBase : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1986,6 +2600,29 @@ namespace CharityManager.UI.CharityService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="IntroducerFilter", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class IntroducerFilter : CharityManager.UI.CharityService.FilterBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PersonIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PersonID {
+            get {
+                return this.PersonIDField;
+            }
+            set {
+                if ((this.PersonIDField.Equals(value) != true)) {
+                    this.PersonIDField = value;
+                    this.RaisePropertyChanged("PersonID");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PatronFilter", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
     [System.SerializableAttribute()]
     public partial class PatronFilter : CharityManager.UI.CharityService.FilterBase {
@@ -2140,6 +2777,68 @@ namespace CharityManager.UI.CharityService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestFilter", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class RequestFilter : CharityManager.UI.CharityService.FilterBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PatronIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string No {
+            get {
+                return this.NoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NoField, value) != true)) {
+                    this.NoField = value;
+                    this.RaisePropertyChanged("No");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PatronID {
+            get {
+                return this.PatronIDField;
+            }
+            set {
+                if ((this.PatronIDField.Equals(value) != true)) {
+                    this.PatronIDField = value;
+                    this.RaisePropertyChanged("PatronID");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResearchFilter", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
+    [System.SerializableAttribute()]
+    public partial class ResearchFilter : CharityManager.UI.CharityService.FilterBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RequestIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RequestID {
+            get {
+                return this.RequestIDField;
+            }
+            set {
+                if ((this.RequestIDField.Equals(value) != true)) {
+                    this.RequestIDField = value;
+                    this.RaisePropertyChanged("RequestID");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityDTO", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO")]
     [System.SerializableAttribute()]
     public partial class EntityDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2148,10 +2847,13 @@ namespace CharityManager.UI.CharityService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EntityKeyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string KeyField;
+        private string TitleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ValueField;
@@ -2163,6 +2865,19 @@ namespace CharityManager.UI.CharityService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EntityKey {
+            get {
+                return this.EntityKeyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EntityKeyField, value) != true)) {
+                    this.EntityKeyField = value;
+                    this.RaisePropertyChanged("EntityKey");
+                }
             }
         }
         
@@ -2180,14 +2895,14 @@ namespace CharityManager.UI.CharityService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Key {
+        public string Title {
             get {
-                return this.KeyField;
+                return this.TitleField;
             }
             set {
-                if ((object.ReferenceEquals(this.KeyField, value) != true)) {
-                    this.KeyField = value;
-                    this.RaisePropertyChanged("Key");
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
                 }
             }
         }
@@ -2225,8 +2940,12 @@ namespace CharityManager.UI.CharityService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PictureResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfUserDTOqOZ3EFRA))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.UserResponse))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfLoginDTOqOZ3EFRA))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.LoginResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfEntityDTOqOZ3EFRA))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.EntityResponse))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfIntroducerDTOqOZ3EFRA))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.IntroducerResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfPatronDTOqOZ3EFRA))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.PatronResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfAddressDTOqOZ3EFRA))]
@@ -2239,6 +2958,10 @@ namespace CharityManager.UI.CharityService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.AssetResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfDocumentDTOqOZ3EFRA))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.DocumentResponse))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfRequestDTOqOZ3EFRA))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestResponse))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResponseTemplateOfResearchDTOqOZ3EFRA))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResearchResponse))]
     public partial class ResponseBase : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -2471,6 +3194,53 @@ namespace CharityManager.UI.CharityService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseTemplateOfLoginDTOqOZ3EFRA", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.LoginResponse))]
+    public partial class ResponseTemplateOfLoginDTOqOZ3EFRA : CharityManager.UI.CharityService.ResponseBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.LoginDTO ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.LoginDTO[] ResultListField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.LoginDTO Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.LoginDTO[] ResultList {
+            get {
+                return this.ResultListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultListField, value) != true)) {
+                    this.ResultListField = value;
+                    this.RaisePropertyChanged("ResultList");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LoginResponse", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class LoginResponse : CharityManager.UI.CharityService.ResponseTemplateOfLoginDTOqOZ3EFRA {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ResponseTemplateOfEntityDTOqOZ3EFRA", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.EntityResponse))]
@@ -2514,6 +3284,53 @@ namespace CharityManager.UI.CharityService {
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityResponse", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
     [System.SerializableAttribute()]
     public partial class EntityResponse : CharityManager.UI.CharityService.ResponseTemplateOfEntityDTOqOZ3EFRA {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseTemplateOfIntroducerDTOqOZ3EFRA", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.IntroducerResponse))]
+    public partial class ResponseTemplateOfIntroducerDTOqOZ3EFRA : CharityManager.UI.CharityService.ResponseBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.IntroducerDTO ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.IntroducerDTO[] ResultListField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.IntroducerDTO Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.IntroducerDTO[] ResultList {
+            get {
+                return this.ResultListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultListField, value) != true)) {
+                    this.ResultListField = value;
+                    this.RaisePropertyChanged("ResultList");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="IntroducerResponse", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class IntroducerResponse : CharityManager.UI.CharityService.ResponseTemplateOfIntroducerDTOqOZ3EFRA {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2798,6 +3615,116 @@ namespace CharityManager.UI.CharityService {
     public partial class DocumentResponse : CharityManager.UI.CharityService.ResponseTemplateOfDocumentDTOqOZ3EFRA {
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseTemplateOfRequestDTOqOZ3EFRA", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.RequestResponse))]
+    public partial class ResponseTemplateOfRequestDTOqOZ3EFRA : CharityManager.UI.CharityService.ResponseBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.RequestDTO ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.RequestDTO[] ResultListField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.RequestDTO Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.RequestDTO[] ResultList {
+            get {
+                return this.ResultListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultListField, value) != true)) {
+                    this.ResultListField = value;
+                    this.RaisePropertyChanged("ResultList");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RequestResponse", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class RequestResponse : CharityManager.UI.CharityService.ResponseTemplateOfRequestDTOqOZ3EFRA {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MaxNoField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MaxNo {
+            get {
+                return this.MaxNoField;
+            }
+            set {
+                if ((this.MaxNoField.Equals(value) != true)) {
+                    this.MaxNoField = value;
+                    this.RaisePropertyChanged("MaxNo");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseTemplateOfResearchDTOqOZ3EFRA", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CharityManager.UI.CharityService.ResearchResponse))]
+    public partial class ResponseTemplateOfResearchDTOqOZ3EFRA : CharityManager.UI.CharityService.ResponseBase {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.ResearchDTO ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CharityManager.UI.CharityService.ResearchDTO[] ResultListField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.ResearchDTO Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CharityManager.UI.CharityService.ResearchDTO[] ResultList {
+            get {
+                return this.ResultListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultListField, value) != true)) {
+                    this.ResultListField = value;
+                    this.RaisePropertyChanged("ResultList");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResearchResponse", Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service")]
+    [System.SerializableAttribute()]
+    public partial class ResearchResponse : CharityManager.UI.CharityService.ResponseTemplateOfResearchDTOqOZ3EFRA {
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CharityService.ICharity")]
     public interface ICharity {
@@ -2856,11 +3783,29 @@ namespace CharityManager.UI.CharityService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/Login", ReplyAction="http://tempuri.org/ICharity/LoginResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> LoginAsync(CharityManager.UI.CharityService.UserRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/GetUserLogins", ReplyAction="http://tempuri.org/ICharity/GetUserLoginsResponse")]
+        CharityManager.UI.CharityService.LoginResponse GetUserLogins(CharityManager.UI.CharityService.UserRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/GetUserLogins", ReplyAction="http://tempuri.org/ICharity/GetUserLoginsResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.LoginResponse> GetUserLoginsAsync(CharityManager.UI.CharityService.UserRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/EntityGetList", ReplyAction="http://tempuri.org/ICharity/EntityGetListResponse")]
         CharityManager.UI.CharityService.EntityResponse EntityGetList(CharityManager.UI.CharityService.EntityRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/EntityGetList", ReplyAction="http://tempuri.org/ICharity/EntityGetListResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.EntityResponse> EntityGetListAsync(CharityManager.UI.CharityService.EntityRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/IntroducerSet", ReplyAction="http://tempuri.org/ICharity/IntroducerSetResponse")]
+        CharityManager.UI.CharityService.ResponseBase IntroducerSet(CharityManager.UI.CharityService.IntroducerRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/IntroducerSet", ReplyAction="http://tempuri.org/ICharity/IntroducerSetResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> IntroducerSetAsync(CharityManager.UI.CharityService.IntroducerRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/IntroducerGetList", ReplyAction="http://tempuri.org/ICharity/IntroducerGetListResponse")]
+        CharityManager.UI.CharityService.IntroducerResponse IntroducerGetList(CharityManager.UI.CharityService.IntroducerRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/IntroducerGetList", ReplyAction="http://tempuri.org/ICharity/IntroducerGetListResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.IntroducerResponse> IntroducerGetListAsync(CharityManager.UI.CharityService.IntroducerRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/PatronSet", ReplyAction="http://tempuri.org/ICharity/PatronSetResponse")]
         CharityManager.UI.CharityService.ResponseBase PatronSet(CharityManager.UI.CharityService.PatronRequest request);
@@ -2885,6 +3830,12 @@ namespace CharityManager.UI.CharityService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AddressSet", ReplyAction="http://tempuri.org/ICharity/AddressSetResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> AddressSetAsync(CharityManager.UI.CharityService.AddressRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AddressDelete", ReplyAction="http://tempuri.org/ICharity/AddressDeleteResponse")]
+        CharityManager.UI.CharityService.ResponseBase AddressDelete(CharityManager.UI.CharityService.AddressRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AddressDelete", ReplyAction="http://tempuri.org/ICharity/AddressDeleteResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> AddressDeleteAsync(CharityManager.UI.CharityService.AddressRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AddressSetList", ReplyAction="http://tempuri.org/ICharity/AddressSetListResponse")]
         CharityManager.UI.CharityService.ResponseBase AddressSetList(CharityManager.UI.CharityService.AddressRequest request);
@@ -2916,6 +3867,12 @@ namespace CharityManager.UI.CharityService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/FamilyGetList", ReplyAction="http://tempuri.org/ICharity/FamilyGetListResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.FamilyResponse> FamilyGetListAsync(CharityManager.UI.CharityService.FamilyRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/FamilyDelete", ReplyAction="http://tempuri.org/ICharity/FamilyDeleteResponse")]
+        CharityManager.UI.CharityService.ResponseBase FamilyDelete(CharityManager.UI.CharityService.FamilyRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/FamilyDelete", ReplyAction="http://tempuri.org/ICharity/FamilyDeleteResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> FamilyDeleteAsync(CharityManager.UI.CharityService.FamilyRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/JobSet", ReplyAction="http://tempuri.org/ICharity/JobSetResponse")]
         CharityManager.UI.CharityService.ResponseBase JobSet(CharityManager.UI.CharityService.JobRequest request);
         
@@ -2933,6 +3890,12 @@ namespace CharityManager.UI.CharityService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/JobGetList", ReplyAction="http://tempuri.org/ICharity/JobGetListResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.JobResponse> JobGetListAsync(CharityManager.UI.CharityService.JobRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/JobDelete", ReplyAction="http://tempuri.org/ICharity/JobDeleteResponse")]
+        CharityManager.UI.CharityService.ResponseBase JobDelete(CharityManager.UI.CharityService.JobRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/JobDelete", ReplyAction="http://tempuri.org/ICharity/JobDeleteResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> JobDeleteAsync(CharityManager.UI.CharityService.JobRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AssetSet", ReplyAction="http://tempuri.org/ICharity/AssetSetResponse")]
         CharityManager.UI.CharityService.ResponseBase AssetSet(CharityManager.UI.CharityService.AssetRequest request);
@@ -2952,6 +3915,18 @@ namespace CharityManager.UI.CharityService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AssetGetList", ReplyAction="http://tempuri.org/ICharity/AssetGetListResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.AssetResponse> AssetGetListAsync(CharityManager.UI.CharityService.AssetRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AssetDelete", ReplyAction="http://tempuri.org/ICharity/AssetDeleteResponse")]
+        CharityManager.UI.CharityService.ResponseBase AssetDelete(CharityManager.UI.CharityService.AssetRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/AssetDelete", ReplyAction="http://tempuri.org/ICharity/AssetDeleteResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> AssetDeleteAsync(CharityManager.UI.CharityService.AssetRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/PatronIntroducerSet", ReplyAction="http://tempuri.org/ICharity/PatronIntroducerSetResponse")]
+        CharityManager.UI.CharityService.ResponseBase PatronIntroducerSet(CharityManager.UI.CharityService.PatronRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/PatronIntroducerSet", ReplyAction="http://tempuri.org/ICharity/PatronIntroducerSetResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> PatronIntroducerSetAsync(CharityManager.UI.CharityService.PatronRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/DocumentSet", ReplyAction="http://tempuri.org/ICharity/DocumentSetResponse")]
         CharityManager.UI.CharityService.ResponseBase DocumentSet(CharityManager.UI.CharityService.DocumentRequest request);
         
@@ -2969,6 +3944,42 @@ namespace CharityManager.UI.CharityService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/DocumentGetList", ReplyAction="http://tempuri.org/ICharity/DocumentGetListResponse")]
         System.Threading.Tasks.Task<CharityManager.UI.CharityService.DocumentResponse> DocumentGetListAsync(CharityManager.UI.CharityService.DocumentRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestLastNo", ReplyAction="http://tempuri.org/ICharity/RequestLastNoResponse")]
+        CharityManager.UI.CharityService.RequestResponse RequestLastNo();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestLastNo", ReplyAction="http://tempuri.org/ICharity/RequestLastNoResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.RequestResponse> RequestLastNoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestSet", ReplyAction="http://tempuri.org/ICharity/RequestSetResponse")]
+        CharityManager.UI.CharityService.ResponseBase RequestSet(CharityManager.UI.CharityService.RequestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestSet", ReplyAction="http://tempuri.org/ICharity/RequestSetResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> RequestSetAsync(CharityManager.UI.CharityService.RequestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestGetList", ReplyAction="http://tempuri.org/ICharity/RequestGetListResponse")]
+        CharityManager.UI.CharityService.RequestResponse RequestGetList(CharityManager.UI.CharityService.RequestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestGetList", ReplyAction="http://tempuri.org/ICharity/RequestGetListResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.RequestResponse> RequestGetListAsync(CharityManager.UI.CharityService.RequestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestResearch", ReplyAction="http://tempuri.org/ICharity/RequestResearchResponse")]
+        CharityManager.UI.CharityService.ResponseBase RequestResearch(CharityManager.UI.CharityService.RequestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/RequestResearch", ReplyAction="http://tempuri.org/ICharity/RequestResearchResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> RequestResearchAsync(CharityManager.UI.CharityService.RequestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/ResearchSet", ReplyAction="http://tempuri.org/ICharity/ResearchSetResponse")]
+        CharityManager.UI.CharityService.ResponseBase ResearchSet(CharityManager.UI.CharityService.ResearchRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/ResearchSet", ReplyAction="http://tempuri.org/ICharity/ResearchSetResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> ResearchSetAsync(CharityManager.UI.CharityService.ResearchRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/ResearchGetList", ReplyAction="http://tempuri.org/ICharity/ResearchGetListResponse")]
+        CharityManager.UI.CharityService.ResearchResponse ResearchGetList(CharityManager.UI.CharityService.ResearchRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICharity/ResearchGetList", ReplyAction="http://tempuri.org/ICharity/ResearchGetListResponse")]
+        System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResearchResponse> ResearchGetListAsync(CharityManager.UI.CharityService.ResearchRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3070,12 +4081,36 @@ namespace CharityManager.UI.CharityService {
             return base.Channel.LoginAsync(request);
         }
         
+        public CharityManager.UI.CharityService.LoginResponse GetUserLogins(CharityManager.UI.CharityService.UserRequest request) {
+            return base.Channel.GetUserLogins(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.LoginResponse> GetUserLoginsAsync(CharityManager.UI.CharityService.UserRequest request) {
+            return base.Channel.GetUserLoginsAsync(request);
+        }
+        
         public CharityManager.UI.CharityService.EntityResponse EntityGetList(CharityManager.UI.CharityService.EntityRequest request) {
             return base.Channel.EntityGetList(request);
         }
         
         public System.Threading.Tasks.Task<CharityManager.UI.CharityService.EntityResponse> EntityGetListAsync(CharityManager.UI.CharityService.EntityRequest request) {
             return base.Channel.EntityGetListAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase IntroducerSet(CharityManager.UI.CharityService.IntroducerRequest request) {
+            return base.Channel.IntroducerSet(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> IntroducerSetAsync(CharityManager.UI.CharityService.IntroducerRequest request) {
+            return base.Channel.IntroducerSetAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.IntroducerResponse IntroducerGetList(CharityManager.UI.CharityService.IntroducerRequest request) {
+            return base.Channel.IntroducerGetList(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.IntroducerResponse> IntroducerGetListAsync(CharityManager.UI.CharityService.IntroducerRequest request) {
+            return base.Channel.IntroducerGetListAsync(request);
         }
         
         public CharityManager.UI.CharityService.ResponseBase PatronSet(CharityManager.UI.CharityService.PatronRequest request) {
@@ -3108,6 +4143,14 @@ namespace CharityManager.UI.CharityService {
         
         public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> AddressSetAsync(CharityManager.UI.CharityService.AddressRequest request) {
             return base.Channel.AddressSetAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase AddressDelete(CharityManager.UI.CharityService.AddressRequest request) {
+            return base.Channel.AddressDelete(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> AddressDeleteAsync(CharityManager.UI.CharityService.AddressRequest request) {
+            return base.Channel.AddressDeleteAsync(request);
         }
         
         public CharityManager.UI.CharityService.ResponseBase AddressSetList(CharityManager.UI.CharityService.AddressRequest request) {
@@ -3150,6 +4193,14 @@ namespace CharityManager.UI.CharityService {
             return base.Channel.FamilyGetListAsync(request);
         }
         
+        public CharityManager.UI.CharityService.ResponseBase FamilyDelete(CharityManager.UI.CharityService.FamilyRequest request) {
+            return base.Channel.FamilyDelete(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> FamilyDeleteAsync(CharityManager.UI.CharityService.FamilyRequest request) {
+            return base.Channel.FamilyDeleteAsync(request);
+        }
+        
         public CharityManager.UI.CharityService.ResponseBase JobSet(CharityManager.UI.CharityService.JobRequest request) {
             return base.Channel.JobSet(request);
         }
@@ -3172,6 +4223,14 @@ namespace CharityManager.UI.CharityService {
         
         public System.Threading.Tasks.Task<CharityManager.UI.CharityService.JobResponse> JobGetListAsync(CharityManager.UI.CharityService.JobRequest request) {
             return base.Channel.JobGetListAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase JobDelete(CharityManager.UI.CharityService.JobRequest request) {
+            return base.Channel.JobDelete(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> JobDeleteAsync(CharityManager.UI.CharityService.JobRequest request) {
+            return base.Channel.JobDeleteAsync(request);
         }
         
         public CharityManager.UI.CharityService.ResponseBase AssetSet(CharityManager.UI.CharityService.AssetRequest request) {
@@ -3198,6 +4257,22 @@ namespace CharityManager.UI.CharityService {
             return base.Channel.AssetGetListAsync(request);
         }
         
+        public CharityManager.UI.CharityService.ResponseBase AssetDelete(CharityManager.UI.CharityService.AssetRequest request) {
+            return base.Channel.AssetDelete(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> AssetDeleteAsync(CharityManager.UI.CharityService.AssetRequest request) {
+            return base.Channel.AssetDeleteAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase PatronIntroducerSet(CharityManager.UI.CharityService.PatronRequest request) {
+            return base.Channel.PatronIntroducerSet(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> PatronIntroducerSetAsync(CharityManager.UI.CharityService.PatronRequest request) {
+            return base.Channel.PatronIntroducerSetAsync(request);
+        }
+        
         public CharityManager.UI.CharityService.ResponseBase DocumentSet(CharityManager.UI.CharityService.DocumentRequest request) {
             return base.Channel.DocumentSet(request);
         }
@@ -3220,6 +4295,54 @@ namespace CharityManager.UI.CharityService {
         
         public System.Threading.Tasks.Task<CharityManager.UI.CharityService.DocumentResponse> DocumentGetListAsync(CharityManager.UI.CharityService.DocumentRequest request) {
             return base.Channel.DocumentGetListAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.RequestResponse RequestLastNo() {
+            return base.Channel.RequestLastNo();
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.RequestResponse> RequestLastNoAsync() {
+            return base.Channel.RequestLastNoAsync();
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase RequestSet(CharityManager.UI.CharityService.RequestRequest request) {
+            return base.Channel.RequestSet(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> RequestSetAsync(CharityManager.UI.CharityService.RequestRequest request) {
+            return base.Channel.RequestSetAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.RequestResponse RequestGetList(CharityManager.UI.CharityService.RequestRequest request) {
+            return base.Channel.RequestGetList(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.RequestResponse> RequestGetListAsync(CharityManager.UI.CharityService.RequestRequest request) {
+            return base.Channel.RequestGetListAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase RequestResearch(CharityManager.UI.CharityService.RequestRequest request) {
+            return base.Channel.RequestResearch(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> RequestResearchAsync(CharityManager.UI.CharityService.RequestRequest request) {
+            return base.Channel.RequestResearchAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResponseBase ResearchSet(CharityManager.UI.CharityService.ResearchRequest request) {
+            return base.Channel.ResearchSet(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResponseBase> ResearchSetAsync(CharityManager.UI.CharityService.ResearchRequest request) {
+            return base.Channel.ResearchSetAsync(request);
+        }
+        
+        public CharityManager.UI.CharityService.ResearchResponse ResearchGetList(CharityManager.UI.CharityService.ResearchRequest request) {
+            return base.Channel.ResearchGetList(request);
+        }
+        
+        public System.Threading.Tasks.Task<CharityManager.UI.CharityService.ResearchResponse> ResearchGetListAsync(CharityManager.UI.CharityService.ResearchRequest request) {
+            return base.Channel.ResearchGetListAsync(request);
         }
     }
 }

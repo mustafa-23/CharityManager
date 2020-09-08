@@ -27,11 +27,12 @@ namespace CharityManager.UI.ViewModels
         }
 
         #region Commands
-
+        public void Back() => AppUIManager.Manager.Clear(AppRegions.Person);
         #endregion
 
         public virtual int SelectedTabIndex { get; set; }
         public virtual int PatronID { get; set; }
+        public virtual int IntroducerID { get; set; }
 
         public Visibility ExtraTabVisibility => PatronID == 0 ? Visibility.Collapsed : Visibility.Visible;
 
@@ -41,14 +42,28 @@ namespace CharityManager.UI.ViewModels
         }
 
         protected void OnPatronIDChanged() => POCOViewModelExtensions.RaisePropertyChanged(this, vm => vm.ExtraTabVisibility);
-        public void Apply() => OnApply?.Invoke();
+        public void Apply()
+        {
+            OnApply?.Invoke();
 
+            if ((Parameter is PatronModel p) && p.IntroducerID != IntroducerID)
+            {
+                var request = new PatronRequest { DTO = new PatronDTO { ID = PatronID, IntroducerID = IntroducerID } };
+                var response = Helper.Call(s => s.PatronIntroducerSet(request));
+                ServiceResponseHelper.CheckServiceResponse(response, "PatronIntroducerSet", request);
+                Helper.NotifySuccess("معرف با موفقیت ثبت شد.");
+            }
+            Messenger.Default.Send(PersonViewModel.Message.RefreshPatronList);
+        }
         #region ISupportParameter
         public virtual object Parameter { get; set; }
         protected void OnParameterChanged()
         {
             if (Parameter is PatronModel p)
+            {
                 PatronID = p.ID;
+                IntroducerID = p.IntroducerID;
+            }
         }
         #endregion
 

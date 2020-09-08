@@ -9,7 +9,7 @@
         Style="{StaticResource Window.Default}"
         FlowDirection="{DynamicResource AppDirection}"
         WindowStartupLocation="CenterScreen"
-        Width="700" Height="400"
+        Width="700" MinHeight="300"
         UseLayoutRounding="True"
         Background="Transparent"
         DataContext="{dxmvvm:ViewModelSource Type=vm:ShellViewModel}"
@@ -18,11 +18,11 @@
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:NotificationService x:Name="CustomNotificationService" CustomNotificationPosition="BottomRight" 
                                     CustomNotificationTemplate="{DynamicResource CustomNotificationTemplate}"
-                                    CustomNotificationDuration="0:0:6"/>
+                                    CustomNotificationDuration="0:0:6" />
         <dxmvvm:OpenFileDialogService x:Name="OpenFileService" CheckFileExists="True" CheckPathExists="True"
                                       RestorePreviouslySelectedDirectory="True"
                                       FilterIndex="0"/>
     </dxmvvm:Interaction.Behaviors>
 
-    <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Shell}" Margin="8"/>
+    <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Shell}" Margin="0"/>
 </Window>

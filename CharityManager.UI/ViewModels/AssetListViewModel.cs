@@ -11,28 +11,22 @@ using System.Threading.Tasks;
 namespace CharityManager.UI.ViewModels
 {
     [POCOViewModel]
-    public class AssetListViewModel : ISupportParameter, AssetsInputViewModel.IAssetInputListener
+    public class AssetListViewModel : ISupportParameter
     {
         public ObservableCollection<AssetModel> AssetList { get; set; } = new ObservableCollection<AssetModel>();
 
-        public void Add() => SliderHelper.Open(AppModules.AssetInput, this);
-        public void OnAssetConfirm(AssetModel asset)
+        public AssetListViewModel()
         {
-            asset.PatronID = (int)Parameter;
-
-            var request = new AssetRequest { DTO = Mapper.Map(asset, new AssetDTO()) };
-            var response = Helper.Call(s => s.AssetSet(request));
-
-            Task.Run(() => RefreshAssetList());
+            Messenger.Default.Register<Messages.Asset>(this, OnMessageRecieved);
         }
-
+        private void OnMessageRecieved(Messages.Asset message) => Task.Run(RefreshAssetList);
         private void RefreshAssetList()
         {
             AppUIManager.Application.Dispatcher.Invoke(() => AssetList.Clear());
             if (Parameter is int patronId && patronId > 0)
             {
                 int index = 1;
-                var request = new AssetRequest { Filter = new AssetFilter { PatronID = patronId } };
+                var request = new AssetRequest { Filter = new AssetFilter { PatronID = patronId, Active = true } };
                 var response = Helper.Call(s => s.AssetGetList(request));
                 if (response?.Success ?? false)
                     AppUIManager.Application.Dispatcher.Invoke(() =>

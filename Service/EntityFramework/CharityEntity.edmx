@@ -58,7 +58,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Key" Type="nvarchar" MaxLength="64" />
+          <Property Name="EntityKey" Type="nvarchar" MaxLength="64" />
+          <Property Name="Title" Type="nvarchar" MaxLength="32" />
           <Property Name="Value" Type="nvarchar" MaxLength="32" />
         </EntityType>
         <EntityType Name="Family">
@@ -73,8 +74,22 @@
           <Property Name="EmploymentStatus" Type="smallint" />
           <Property Name="Income" Type="int" />
           <Property Name="RelationEntityID" Type="int" />
-          <Property Name="EducationStatus" Type="smallint" Nullable="false" />
+          <Property Name="EducationStatus" Type="smallint" />
           <Property Name="EducationEntityID" Type="int" Nullable="false" />
+          <Property Name="CreateUser" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUser" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Introducer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="256" />
+          <Property Name="Type" Type="bit" Nullable="false" />
           <Property Name="CreateUser" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUser" Type="int" />
@@ -104,6 +119,19 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateUser" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ManagerViewpoint">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestID" Type="int" Nullable="false" />
+          <Property Name="ViewPoint" Type="tinyint" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUser" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Package">
           <Key>
@@ -138,6 +166,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="IntroducerID" Type="int" />
           <Property Name="MaritalStatus" Type="int" Nullable="false" />
           <Property Name="Children" Type="int" Nullable="false" />
           <Property Name="BloodType" Type="nvarchar" MaxLength="8" />
@@ -186,6 +215,47 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
           <Property Name="Data" Type="varbinary(max)" Nullable="false" />
+          <Property Name="CreateUser" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUser" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatronID" Type="int" Nullable="false" />
+          <Property Name="TypeEntityID" Type="int" Nullable="false" />
+          <Property Name="No" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="EstimatedValue" Type="int" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="ResearchDate" Type="date" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUser" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Research">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ResearchDate" Type="date" />
+          <Property Name="NeedTypeEntityID" Type="int" Nullable="false" />
+          <Property Name="Place" Type="nvarchar" MaxLength="1024" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="CreateUser" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUser" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -200,6 +270,7 @@
           <Property Name="ModifyDate" Type="datetime" />
           <Property Name="ModifyUser" Type="int" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="RoleEntityID" Type="int" />
         </EntityType>
         <EntityType Name="UserPermission">
           <Key>
@@ -245,6 +316,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Introducer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Introducer" Type="Self.Introducer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Introducer">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Job_Patron">
           <End Role="Patron" Type="Self.Patron" Multiplicity="1" />
           <End Role="Job" Type="Self.Job" Multiplicity="*" />
@@ -269,6 +352,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ManagerViewpoint_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="ManagerViewpoint" Type="Self.ManagerViewpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ManagerViewpoint">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PackageItem_Package">
           <End Role="Package" Type="Self.Package" Multiplicity="1" />
           <End Role="PackageItem" Type="Self.PackageItem" Multiplicity="*" />
@@ -278,6 +373,18 @@
             </Principal>
             <Dependent Role="PackageItem">
               <PropertyRef Name="PackageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patron_Introducer">
+          <End Role="Introducer" Type="Self.Introducer" Multiplicity="0..1" />
+          <End Role="Patron" Type="Self.Patron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Introducer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patron">
+              <PropertyRef Name="IntroducerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -302,6 +409,66 @@
             </Principal>
             <Dependent Role="Picture">
               <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Entity">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="TypeEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Patron">
+          <End Role="Patron" Type="Self.Patron" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patron">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="PatronID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Research_Entity">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="1" />
+          <End Role="Research" Type="Self.Research" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Research">
+              <PropertyRef Name="NeedTypeEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Research_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Research" Type="Self.Research" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Research">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Research_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Research" Type="Self.Research" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Research">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -359,14 +526,18 @@
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Family" EntityType="Self.Family" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Introducer" EntityType="Self.Introducer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagerViewpoint" EntityType="Self.ManagerViewpoint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageItem" EntityType="Self.PackageItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patron" EntityType="Self.Patron" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Research" EntityType="Self.Research" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPermission" EntityType="Self.UserPermission" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Address_Patron" Association="Self.FK_Address_Patron">
@@ -381,6 +552,10 @@
             <End Role="Patron" EntitySet="Patron" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
+          <AssociationSet Name="FK_Introducer_Person" Association="Self.FK_Introducer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Introducer" EntitySet="Introducer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Job_Patron" Association="Self.FK_Job_Patron">
             <End Role="Patron" EntitySet="Patron" />
             <End Role="Job" EntitySet="Job" />
@@ -389,9 +564,17 @@
             <End Role="User" EntitySet="User" />
             <End Role="Login" EntitySet="Login" />
           </AssociationSet>
+          <AssociationSet Name="FK_ManagerViewpoint_Request" Association="Self.FK_ManagerViewpoint_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="ManagerViewpoint" EntitySet="ManagerViewpoint" />
+          </AssociationSet>
           <AssociationSet Name="FK_PackageItem_Package" Association="Self.FK_PackageItem_Package">
             <End Role="Package" EntitySet="Package" />
             <End Role="PackageItem" EntitySet="PackageItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patron_Introducer" Association="Self.FK_Patron_Introducer">
+            <End Role="Introducer" EntitySet="Introducer" />
+            <End Role="Patron" EntitySet="Patron" />
           </AssociationSet>
           <AssociationSet Name="FK_Patron_Person" Association="Self.FK_Patron_Person">
             <End Role="Person" EntitySet="Person" />
@@ -400,6 +583,26 @@
           <AssociationSet Name="FK_Picture_Person" Association="Self.FK_Picture_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="Picture" EntitySet="Picture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Entity" Association="Self.FK_Request_Entity">
+            <End Role="Entity" EntitySet="Entity" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Patron" Association="Self.FK_Request_Patron">
+            <End Role="Patron" EntitySet="Patron" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Research_Entity" Association="Self.FK_Research_Entity">
+            <End Role="Entity" EntitySet="Entity" />
+            <End Role="Research" EntitySet="Research" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Research_Request" Association="Self.FK_Research_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Research" EntitySet="Research" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Research_User" Association="Self.FK_Research_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Research" EntitySet="Research" />
           </AssociationSet>
           <AssociationSet Name="FK_Sponsorship_Patron" Association="Self.FK_Sponsorship_Patron">
             <End Role="Patron" EntitySet="Patron" />
@@ -483,6 +686,7 @@
           <Property Name="EducationEntityID" Type="Int32" />
           <NavigationProperty Name="Patrons" Relationship="CharityModel.FK_Patron_Person" FromRole="Person" ToRole="Patron" />
           <NavigationProperty Name="Pictures" Relationship="CharityModel.FK_Picture_Person" FromRole="Person" ToRole="Picture" />
+          <NavigationProperty Name="Introducers" Relationship="CharityModel.FK_Introducer_Person" FromRole="Person" ToRole="Introducer" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -500,6 +704,8 @@
           <NavigationProperty Name="Person" Relationship="Self.FK_User_Person" FromRole="User" ToRole="Person" />
           <NavigationProperty Name="UserPermissions" Relationship="Self.FK_UserPermission_User" FromRole="User" ToRole="UserPermission" />
           <NavigationProperty Name="Logins" Relationship="CharityModel.FK_Login_User" FromRole="User" ToRole="Login" />
+          <Property Name="RoleEntityID" Type="Int32" />
+          <NavigationProperty Name="Researches" Relationship="CharityModel.FK_Research_User" FromRole="User" ToRole="Research" />
         </EntityType>
         <EntityType Name="UserPermission">
           <Key>
@@ -597,12 +803,6 @@
             <End Role="Patron" EntitySet="Patrons" />
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
-          <EntitySet Name="Entities" EntityType="CharityModel.Entity" />
-          <EntitySet Name="Families" EntityType="CharityModel.Family" />
-          <AssociationSet Name="FK_Sponsorship_Patron" Association="CharityModel.FK_Sponsorship_Patron">
-            <End Role="Patron" EntitySet="Patrons" />
-            <End Role="Family" EntitySet="Families" />
-          </AssociationSet>
           <EntitySet Name="Assets" EntityType="CharityModel.Asset" />
           <EntitySet Name="Jobs" EntityType="CharityModel.Job" />
           <AssociationSet Name="FK_Asset_Patron" Association="CharityModel.FK_Asset_Patron">
@@ -622,6 +822,48 @@
           <AssociationSet Name="FK_Document_Patron" Association="CharityModel.FK_Document_Patron">
             <End Role="Patron" EntitySet="Patrons" />
             <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <EntitySet Name="Entities" EntityType="CharityModel.Entity" />
+          <EntitySet Name="Introducers" EntityType="CharityModel.Introducer" />
+          <AssociationSet Name="FK_Patron_Introducer" Association="CharityModel.FK_Patron_Introducer">
+            <End Role="Introducer" EntitySet="Introducers" />
+            <End Role="Patron" EntitySet="Patrons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Introducer_Person" Association="CharityModel.FK_Introducer_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Introducer" EntitySet="Introducers" />
+          </AssociationSet>
+          <EntitySet Name="Families" EntityType="CharityModel.Family" />
+          <AssociationSet Name="FK_Sponsorship_Patron" Association="CharityModel.FK_Sponsorship_Patron">
+            <End Role="Patron" EntitySet="Patrons" />
+            <End Role="Family" EntitySet="Families" />
+          </AssociationSet>
+          <EntitySet Name="Requests" EntityType="CharityModel.Request" />
+          <AssociationSet Name="FK_Request_Entity" Association="CharityModel.FK_Request_Entity">
+            <End Role="Entity" EntitySet="Entities" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Patron" Association="CharityModel.FK_Request_Patron">
+            <End Role="Patron" EntitySet="Patrons" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <EntitySet Name="Researches" EntityType="CharityModel.Research" />
+          <AssociationSet Name="FK_Research_Entity" Association="CharityModel.FK_Research_Entity">
+            <End Role="Entity" EntitySet="Entities" />
+            <End Role="Research" EntitySet="Researches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Research_Request" Association="CharityModel.FK_Research_Request">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="Research" EntitySet="Researches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Research_User" Association="CharityModel.FK_Research_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Research" EntitySet="Researches" />
+          </AssociationSet>
+          <EntitySet Name="ManagerViewpoints" EntityType="CharityModel.ManagerViewpoint" />
+          <AssociationSet Name="FK_ManagerViewpoint_Request" Association="CharityModel.FK_ManagerViewpoint_Request">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="ManagerViewpoint" EntitySet="ManagerViewpoints" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Login">
@@ -664,10 +906,13 @@
           <NavigationProperty Name="Person" Relationship="CharityModel.FK_Patron_Person" FromRole="Patron" ToRole="Person" />
           <Property Name="CreateUser" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="CharityModel.FK_Address_Patron" FromRole="Patron" ToRole="Address" />
-          <NavigationProperty Name="Families" Relationship="CharityModel.FK_Sponsorship_Patron" FromRole="Patron" ToRole="Family" />
           <NavigationProperty Name="Assets" Relationship="CharityModel.FK_Asset_Patron" FromRole="Patron" ToRole="Asset" />
           <NavigationProperty Name="Jobs" Relationship="CharityModel.FK_Job_Patron" FromRole="Patron" ToRole="Job" />
           <NavigationProperty Name="Documents" Relationship="CharityModel.FK_Document_Patron" FromRole="Patron" ToRole="Document" />
+          <Property Name="IntroducerID" Type="Int32" />
+          <NavigationProperty Name="Introducer" Relationship="CharityModel.FK_Patron_Introducer" FromRole="Patron" ToRole="Introducer" />
+          <NavigationProperty Name="Families" Relationship="CharityModel.FK_Sponsorship_Patron" FromRole="Patron" ToRole="Family" />
+          <NavigationProperty Name="Requests" Relationship="CharityModel.FK_Request_Patron" FromRole="Patron" ToRole="Request" />
         </EntityType>
         <Association Name="FK_Patron_Person">
           <End Type="CharityModel.Person" Role="Person" Multiplicity="1" />
@@ -708,47 +953,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Address">
-              <PropertyRef Name="PatronID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Entity">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Key" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Family">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="PatronID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Precision="3" />
-          <Property Name="EmploymentStatus" Type="Int16" />
-          <Property Name="Income" Type="Int32" />
-          <Property Name="RelationEntityID" Type="Int32" />
-          <Property Name="EducationEntityID" Type="Int32" Nullable="false" />
-          <Property Name="CreateUser" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUser" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Patron" Relationship="CharityModel.FK_Sponsorship_Patron" FromRole="Family" ToRole="Patron" />
-          <Property Name="EducationStatus" Type="Int16" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Sponsorship_Patron">
-          <End Type="CharityModel.Patron" Role="Patron" Multiplicity="1" />
-          <End Type="CharityModel.Family" Role="Family" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patron">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Family">
               <PropertyRef Name="PatronID" />
             </Dependent>
           </ReferentialConstraint>
@@ -818,6 +1022,10 @@
           <Property Name="PersonID" Type="Int32" Nullable="false" />
           <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Person" Relationship="CharityModel.FK_Picture_Person" FromRole="Picture" ToRole="Person" />
+          <Property Name="CreateUser" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ModifyUser" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Picture_Person">
           <End Type="CharityModel.Person" Role="Person" Multiplicity="1" />
@@ -856,6 +1064,220 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="PatronID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityKey" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="CharityModel.FK_Request_Entity" FromRole="Entity" ToRole="Request" />
+          <NavigationProperty Name="Researches" Relationship="CharityModel.FK_Research_Entity" FromRole="Entity" ToRole="Research" />
+        </EntityType>
+        <EntityType Name="Introducer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUser" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patrons" Relationship="CharityModel.FK_Patron_Introducer" FromRole="Introducer" ToRole="Patron" />
+          <NavigationProperty Name="Person" Relationship="CharityModel.FK_Introducer_Person" FromRole="Introducer" ToRole="Person" />
+          <Property Name="Type" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Patron_Introducer">
+          <End Type="CharityModel.Introducer" Role="Introducer" Multiplicity="0..1" />
+          <End Type="CharityModel.Patron" Role="Patron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Introducer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patron">
+              <PropertyRef Name="IntroducerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Introducer_Person">
+          <End Type="CharityModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="CharityModel.Introducer" Role="Introducer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Introducer">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Family">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatronID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="EmploymentStatus" Type="Int16" />
+          <Property Name="Income" Type="Int32" />
+          <Property Name="RelationEntityID" Type="Int32" />
+          <Property Name="EducationStatus" Type="Int16" />
+          <Property Name="EducationEntityID" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUser" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patron" Relationship="CharityModel.FK_Sponsorship_Patron" FromRole="Family" ToRole="Patron" />
+        </EntityType>
+        <Association Name="FK_Sponsorship_Patron">
+          <End Type="CharityModel.Patron" Role="Patron" Multiplicity="1" />
+          <End Type="CharityModel.Family" Role="Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patron">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Family">
+              <PropertyRef Name="PatronID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatronID" Type="Int32" Nullable="false" />
+          <Property Name="TypeEntityID" Type="Int32" Nullable="false" />
+          <Property Name="No" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUser" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entity" Relationship="CharityModel.FK_Request_Entity" FromRole="Request" ToRole="Entity" />
+          <NavigationProperty Name="Patron" Relationship="CharityModel.FK_Request_Patron" FromRole="Request" ToRole="Patron" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstimatedValue" Type="Int32" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="ResearchDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Researches" Relationship="CharityModel.FK_Research_Request" FromRole="Request" ToRole="Research" />
+          <NavigationProperty Name="ManagerViewpoints" Relationship="CharityModel.FK_ManagerViewpoint_Request" FromRole="Request" ToRole="ManagerViewpoint" />
+        </EntityType>
+        <Association Name="FK_Request_Entity">
+          <End Type="CharityModel.Entity" Role="Entity" Multiplicity="1" />
+          <End Type="CharityModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="TypeEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Patron">
+          <End Type="CharityModel.Patron" Role="Patron" Multiplicity="1" />
+          <End Type="CharityModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patron">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="PatronID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Research">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ResearchDate" Type="DateTime" Precision="0" />
+          <Property Name="NeedTypeEntityID" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUser" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entity" Relationship="CharityModel.FK_Research_Entity" FromRole="Research" ToRole="Entity" />
+          <NavigationProperty Name="Request" Relationship="CharityModel.FK_Research_Request" FromRole="Research" ToRole="Request" />
+          <NavigationProperty Name="User" Relationship="CharityModel.FK_Research_User" FromRole="Research" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Research_Entity">
+          <End Type="CharityModel.Entity" Role="Entity" Multiplicity="1" />
+          <End Type="CharityModel.Research" Role="Research" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Research">
+              <PropertyRef Name="NeedTypeEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Research_Request">
+          <End Type="CharityModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="CharityModel.Research" Role="Research" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Research">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Research_User">
+          <End Type="CharityModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="CharityModel.Research" Role="Research" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Research">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ManagerViewpoint">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestID" Type="Int32" Nullable="false" />
+          <Property Name="ViewPoint" Type="Byte" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="CharityModel.FK_ManagerViewpoint_Request" FromRole="ManagerViewpoint" ToRole="Request" />
+        </EntityType>
+        <Association Name="FK_ManagerViewpoint_Request">
+          <End Type="CharityModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="CharityModel.ManagerViewpoint" Role="ManagerViewpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ManagerViewpoint">
+              <PropertyRef Name="RequestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -928,6 +1350,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CharityModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="RoleEntityID" ColumnName="RoleEntityID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -961,6 +1384,7 @@
           <EntitySetMapping Name="Patrons">
             <EntityTypeMapping TypeName="CharityModel.Patron">
               <MappingFragment StoreEntitySet="Patron">
+                <ScalarProperty Name="IntroducerID" ColumnName="IntroducerID" />
                 <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
@@ -991,36 +1415,6 @@
                 <ScalarProperty Name="Neighbourhood" ColumnName="Neighbourhood" />
                 <ScalarProperty Name="CityEntityID" ColumnName="CityEntityID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="PatronID" ColumnName="PatronID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Entities">
-            <EntityTypeMapping TypeName="CharityModel.Entity">
-              <MappingFragment StoreEntitySet="Entity">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Key" ColumnName="Key" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Families">
-            <EntityTypeMapping TypeName="CharityModel.Family">
-              <MappingFragment StoreEntitySet="Family">
-                <ScalarProperty Name="EducationStatus" ColumnName="EducationStatus" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
-                <ScalarProperty Name="EducationEntityID" ColumnName="EducationEntityID" />
-                <ScalarProperty Name="RelationEntityID" ColumnName="RelationEntityID" />
-                <ScalarProperty Name="Income" ColumnName="Income" />
-                <ScalarProperty Name="EmploymentStatus" ColumnName="EmploymentStatus" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="PatronID" ColumnName="PatronID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -1062,6 +1456,10 @@
           <EntitySetMapping Name="Pictures">
             <EntityTypeMapping TypeName="CharityModel.Picture">
               <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1080,6 +1478,105 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="PatronID" ColumnName="PatronID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entities">
+            <EntityTypeMapping TypeName="CharityModel.Entity">
+              <MappingFragment StoreEntitySet="Entity">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="EntityKey" ColumnName="EntityKey" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Introducers">
+            <EntityTypeMapping TypeName="CharityModel.Introducer">
+              <MappingFragment StoreEntitySet="Introducer">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Families">
+            <EntityTypeMapping TypeName="CharityModel.Family">
+              <MappingFragment StoreEntitySet="Family">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="EducationEntityID" ColumnName="EducationEntityID" />
+                <ScalarProperty Name="EducationStatus" ColumnName="EducationStatus" />
+                <ScalarProperty Name="RelationEntityID" ColumnName="RelationEntityID" />
+                <ScalarProperty Name="Income" ColumnName="Income" />
+                <ScalarProperty Name="EmploymentStatus" ColumnName="EmploymentStatus" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PatronID" ColumnName="PatronID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="CharityModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="ResearchDate" ColumnName="ResearchDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EstimatedValue" ColumnName="EstimatedValue" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="TypeEntityID" ColumnName="TypeEntityID" />
+                <ScalarProperty Name="PatronID" ColumnName="PatronID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Researches">
+            <EntityTypeMapping TypeName="CharityModel.Research">
+              <MappingFragment StoreEntitySet="Research">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="NeedTypeEntityID" ColumnName="NeedTypeEntityID" />
+                <ScalarProperty Name="ResearchDate" ColumnName="ResearchDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagerViewpoints">
+            <EntityTypeMapping TypeName="CharityModel.ManagerViewpoint">
+              <MappingFragment StoreEntitySet="ManagerViewpoint">
+                <ScalarProperty Name="ModifyUser" ColumnName="ModifyUser" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ViewPoint" ColumnName="ViewPoint" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

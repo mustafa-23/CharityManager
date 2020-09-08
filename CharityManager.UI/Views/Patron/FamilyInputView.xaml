@@ -9,8 +9,9 @@
              xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
              mc:Ignorable="d"
              d:DataContext="{dxmvvm:ViewModelSource Type=ViewModels:FamilyInputViewModel}"
-             d:DesignHeight="550" d:DesignWidth="520"
-             Background="{DynamicResource Brushes.Main}">
+             d:DesignHeight="560" d:DesignWidth="520"
+             Background="{DynamicResource Brushes.Main}"
+             Margin="{StaticResource Slider.ContentMargin}">
 
     <UserControl.Resources>
         <Thickness x:Key="first">0,24,12,0</Thickness>
@@ -19,15 +20,14 @@
 
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_left}" Grid.Row="3"
-                        Foreground="{DynamicResource Brushes.Level3}" Height="30"
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}" Grid.Row="3"
                         Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
             <TextBlock Style="{StaticResource Header}" Text="اطلاعات فرد تحت تکفل"
                        VerticalAlignment="Center" Margin="10,0,0,0"/>
         </StackPanel>
 
         <UniformGrid Rows="4" Columns="2" Margin="0,8,0,0">
-            <cc:Field Style="{StaticResource TextInput}" FieldTitle="نام"
+            <cc:Field Style="{StaticResource Transformer}" FieldTitle="نام"
                       Value="{Binding Model.FirstName,Mode=TwoWay}"
                       Margin="{StaticResource first}">
                 <dxmvvm:Interaction.Behaviors>
@@ -35,40 +35,36 @@
                 </dxmvvm:Interaction.Behaviors>
             </cc:Field>
             
-            <cc:Field Style="{StaticResource TextInput}" FieldTitle="نام خانوادگی"
+            <cc:Field Style="{StaticResource Transformer}" FieldTitle="نام خانوادگی"
                       Value="{Binding Model.LastName,Mode=TwoWay}"
                       Margin="{StaticResource last}"/>
-            <cc:Field Style="{StaticResource ComboBox}" FieldTitle="نسبت" Comment="وضعیت نسبت با متقاضی"
+            <cc:Field Style="{StaticResource ConfigCombo}" FieldTitle="نسبت" Comment="وضعیت نسبت با متقاضی"
                       Value="{Binding Model.RelationEntityID,Mode=TwoWay}"
-                      Tag="{x:Static ui:AppConfigs.Relations}"
-                      ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="ID"
-                      Margin="{StaticResource first}"/>
-            <cc:Field Style="{StaticResource DateTime}" FieldTitle="تاریخ تولد"
+                      Tag="{x:Static ui:AppConfigs.Relations}" Margin="{StaticResource first}"/>
+            <cc:Field Style="{StaticResource Transformer}" InputType="DateTime" FieldTitle="تاریخ تولد"
                       Value="{Binding Model.BirthDate,Mode=TwoWay}"
                       Margin="{StaticResource last}"/>
-            <cc:Field Style="{StaticResource ComboBox}" FieldTitle="وضعیت اشتغال"
+            <cc:Field Style="{StaticResource Transformer}" InputType="ComboBox" FieldTitle="وضعیت اشتغال"
                       Value="{Binding Model.EmploymentStatus,Mode=TwoWay}"
                       Tag="{StaticResource List.EmploymentStatus}"
                       ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="Key"
                       Margin="{StaticResource first}"/>
-            <cc:Field Style="{StaticResource TextInput}" FieldTitle="درآمد ماهانه"
+            <cc:Field Style="{StaticResource Transformer}" FieldTitle="درآمد ماهانه"
                       Value="{Binding Model.Income,Mode=TwoWay}"
                       Margin="{StaticResource last}"/>
-            <cc:Field Style="{StaticResource ComboBox}" FieldTitle="وضعیت تحصیل"
+            <cc:Field Style="{StaticResource Transformer}" InputType="ComboBox" FieldTitle="وضعیت تحصیل"
                       Value="{Binding Model.EducationStatus,Mode=TwoWay}"
                       Tag="{StaticResource List.EducationStatus}"
                       ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="Key"
                       Margin="{StaticResource first}"/>
-            <cc:Field Style="{StaticResource ComboBox}" FieldTitle="سطح تحصیلات"
+            <cc:Field Style="{StaticResource ConfigCombo}" FieldTitle="سطح تحصیلات"
                       Tag="{x:Static ui:AppConfigs.Educations}"
                       Value="{Binding Model.EducationEntityID,Mode=TwoWay}"
-                      ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="ID"
                       Margin="{StaticResource last}"/>
         </UniformGrid>
 
         <Button Content="ذخیره" Command="{Binding ConfirmCommand}"
-                Background="{DynamicResource Brushes.Level2}" Grid.Row="1"
-                HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
+                Grid.Row="1" HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
                 Margin="0,30,0,0" Height="42" Width="86"/>
     </StackPanel>
 </UserControl>

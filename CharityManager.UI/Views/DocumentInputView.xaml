@@ -19,8 +19,7 @@
     <StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_left}" Grid.Row="3"
-                        Foreground="{DynamicResource Brushes.Level3}" Height="30"
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}" Grid.Row="3"
                         Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
             <TextBlock Style="{StaticResource Header}" Text="افزودن مدرک" VerticalAlignment="Center"
                            Margin="10,0,0,0"/>
@@ -36,17 +35,17 @@
                     <dxmvvm:FocusBehavior/>
                 </dxmvvm:Interaction.Behaviors>
             </cc:Field>
-            <Button Style="{StaticResource Button.Segoe}" Content="{StaticResource segoe_folder}" VerticalAlignment="Bottom"
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_newFile}" VerticalAlignment="Bottom"
                     Command="{Binding BrowseCommand}" Width="30" Padding="2"
                     HorizontalAlignment="Left"/>
         </UniformGrid>
-        <cc:Field Style="{StaticResource TextInput}" FieldTitle="عنوان" Margin="0,12,0,0"
+        <cc:Field Style="{StaticResource Transformer}" FieldTitle="عنوان" Margin="0,12,0,0"
                   Value="{Binding Model.Title,Mode=TwoWay}"/>
-        <cc:Field Style="{StaticResource TextInput}" FieldTitle="نشانی" Margin="0,12,0,0"
+        <cc:Field Style="{StaticResource Transformer}" FieldTitle="نشانی" Margin="0,12,0,0"
                   Value="{Binding Model.Path,Mode=TwoWay}"
                   IsEnabled="False"/>
         <Button Content="ذخیره" Command="{Binding ConfirmCommand}"
-                Background="{DynamicResource Brushes.Level2}" Grid.Row="1"
+                Grid.Row="1"
                 HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
                 Margin="0,30,0,0" Height="42" Width="86"/>
     </StackPanel>

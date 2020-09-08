@@ -14,8 +14,21 @@ namespace CharityManager.Service.EntityFramework
     
     public partial class Entity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Entity()
+        {
+            this.Requests = new HashSet<Request>();
+            this.Researches = new HashSet<Research>();
+        }
+    
         public int ID { get; set; }
-        public string Key { get; set; }
+        public string EntityKey { get; set; }
+        public string Title { get; set; }
         public string Value { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Research> Researches { get; set; }
     }
 }

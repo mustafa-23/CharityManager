@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Models = CharityManager.UI.Models;
 
 namespace CharityManager.UI.ViewModels
 {
@@ -12,26 +13,20 @@ namespace CharityManager.UI.ViewModels
     public class CustomNotificationViewModel
     {
         private readonly DispatcherTimer timer;
-        public enum NotificationType { Normal, Caution, Warning, Error, Success }
-        private readonly Dictionary<NotificationType, Color> Foregrounds = new Dictionary<NotificationType, Color> {
-            { NotificationType.Normal, Color.FromRgb(0, 92, 128) },
-            { NotificationType.Success, Color.FromRgb(0, 128, 96) },
-            { NotificationType.Caution, Color.FromRgb(128, 117, 0) },
-            { NotificationType.Error, Color.FromRgb(255, 255, 255) }
-        };
-        private readonly Dictionary<NotificationType, string> Images = new Dictionary<NotificationType, string> {
-            { NotificationType.Normal, "info.png" },
-            { NotificationType.Success,"success.png" },
-            { NotificationType.Caution, "warn.png" },
-            { NotificationType.Error, "warn.png" }
+        private readonly Dictionary<Models.NotificationType, string> Images = new Dictionary<Models.NotificationType, string> {
+            { Models.NotificationType.Normal, "info.png" },
+            { Models.NotificationType.Success,"success.png" },
+            { Models.NotificationType.Warning, "warn.png" },
+            { Models.NotificationType.Caution, "warn.png" },
+            { Models.NotificationType.Error, "warn.png" }
         };
         public virtual string Caption { get; set; }
         public virtual string Content { get; set; }
-        public virtual NotificationType Type { get; set; }
+        public virtual Models.NotificationType Type { get; set; }
         public virtual double Time { get; set; }
         public virtual Brush Background => (SolidColorBrush)AppUIManager.Application.TryFindResource($"Brushes.{Type}");
         public virtual Brush TitleFore => Background.SetBrightness(-0.5);
-        public virtual Brush Foreground => Background.SetBrightness(-0.5);
+        public virtual Brush Foreground => Background.SetBrightness(-0.3);
         public virtual Uri Image => new Uri($"../Images/{Images[Type]}",UriKind.Relative);
         public CustomNotificationViewModel()
         {

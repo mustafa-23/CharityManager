@@ -39,10 +39,10 @@
                             <SolidColorBrush Color="{DynamicResource Colors.Neutral}" Opacity="0.25"/>
                         </Border.Background>
                         <StackPanel Margin="15,7">
-                            <TextBlock Style="{StaticResource Heading_4}" TextTrimming="CharacterEllipsis"
+                            <TextBlock Style="{StaticResource Heading}" Tag="4" TextTrimming="CharacterEllipsis"
                                        Foreground="{DynamicResource Brushes.Neutral}"
                                        Text="{Binding Title}"/>
-                            <TextBlock Style="{StaticResource Heading_4}" TextTrimming="CharacterEllipsis"
+                            <TextBlock Style="{StaticResource Heading}" Tag="4" TextTrimming="CharacterEllipsis"
                                        Foreground="{DynamicResource Brushes.Neutral}"
                                        Text="{Binding Size,Converter={StaticResource Size.FromLong}}"/>
                         </StackPanel>

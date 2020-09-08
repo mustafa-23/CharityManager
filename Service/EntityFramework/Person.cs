@@ -20,6 +20,7 @@ namespace CharityManager.Service.EntityFramework
             this.Users = new HashSet<User>();
             this.Patrons = new HashSet<Patron>();
             this.Pictures = new HashSet<Picture>();
+            this.Introducers = new HashSet<Introducer>();
         }
     
         public int ID { get; set; }
@@ -46,5 +47,7 @@ namespace CharityManager.Service.EntityFramework
         public virtual ICollection<Patron> Patrons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Picture> Pictures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Introducer> Introducers { get; set; }
     }
 }

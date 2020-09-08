@@ -11,27 +11,22 @@ using CharityManager.UI.CharityService;
 namespace CharityManager.UI.ViewModels
 {
     [POCOViewModel]
-    public class JobListViewModel : JobInputViewModel.IJobInputListener, ISupportParameter
+    public class JobListViewModel : ISupportParameter
     {
         public ObservableCollection<JobModel> JobList { get; set; } = new ObservableCollection<JobModel>();
 
-        public void AddJob() => SliderHelper.Open(AppModules.JobInput, this);
-        public void OnJobConfirm(JobModel job)
+        public JobListViewModel()
         {
-            job.PatronID = (int)Parameter;
-
-            var request = new JobRequest { DTO = Mapper.Map(job, new JobDTO()) };
-            var response = Helper.Call(s => s.JobSet(request));
-
-            Task.Run(() => RefreshJobList());
+            Messenger.Default.Register<Messages.Job>(this, OnMessageRecieved);
         }
+        private void OnMessageRecieved(Messages.Job message) => Task.Run(RefreshJobList);
         private void RefreshJobList()
         {
             AppUIManager.Application.Dispatcher.Invoke(() => JobList.Clear());
             if (Parameter is int patronId && patronId > 0)
             {
                 int index = 1;
-                var request = new JobRequest { Filter = new JobFilter { PatronID = patronId } };
+                var request = new JobRequest { Filter = new JobFilter { PatronID = patronId, Active = true } };
                 var response = Helper.Call(s => s.JobGetList(request));
                 if (response?.Success ?? false)
                     AppUIManager.Application.Dispatcher.Invoke(() =>

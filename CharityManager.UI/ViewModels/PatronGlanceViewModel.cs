@@ -28,7 +28,6 @@ namespace CharityManager.UI.ViewModels
                 LoadPersonImage();
             }
         }
-
         private void LoadPersonImage()
         {
             PersonImage = null;

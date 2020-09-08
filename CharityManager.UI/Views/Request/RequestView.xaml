@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.RequestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels" 
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF" 
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:ctrl="clr-namespace:CharityManager.UI.Controls"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             mc:Ignorable="d"
+             Name="parent"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:RequestViewModel}"
+             d:DesignHeight="768" d:DesignWidth="1366">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region ActionBar -->
+        <Border Style="{StaticResource Overlay}" BorderBrush="{DynamicResource Brushes.Divider}" BorderThickness="0,0,1,0">
+            <StackPanel Margin="0,48,0,0">
+
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource Button.Iconic}">
+                        <Setter Property="Height" Value="48"/>
+                        <Setter Property="Width" Value="48"/>
+                        <Setter Property="Padding" Value="16"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Brushes.Main_Level_01}"/>
+                    </Style>
+                    <Style TargetType="ToolTip" BasedOn="{StaticResource Tooltip.Alpha}"/>
+                </StackPanel.Resources>
+
+                <Button Tag="{StaticResource ic_add_person}" Command="{Binding AddPersonCommand}"
+                        ToolTip="افزودن شخص"/>
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+        <Border Style="{StaticResource Overlay}" BorderBrush="{DynamicResource Brushes.Divider}"
+                Grid.Column="1" BorderThickness="0,0,1,0">
+            <Grid>
+                <dxg:GridControl x:Name="grid" ItemsSource="{Binding Models}" Margin="0,110,0,0"
+                                 SelectedItem="{Binding SelectedModel,Mode=TwoWay}"
+                                 Visibility="{Binding Models.Count,Converter={StaticResource Visibility.FromNumber}}">
+
+                    <dxg:GridColumn Tag="Row"/>
+                    <dxg:GridColumn FieldName="Status" Header="وضعیت"/>
+                    <dxg:GridColumn FieldName="Name" Header="متقاضی"/>
+                    <dxg:GridColumn FieldName="No" Header="شماره تقاضا"/>
+                    <dxg:GridColumn FieldName="IssueDate" Header="تاریخ درخواست"/>
+
+                </dxg:GridControl>
+
+                <cc:NoData VerticalAlignment="Center" 
+                           Title="{StaticResource Request.NoDataTitle}"
+                           Message="{StaticResource Request.NoDataMessage}"
+                           Command="{Binding AddRequestCommand}"
+                           CommandCaption="{StaticResource Request.NoDataCaption}"
+                           Visibility="{Binding Visibility,ElementName=grid,Converter={StaticResource Visibility.Inverse}}"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="2" Margin="20,0,0,0" Visibility="{Binding SelectedModel,Converter={StaticResource Visibility.FromNullable}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="76"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Margin="24,0" Orientation="Horizontal">
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_palette}"/>
+
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_Pencil}"
+                        Margin="24,0,0,0"/>
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_bin}"/>
+
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_Printer}"
+                        Margin="24,0,0,0"/>
+
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_bin}"
+                        Margin="24,0,0,0"/>
+            </StackPanel>
+
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}"
+                    Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left"
+                    Margin="50,210,0,0" Command="{Binding BackCommand}"/>
+
+            <DockPanel Grid.Row="1" Margin="0,0,0,38">
+                <Image Source="../../Images/folder.png"  Width="50" Height="40" Margin="0,0,24,0"/>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource Heading}" Tag="2" Text="{Binding SelectedModel.No}" VerticalAlignment="Center"/>
+                    <TextBlock DockPanel.Dock="Bottom" Text="در حال بررسی"/>
+                </StackPanel>
+            </DockPanel>
+
+            <ctrl:AnimatedTabControl Grid.Row="2" IndicatorMargin="78,0,0,0">
+                <TabItem Header="اطلاعات تقاضا" Margin="78,0,0,0">
+                    <Grid VerticalAlignment="Top" Margin="0,36,0,0">
+
+                        <Grid.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource FieldValue}">
+                                <Setter Property="Margin" Value="12,0"/>
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            </Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource Heading}">
+                                <Setter Property="Foreground" Value="{DynamicResource Brushes.Accent_Level_02}"/>
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                            </Style>
+                        </Grid.Resources>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="متقاضی"/>
+                        <TextBlock Grid.Row="2" Text="اطلاعات تقاضا"/>
+
+                        <DockPanel Grid.Column="1" HorizontalAlignment="Left">
+                            <Ellipse Style="{StaticResource Circle}" Width="72"
+                                     Margin="0,0,12,0">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Image}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource Heading}" Tag="4" FontWeight="Bold"
+                                           Text="{Binding Patron.Person.Name}"/>
+                                <TextBlock Style="{StaticResource Heading}" Tag="5"
+                                           Text="{Binding Patron.Person.NationalNo}"/>
+                                <Button Style="{StaticResource Hyperlink}" Content="مشاهده پرونده متقاضی"
+                                        FontSize="12"/>
+                            </StackPanel>
+                        </DockPanel>
+                        <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource Separator}" Margin="0,12,0,24"/>
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <UniformGrid Columns="3" Margin="0,0,0,25" HorizontalAlignment="Left">
+                                <Label Style="{StaticResource FieldValue}" Tag="نوع تقاضا" 
+                                       Content="{Binding SelectedModel.TypeEntityID,Converter={StaticResource IDToTitle},ConverterParameter=Entity}"/>
+                                <Label Style="{StaticResource FieldValue}" Content="{Binding SelectedModel.IssueDate}"
+                                       Tag="تاریخ صدور" Margin="20,0,0,0"/>
+                                <Label Style="{StaticResource FieldValue}" 
+                                       Content="{Binding SelectedModel.EstimatedValue,Converter={StaticResource MoneyWithUnit}}"
+                                       Tag="ارزش تقاضا" Margin="20,0,0,0"/>
+                            </UniformGrid>
+                            <Label Style="{StaticResource FieldValue}" Content="{Binding SelectedModel.Comment}"
+                                       Tag="توضیحات"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="تحقیق و بازرسی">
+                    <v:ResearchListView dxmvvm:ViewModelExtensions.Parameter="{Binding DataContext.SelectedModel,ElementName=parent}"
+                                        Margin="21,34,32,0"/>
+                </TabItem>
+                <TabItem Header="نظر مدیریت">
+                    <v:ManagerViewPointView/>
+                </TabItem>
+                <TabItem Header="نتیجه درخواست"/>
+                <TabItem Header="کارنما"/>
+            </ctrl:AnimatedTabControl>
+        </Grid>
+
+        <Grid dxmvvm:UIRegion.Region="{x:Static ui:AppRegions.Request}" Grid.Column="2"/>
+
+    </Grid>
+</UserControl>

@@ -27,6 +27,11 @@
     </s:String>
 
     <!--#endregion-->
+    
+    <!--#region QuickAddUser -->
+    <s:String x:Key="QuickAddUser.SuccessMessage">حساب کاربری شما با موفقیت ثبت شد.</s:String>
+
+    <!--#endregion-->
 
     <!--#region Login -->
     <s:String x:Key="Login.Message">لطفا کلمه عبور خود را در کادر پایین وارد نمایید.</s:String>
@@ -34,8 +39,14 @@
     <s:String x:Key="Login.WelcomeMessage">امیدوارم روز کاری خوبی داشته باشید</s:String>
     <!--#endregion-->
 
+    <!--#region NotificationCenter -->
+    <s:String x:Key="NotificationCenter.NoContentTitle">پیامی  نداریم</s:String>
+    <s:String x:Key="NotificationCenter.NoContentMessage">در صورتی که از سمت سیستم پیامی دریافت کنید در این بخش نمایش داده خواهد شد</s:String>
+    <!--#endregion-->
+    
     <!--#region Menu -->
     <s:String x:Key="Menu.Person">اطلاعات افراد</s:String>
+    <s:String x:Key="Menu.Introducer">معرفین</s:String>
     <s:String x:Key="Menu.Request">درخواست ها</s:String>
     <s:String x:Key="Menu.Reports">گزارش ها</s:String>
     <s:String x:Key="Menu.NightMode">حالت شب</s:String>
@@ -69,9 +80,29 @@
     <s:String x:Key="PersonInfo.Other">سایر موارد</s:String>
     <!--#endregion-->
 
+    <!--#region Request -->
+    <s:String x:Key="Request.NoDataTitle">اطلاعاتی موجود نیست</s:String>
+    <s:String x:Key="Request.NoDataMessage">هیچ تقاضایی ثبت نشده است.در صورت تمایل برای ثبت تقاضا، با زدن دکمه زیر آغاز نمایید.</s:String>
+    <s:String x:Key="Request.NoDataCaption">ثبت درخواست</s:String>
+    <!--#endregion-->
+
+    <!--#region RequestInput -->
+    <s:String x:Key="RequestInput.Info">اطلاعات تقاضا</s:String>
+    <s:String x:Key="RequestInput.Research">تحقیق و بازرسی</s:String>
+    <s:String x:Key="RequestInput.Manager">نظر مدیریت</s:String>
+    <s:String x:Key="RequestInput.Result">نتیجه درخواست</s:String>
+    <s:String x:Key="RequestInput.History">کارنما</s:String>
+    <!--#endregion-->
+    
+    <!--#region ResearchList -->
+    <s:String x:Key="ResearchList.NoDataMessage">هیچ درخواستی برای تحقیق و بازرسی ثبت نشده است.
+در صورت تمایل برای ثبت تقاضای تحقیق، با زدن دکمه زیر آغاز نمایید.</s:String>
+    <!--#endregion-->
+
     <!--#endregion-->
 
     <!--#region Models -->
+    <s:String x:Key="Models.Common.Row">ردیف</s:String>
     <s:String x:Key="ID">شناسه</s:String>
     <s:String x:Key="FirstName">نام</s:String>
     <s:String x:Key="LastName">نام خانوادگی</s:String>
@@ -95,6 +126,8 @@
     <s:String x:Key="Sect">مذهب</s:String>
     <s:String x:Key="NationEntityID">ملیت</s:String>
     <s:String x:Key="EducationEntityID">تحصیلات</s:String>
+    <s:String x:Key="Models.Introducer.Name">نام</s:String>
+    <s:String x:Key="Models.Introducer.Type">نوع</s:String>
     <!--#endregion-->
 
     <sc:ArrayList x:Key="List.Martial">
@@ -139,6 +172,11 @@
         <s:String>شیعه</s:String>
         <s:String>سنی</s:String>
         <s:String>سایر</s:String>
+    </sc:ArrayList>
+    <sc:ArrayList x:Key="List.ManagerViewPoint">
+        <sc:DictionaryEntry Key="-1" Value="رد درخواست"/>
+        <sc:DictionaryEntry Key="0" Value="نیاز به بازنگری"/>
+        <sc:DictionaryEntry Key="1" Value="موافقت با درخواست"/>
     </sc:ArrayList>
 
 </ResourceDictionary>

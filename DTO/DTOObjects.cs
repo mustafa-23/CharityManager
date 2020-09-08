@@ -32,6 +32,7 @@ namespace CharityManager.DTO
         public int PersonID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public int RoleEntityID { get; set; }
     }
 
     public class LoginDTO : DTOBase { }
@@ -45,9 +46,10 @@ namespace CharityManager.DTO
         public string SpecialDisease { get; set; }
         public string Religion { get; set; }
         public string Sect { get; set; }
+        public int? IntroducerID { get; set; }
 
         #region Navigation
-        public PersonDTO Person { get; set; } 
+        public PersonDTO Person { get; set; }
         #endregion
     }
 
@@ -69,6 +71,7 @@ namespace CharityManager.DTO
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public short? EmploymentStatus { get; set; }
+        public short? EducationStatus { get; set; }
         public int? Income { get; set; }
         public int? RelationEntityID { get; set; }
         public int? EducationEntityID { get; set; }
@@ -94,20 +97,62 @@ namespace CharityManager.DTO
     public class EntityDTO
     {
         public int ID { get; set; }
-        public string Key { get; set; }
+        public string EntityKey { get; set; }
+        public string Title { get; set; }
         public string Value { get; set; }
     }
 
-    public class PictureDTO:DTOBase
+    public class PictureDTO : DTOBase
     {
         public int PersonID { get; set; }
         public byte[] Data { get; set; }
     }
-    public class DocumentDTO:DTOBase
+
+    public class DocumentDTO : DTOBase
     {
         public string Title { get; set; }
         public int PatronID { get; set; }
         public string Path { get; set; }
         public byte Type { get; set; }
+    }
+
+    public class IntroducerDTO : DTOBase
+    {
+        public string Title { get; set; }
+        public int? PersonID { get; set; }
+        public bool Type { get; set; }
+
+        public PersonDTO Person { get; set; }
+    }
+
+    public class RequestDTO : DTOBase
+    {
+        public int PatronID { get; set; }
+        public int TypeEntityID { get; set; }
+        public int EstimatedValue { get; set; }
+        public string No { get; set; }
+        public string Comment { get; set; }
+        public DateTime IssueDate { get; set; }
+        public byte Status { get; set; }
+        public DateTime? ResearchDate { get; set; }
+
+    }
+
+    public class ResearchDTO : DTOBase
+    {
+        public int RequestID { get; set; }
+        public int? UserID { get; set; }
+        public DateTime? ResearchDate { get; set; }
+        public int NeedTypeEntityID { get; set; }
+        public string Place { get; set; }
+        public int? Cost { get; set; }
+        public string Comment { get; set; }
+    }
+
+    public class ManagerViewPointDTO : DTOBase
+    {
+        public int RequestID { get; set; }
+        public byte? ViewPoint { get; set; }
+        public string Comment { get; set; }
     }
 }

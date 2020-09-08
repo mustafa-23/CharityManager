@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.SelectPatronView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels" 
+             mc:Ignorable="d"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:SelectPatronViewModel}"
+             d:DesignHeight="400" d:DesignWidth="300"
+             Margin="0,40">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}" Grid.Row="3"
+                    Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
+            <TextBlock Style="{StaticResource Header}" Text="انتخاب حمایت شونده" VerticalAlignment="Center"
+                       Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <dxg:GridControl ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay}" Grid.Row="1">
+            <dxg:GridColumn Tag="Row"/>
+            <dxg:GridColumn FieldName="Person.Name" Header="{StaticResource FirstName}"/>
+            <dxg:GridColumn FieldName="Person.NationalNo" Header="{StaticResource NationalNo}"/>
+            <dxg:GridColumn FieldName="Person.MobileNo" Header="{StaticResource MobileNo}"/>
+        </dxg:GridControl>
+
+        <Button Content="انتخاب" Command="{Binding SelectCommand}"
+                Grid.Row="2"
+                HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
+                Margin="0,15,0,0" Height="42" Width="86"/>
+    </Grid>
+</UserControl>

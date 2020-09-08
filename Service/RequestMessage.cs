@@ -4,7 +4,10 @@ using System.Runtime.Serialization;
 
 namespace CharityManager.Service
 {
-    public class RequestBase { }
+    public class RequestBase
+    {
+        public int UserID { get; set; }
+    }
 
     /// <summary>
     /// a message sent to server
@@ -35,4 +38,11 @@ namespace CharityManager.Service
     public class AssetRequest : RequestTemplate<AssetDTO, AssetFilter> { }
     public class EntityRequest : RequestTemplate<EntityDTO, EntityFilter> { }
     public class DocumentRequest : RequestTemplate<DocumentDTO, DocumentFilter> { }
+    public class IntroducerRequest : RequestTemplate<IntroducerDTO, IntroducerFilter>
+    {
+        public bool LoadPerson { get; set; }
+    }
+    public class RequestRequest : RequestTemplate<RequestDTO, RequestFilter> { }
+    public class ResearchRequest : RequestTemplate<ResearchDTO, ResearchFilter> { }
+    public class ManagerViewPointRequest : RequestTemplate<ManagerViewPointDTO, ManagerViewPointFilter> { }
 }

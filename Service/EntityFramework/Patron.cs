@@ -18,10 +18,11 @@ namespace CharityManager.Service.EntityFramework
         public Patron()
         {
             this.Addresses = new HashSet<Address>();
-            this.Families = new HashSet<Family>();
             this.Assets = new HashSet<Asset>();
             this.Jobs = new HashSet<Job>();
             this.Documents = new HashSet<Document>();
+            this.Families = new HashSet<Family>();
+            this.Requests = new HashSet<Request>();
         }
     
         public int ID { get; set; }
@@ -37,17 +38,21 @@ namespace CharityManager.Service.EntityFramework
         public Nullable<int> ModifyUser { get; set; }
         public bool Active { get; set; }
         public int CreateUser { get; set; }
+        public Nullable<int> IntroducerID { get; set; }
     
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Family> Families { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asset> Assets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Job> Jobs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual Introducer Introducer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Family> Families { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

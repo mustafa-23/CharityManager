@@ -11,11 +11,7 @@
              mc:Ignorable="d"
              x:Name="parent"
              DataContext="{dxmvvm:ViewModelSource Type=vm:PatronGlanceViewModel}"
-             d:DesignHeight="600" d:DesignWidth="800">
-
-    <UserControl.Resources>
-
-    </UserControl.Resources>
+             d:DesignHeight="700" d:DesignWidth="800">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,25 +22,24 @@
 
         <StackPanel Orientation="Horizontal">
             <StackPanel.Resources>
-                <Style TargetType="Button" BasedOn="{StaticResource Button.Segoe}">
-                    <Setter Property="Height" Value="40"/>
-                    <Setter Property="Width" Value="40"/>
-                    <Setter Property="Padding" Value="10"/>
+                <Style TargetType="Button" BasedOn="{StaticResource Button.Iconic}">
+                    <Setter Property="Height" Value="48"/>
+                    <Setter Property="Width" Value="48"/>
+                    <Setter Property="Padding" Value="16"/>
+                </Style>
+                <Style TargetType="ToolTip" BasedOn="{StaticResource Tooltip.Alpha}">
+                    <Setter Property="Tag" Value="Round"/>
                 </Style>
             </StackPanel.Resources>
             
-            <Button Content="{StaticResource segoe_delete}" Margin="12,0"/>
-            
-            <Button Content="{StaticResource segoe_edit}" Margin="12,0" 
+            <!--<Button Tag="{StaticResource ic_bin}" ToolTip="حذف"/>-->
+
+            <Button Tag="{StaticResource ic_Pencil}" 
                     Command="{x:Static ui:Commands.EditPerson}"
-                    CommandParameter="{Binding Model}"/>
+                    CommandParameter="{Binding Model}"
+                    ToolTip="ویرایش"/>
             
-            <Button Content="{StaticResource segoe_print}" Margin="12,0"/>
-            
-            <Button Tag="{StaticResource ic_excel}" Margin="12,0"/>
-            
-            <Button Tag="{StaticResource ic_gear}" Margin="12,0"/>
-            
+            <!--<Button Tag="{StaticResource ic_Printer}" ToolTip="پرینت"/>-->
         </StackPanel>
 
         <DockPanel Grid.Row="1" Margin="24,20,0,0">
@@ -55,15 +50,14 @@
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Margin="32,20,0,0">
-                <TextBlock Text="{Binding Model.Person.Name}" Foreground="{DynamicResource Brushes.Level1}"
-                           FontSize="24" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Model.Person.NationalNo}"
-                           FontSize="14" FontWeight="Bold"
-                           Foreground="{DynamicResource Brushes.Level3}"/>
+                <TextBlock Style="{StaticResource Heading}" Tag="2" Text="{Binding Model.Person.Name}"/>
+                <TextBlock Style="{StaticResource Heading}" Tag="3" Text="{Binding Model.Person.NationalNo}"
+                           Foreground="{DynamicResource Brushes.Main_Level_01}"/>
             </StackPanel>
         </DockPanel>
 
-        <ctrl:AnimatedTabControl Grid.Row="2" Margin="0,32,0,0" InitialIndicatorWidth="90">
+        <ctrl:AnimatedTabControl Grid.Row="2" Margin="0,32,0,0" InitialIndicatorWidth="90"
+                                 IndicatorMargin="130,0,0,0">
 
             <TabItem Header="هویت فردی" Margin="130,0,0,0">
                 <ScrollViewer>
@@ -74,8 +68,8 @@
                                 <Setter Property="Margin" Value="12,0"/>
                                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                             </Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource Heading_5}">
-                                <Setter Property="Foreground" Value="{DynamicResource Brushes.Level2}"/>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource Heading}">
+                                <Setter Property="Foreground" Value="{DynamicResource Brushes.Accent_Level_02}"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
                             </Style>
                         </Grid.Resources>
@@ -110,7 +104,7 @@
                                 <Label Content="{Binding Model.Person.BirthPlace}" Tag="محل تولد"/>
                                 <Label Content="{Binding Model.Person.RegPlace}" Tag="محل صدور"
                                        Margin="12,12,0,0"/>
-                                <Label Content="{Binding Model.MaritalStatus}" Tag="وضعیت تاهل"/>
+                                <Label Content="{Binding Model.MaritalStatus,Converter={StaticResource IDToTitle},ConverterParameter='$Martial'}" Tag="وضعیت تاهل"/>
                                 <Label Content="{Binding Model.Children}" Tag="تعداد فرزند"/>
                             </UniformGrid>
                             <Border Style="{StaticResource Separator}"
@@ -122,8 +116,7 @@
                                 <Label Content="{Binding Model.BloodType}" Tag="گروه خونی"/>
                                 <Label Content="{Binding Model.SpecialDisease}" Tag="بیماری خاص"/>
                             </UniformGrid>
-                            <Border Style="{StaticResource Separator}"
-                                Background="{DynamicResource Brushes.Level3}" Margin="16,12,0,24"/>
+                            <Border Style="{StaticResource Separator}" Margin="16,12,0,24"/>
                         </StackPanel>
 
                         <UniformGrid Columns="4" 
@@ -131,7 +124,9 @@
                             <Label Content="{Binding Model.Religion}" Tag="دین"/>
                             <Label Content="{Binding Model.Sect}" Tag="مذهب"/>
                             <Label Content="{Binding Model.Person.EducationEntityID,Converter={StaticResource IDToTitle},
-                                    ConverterParameter={x:Static ui:IDToTitleEntity.Entity}}" Tag="سطح تحصیلات"/>
+                                   ConverterParameter={x:Static ui:IDToTitleEntity.Entity}}" Tag="سطح تحصیلات"/>
+                            <Label Content="{Binding Model.IntroducerID,Converter={StaticResource IDToTitle},
+                                   ConverterParameter={x:Static ui:IDToTitleEntity.Introducer}}" Tag="معرف"/>
                         </UniformGrid>
                     </Grid>
                 </ScrollViewer>
@@ -162,12 +157,13 @@
                                  ShowActionPanel="False"/>
             </TabItem>
 
-            <!--<TabItem Header="مدارک"/>
+            <!--
 
                 <TabItem Header="کمک ها"/>
 
                 <TabItem Header="سایر"/>-->
 
         </ctrl:AnimatedTabControl>
+
     </Grid>
 </UserControl>

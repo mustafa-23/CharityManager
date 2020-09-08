@@ -34,7 +34,9 @@
   </xs:complexType>
   <xs:element name="RequestTemplateOfPersonDTOPersonFilter4YdhPXyL" nillable="true" type="tns:RequestTemplateOfPersonDTOPersonFilter4YdhPXyL" />
   <xs:complexType name="RequestBase">
-    <xs:sequence />
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserID" type="xs:int" />
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="RequestBase" nillable="true" type="tns:RequestBase" />
   <xs:complexType name="ResponseBase">
@@ -157,6 +159,33 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ResponseTemplateOfUserDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfUserDTOqOZ3EFRA" />
+  <xs:complexType name="LoginResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseTemplateOfLoginDTOqOZ3EFRA">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LoginResponse" nillable="true" type="tns:LoginResponse" />
+  <xs:complexType name="ResponseTemplateOfLoginDTOqOZ3EFRA">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseTemplateOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="LoginDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q14:LoginDTO" />
+          <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q15:ArrayOfLoginDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseTemplateOfLoginDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfLoginDTOqOZ3EFRA" />
   <xs:complexType name="EntityRequest">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestTemplateOfEntityDTOEntityFilter4YdhPXyL">
@@ -179,9 +208,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q14:EntityDTO" />
-          <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q15:ArrayOfEntityDTO" />
-          <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q16:EntityFilter" />
+          <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q16:EntityDTO" />
+          <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q17:ArrayOfEntityDTO" />
+          <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q18:EntityFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -207,13 +236,72 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q17:EntityDTO" />
-          <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q18:ArrayOfEntityDTO" />
+          <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q19:EntityDTO" />
+          <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q20:ArrayOfEntityDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ResponseTemplateOfEntityDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfEntityDTOqOZ3EFRA" />
+  <xs:complexType name="IntroducerRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="LoadPerson" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="IntroducerRequest" nillable="true" type="tns:IntroducerRequest" />
+  <xs:complexType name="RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="RequestTemplateOf{0}{1}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="IntroducerDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+          <GenericParameter Name="IntroducerFilter" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q21:IntroducerDTO" />
+          <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q22:ArrayOfIntroducerDTO" />
+          <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q23:IntroducerFilter" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL" nillable="true" type="tns:RequestTemplateOfIntroducerDTOIntroducerFilter4YdhPXyL" />
+  <xs:complexType name="IntroducerResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseTemplateOfIntroducerDTOqOZ3EFRA">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="IntroducerResponse" nillable="true" type="tns:IntroducerResponse" />
+  <xs:complexType name="ResponseTemplateOfIntroducerDTOqOZ3EFRA">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseTemplateOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="IntroducerDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q24:IntroducerDTO" />
+          <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q25:ArrayOfIntroducerDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseTemplateOfIntroducerDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfIntroducerDTOqOZ3EFRA" />
   <xs:complexType name="PatronRequest">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestTemplateOfPatronDTOPatronFilter4YdhPXyL">
@@ -238,9 +326,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q19:PatronDTO" />
-          <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q20:ArrayOfPatronDTO" />
-          <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q21:PatronFilter" />
+          <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q26:PatronDTO" />
+          <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q27:ArrayOfPatronDTO" />
+          <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q28:PatronFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -266,8 +354,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q22:PatronDTO" />
-          <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q23:ArrayOfPatronDTO" />
+          <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q29:PatronDTO" />
+          <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q30:ArrayOfPatronDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -295,9 +383,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q24:AddressDTO" />
-          <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q25:ArrayOfAddressDTO" />
-          <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q26:AddressFilter" />
+          <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q31:AddressDTO" />
+          <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q32:ArrayOfAddressDTO" />
+          <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q33:AddressFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -323,8 +411,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q27:AddressDTO" />
-          <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q28:ArrayOfAddressDTO" />
+          <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q34:AddressDTO" />
+          <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q35:ArrayOfAddressDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -352,9 +440,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q29:FamilyDTO" />
-          <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q30:ArrayOfFamilyDTO" />
-          <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q31:FamilyFilter" />
+          <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q36:FamilyDTO" />
+          <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q37:ArrayOfFamilyDTO" />
+          <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q38:FamilyFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -380,8 +468,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q32:FamilyDTO" />
-          <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q33:ArrayOfFamilyDTO" />
+          <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q39:FamilyDTO" />
+          <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q40:ArrayOfFamilyDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -409,9 +497,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q34:JobDTO" />
-          <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q35:ArrayOfJobDTO" />
-          <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q36:JobFilter" />
+          <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q41:JobDTO" />
+          <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q42:ArrayOfJobDTO" />
+          <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q43:JobFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -437,8 +525,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q37:JobDTO" />
-          <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q38:ArrayOfJobDTO" />
+          <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q44:JobDTO" />
+          <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q45:ArrayOfJobDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -466,9 +554,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q39:AssetDTO" />
-          <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q40:ArrayOfAssetDTO" />
-          <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q41:AssetFilter" />
+          <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q46:AssetDTO" />
+          <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q47:ArrayOfAssetDTO" />
+          <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q48:AssetFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -494,8 +582,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q42:AssetDTO" />
-          <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q43:ArrayOfAssetDTO" />
+          <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q49:AssetDTO" />
+          <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q50:ArrayOfAssetDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -523,9 +611,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q44:DocumentDTO" />
-          <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q45:ArrayOfDocumentDTO" />
-          <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q46:DocumentFilter" />
+          <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q51:DocumentDTO" />
+          <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q52:ArrayOfDocumentDTO" />
+          <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q53:DocumentFilter" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -551,11 +639,127 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
-          <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q47:DocumentDTO" />
-          <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q48:ArrayOfDocumentDTO" />
+          <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q54:DocumentDTO" />
+          <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q55:ArrayOfDocumentDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ResponseTemplateOfDocumentDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfDocumentDTOqOZ3EFRA" />
+  <xs:complexType name="RequestResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseTemplateOfRequestDTOqOZ3EFRA">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MaxNo" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestResponse" nillable="true" type="tns:RequestResponse" />
+  <xs:complexType name="ResponseTemplateOfRequestDTOqOZ3EFRA">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseTemplateOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="RequestDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q56:RequestDTO" />
+          <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q57:ArrayOfRequestDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseTemplateOfRequestDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfRequestDTOqOZ3EFRA" />
+  <xs:complexType name="RequestRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestTemplateOfRequestDTORequestFilter4YdhPXyL">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestRequest" nillable="true" type="tns:RequestRequest" />
+  <xs:complexType name="RequestTemplateOfRequestDTORequestFilter4YdhPXyL">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="RequestTemplateOf{0}{1}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="RequestDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+          <GenericParameter Name="RequestFilter" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q58:RequestDTO" />
+          <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q59:ArrayOfRequestDTO" />
+          <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q60:RequestFilter" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestTemplateOfRequestDTORequestFilter4YdhPXyL" nillable="true" type="tns:RequestTemplateOfRequestDTORequestFilter4YdhPXyL" />
+  <xs:complexType name="ResearchRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestTemplateOfResearchDTOResearchFilter4YdhPXyL">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResearchRequest" nillable="true" type="tns:ResearchRequest" />
+  <xs:complexType name="RequestTemplateOfResearchDTOResearchFilter4YdhPXyL">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="RequestTemplateOf{0}{1}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ResearchDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+          <GenericParameter Name="ResearchFilter" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTO" nillable="true" type="q61:ResearchDTO" />
+          <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="DTOList" nillable="true" type="q62:ArrayOfResearchDTO" />
+          <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Filter" nillable="true" type="q63:ResearchFilter" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestTemplateOfResearchDTOResearchFilter4YdhPXyL" nillable="true" type="tns:RequestTemplateOfResearchDTOResearchFilter4YdhPXyL" />
+  <xs:complexType name="ResearchResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseTemplateOfResearchDTOqOZ3EFRA">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResearchResponse" nillable="true" type="tns:ResearchResponse" />
+  <xs:complexType name="ResponseTemplateOfResearchDTOqOZ3EFRA">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseTemplateOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ResearchDTO" Namespace="http://schemas.datacontract.org/2004/07/CharityManager.DTO">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="Result" nillable="true" type="q64:ResearchDTO" />
+          <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/CharityManager.DTO" minOccurs="0" name="ResultList" nillable="true" type="q65:ArrayOfResearchDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseTemplateOfResearchDTOqOZ3EFRA" nillable="true" type="tns:ResponseTemplateOfResearchDTOqOZ3EFRA" />
 </xs:schema>

@@ -10,6 +10,14 @@ namespace CharityManager.UI
         public Shell()
         {
             InitializeComponent();
+            Loaded += Shell_Loaded;
+        }
+
+        private void Shell_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!mokeev1995.BlurLibrary.BlurWindow.Enabled)
+                mokeev1995.BlurLibrary.BlurWindow.EnableWindowBlur(this);
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
     }
 }

@@ -17,6 +17,10 @@ namespace CharityManager.Service.EntityFramework
         public int ID { get; set; }
         public int PersonID { get; set; }
         public byte[] Data { get; set; }
+        public int CreateUser { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<int> ModifyUser { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Person Person { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using Araneo.Common;
+using CharityManager.UI.CharityService;
 using DevExpress.Mvvm.DataAnnotations;
 using System;
 using System.Threading;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace CharityManager.UI.ViewModels
 {
     [POCOViewModel]
-    public class SplashViewModel : LicenceViewModel.ILicenceActivationListener
+    public class SplashViewModel : LicenceViewModel.ILicenceActivationListener, QuicAddUserViewModel.IQuickAddUserListener
     {
         public virtual string FormEffect { get; set; } = "";
         public virtual string FormState { get; set; } = "";
@@ -38,10 +39,34 @@ namespace CharityManager.UI.ViewModels
         }
         private void ShowLogin()
         {
-            AppUIManager.Manager.Remove(AppRegions.Shell,AppModules.Licence);
             FormEffect = "Normal";
-            FormState = "Login";
+            AppUIManager.Application.Dispatcher.Invoke(ClearSplashScreen);
+            GlobalVar.RefreshUsers();
+            if (GlobalVar.Users?.Count > 0)
+                FormState = "Login";
+            else
+                FormState = "AddUser";
         }
         public void OnActivation() => ShowLogin();
+        public void AddUser()
+        {
+            FormEffect = "Blured";
+            AppUIManager.Manager.Inject(AppRegions.Shell, AppModules.QuickAddUser, this);
+        }
+
+        public void OnUserAdded()
+        {
+            Task.Run(() =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(5));
+                AppUIManager.Application.Dispatcher.Invoke(ShowLogin);
+            });
+        }
+
+        private void ClearSplashScreen()
+        {
+            AppUIManager.Manager.Remove(AppRegions.Shell, AppModules.Licence);
+            AppUIManager.Manager.Remove(AppRegions.Shell, AppModules.QuickAddUser);
+        }
     }
 }

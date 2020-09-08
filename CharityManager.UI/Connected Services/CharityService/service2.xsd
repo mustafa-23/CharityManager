@@ -127,269 +127,463 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetUserLogins">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q19:UserRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserLoginsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="GetUserLoginsResult" nillable="true" type="q20:LoginResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="EntityGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q19:EntityRequest" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q21:EntityRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EntityGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="EntityGetListResult" nillable="true" type="q20:EntityResponse" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="EntityGetListResult" nillable="true" type="q22:EntityResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IntroducerSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q23:IntroducerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IntroducerSetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="IntroducerSetResult" nillable="true" type="q24:ResponseBase" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IntroducerGetList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q25:IntroducerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IntroducerGetListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="IntroducerGetListResult" nillable="true" type="q26:IntroducerResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PatronSet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q21:PatronRequest" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q27:PatronRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PatronSetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronSetResult" nillable="true" type="q22:ResponseBase" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronSetResult" nillable="true" type="q28:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PatronGet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q23:PatronRequest" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q29:PatronRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PatronGetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronGetResult" nillable="true" type="q24:PatronResponse" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronGetResult" nillable="true" type="q30:PatronResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PatronGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q25:PatronRequest" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q31:PatronRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PatronGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronGetListResult" nillable="true" type="q26:PatronResponse" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronGetListResult" nillable="true" type="q32:PatronResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddressSet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q27:AddressRequest" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q33:AddressRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddressSetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressSetResult" nillable="true" type="q28:ResponseBase" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressSetResult" nillable="true" type="q34:ResponseBase" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddressDelete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q35:AddressRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddressDeleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressDeleteResult" nillable="true" type="q36:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddressSetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q29:AddressRequest" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q37:AddressRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddressSetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressSetListResult" nillable="true" type="q30:ResponseBase" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressSetListResult" nillable="true" type="q38:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddressGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q31:AddressRequest" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q39:AddressRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddressGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressGetListResult" nillable="true" type="q32:AddressResponse" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AddressGetListResult" nillable="true" type="q40:AddressResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FamilySet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q33:FamilyRequest" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q41:FamilyRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FamilySetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilySetResult" nillable="true" type="q34:ResponseBase" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilySetResult" nillable="true" type="q42:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FamilySetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q35:FamilyRequest" />
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q43:FamilyRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FamilySetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilySetListResult" nillable="true" type="q36:ResponseBase" />
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilySetListResult" nillable="true" type="q44:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FamilyGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q37:FamilyRequest" />
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q45:FamilyRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FamilyGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilyGetListResult" nillable="true" type="q38:FamilyResponse" />
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilyGetListResult" nillable="true" type="q46:FamilyResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FamilyDelete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q47:FamilyRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FamilyDeleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="FamilyDeleteResult" nillable="true" type="q48:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JobSet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q39:JobRequest" />
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q49:JobRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JobSetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobSetResult" nillable="true" type="q40:ResponseBase" />
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobSetResult" nillable="true" type="q50:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JobSetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q41:JobRequest" />
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q51:JobRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JobSetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobSetListResult" nillable="true" type="q42:ResponseBase" />
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobSetListResult" nillable="true" type="q52:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JobGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q43:JobRequest" />
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q53:JobRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JobGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobGetListResult" nillable="true" type="q44:JobResponse" />
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobGetListResult" nillable="true" type="q54:JobResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JobDelete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q55:JobRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JobDeleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="JobDeleteResult" nillable="true" type="q56:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetSet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q45:AssetRequest" />
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q57:AssetRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetSetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetSetResult" nillable="true" type="q46:ResponseBase" />
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetSetResult" nillable="true" type="q58:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetSetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q47:AssetRequest" />
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q59:AssetRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetSetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetSetListResult" nillable="true" type="q48:ResponseBase" />
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetSetListResult" nillable="true" type="q60:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q49:AssetRequest" />
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q61:AssetRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetGetListResult" nillable="true" type="q50:AssetResponse" />
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetGetListResult" nillable="true" type="q62:AssetResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AssetDelete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q63:AssetRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AssetDeleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="AssetDeleteResult" nillable="true" type="q64:ResponseBase" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PatronIntroducerSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q65:PatronRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PatronIntroducerSetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="PatronIntroducerSetResult" nillable="true" type="q66:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DocumentSet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q51:DocumentRequest" />
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q67:DocumentRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DocumentSetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="DocumentSetResult" nillable="true" type="q52:ResponseBase" />
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="DocumentSetResult" nillable="true" type="q68:ResponseBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DocumentGet">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q53:DocumentRequest" />
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q69:DocumentRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DocumentGetResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="DocumentGetResult" nillable="true" type="q54:DocumentResponse" />
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="DocumentGetResult" nillable="true" type="q70:DocumentResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DocumentGetList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q55:DocumentRequest" />
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q71:DocumentRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DocumentGetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="DocumentGetListResult" nillable="true" type="q56:DocumentResponse" />
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="DocumentGetListResult" nillable="true" type="q72:DocumentResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestLastNo">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestLastNoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="RequestLastNoResult" nillable="true" type="q73:RequestResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q74:RequestRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestSetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="RequestSetResult" nillable="true" type="q75:ResponseBase" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestGetList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q76:RequestRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestGetListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="RequestGetListResult" nillable="true" type="q77:RequestResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestResearch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q78:RequestRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestResearchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="RequestResearchResult" nillable="true" type="q79:ResponseBase" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResearchSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q80:ResearchRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResearchSetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="ResearchSetResult" nillable="true" type="q81:ResponseBase" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResearchGetList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="request" nillable="true" type="q82:ResearchRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResearchGetListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/CharityManager.Service" minOccurs="0" name="ResearchGetListResult" nillable="true" type="q83:ResearchResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

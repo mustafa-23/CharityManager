@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
              xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
              xmlns:m="clr-namespace:CharityManager.UI.Models"
+             xmlns:global="clr-namespace:CharityManager.UI"
              mc:Ignorable="d"
              d:DataContext="{dxmvvm:ViewModelSource Type=vm:LoginViewModel}"
              d:DesignHeight="400" d:DesignWidth="400">
@@ -44,8 +45,28 @@
             </Setter>
         </Style>
 
+        <Style TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="border">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Red"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource Brushes.Main}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <DataTemplate x:Key="User.ListTemplate" DataType="{x:Type m:UserModel}">
-            <Grid>
+            <Grid Height="48" Margin="32,12,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
@@ -86,30 +107,30 @@
 
                     <Viewbox Width="36" Height="36" HorizontalAlignment="Left" Margin="11,0,0,0">
                         <Path Data="{Binding Source={StaticResource ic_add_person}}"
-                              Fill="{DynamicResource Brushes.Level1}"/>
+                              Fill="{DynamicResource Brushes.Main_Level_01}"/>
                     </Viewbox>
-                    
-                    <Ellipse Name="limg" Stroke="{DynamicResource Brushes.Level1}"
+
+                    <Ellipse Name="limg"
                              Width="48" Height="48" Margin="0,0,24,0">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding SelectedUser.Person.Image}"/>
                         </Ellipse.Fill>
                     </Ellipse>
                 </Grid>
-                
+
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Foreground="{DynamicResource Brushes.Neutral}"
                                FontSize="14" FontWeight="Bold"
                                Text="{Binding SelectedUser.Person.Name}"/>
                     <TextBlock Foreground="{DynamicResource Brushes.Neutral}"
-                               Opacity="0.5" FontSize="12" Text="آخرین ورود"/>
+                               Opacity="0.5" FontSize="12" Text="{Binding LastLogin,FallbackValue='اولین ورود',Converter={StaticResource DateToRangeString}}"/>
                 </StackPanel>
                 <ToggleButton x:Name="tgb" Opacity="0"/>
                 <Popup IsOpen="{Binding ElementName=tgb,Path=IsChecked,Mode=TwoWay}"
                        StaysOpen="False" PlacementTarget="{Binding ElementName=tgb}"
                        Placement="Bottom"
                        AllowsTransparency="True" PopupAnimation="Slide">
-                    <ListView ItemsSource="{Binding Users}" Name="cmb"
+                    <ListView ItemsSource="{x:Static global:GlobalVar.Users}" Name="cmb"
                           ItemTemplate="{StaticResource User.ListTemplate}"
                           VerticalAlignment="Center" HorizontalAlignment="Center"
                           Width="250" SelectedItem="{Binding SelectedUser,Mode=TwoWay}"

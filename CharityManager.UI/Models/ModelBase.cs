@@ -4,10 +4,19 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace CharityManager.UI.Models
 {
+
+    #region Enums
+    public enum NotificationStatus { New, Seen }
+    public enum NotificationType { Normal, Caution, Warning, Error, Success }
+    public enum RequestStatus : byte { None, Research, Confirmed, Declined, Finished }
+
+    #endregion
+
     public class ModelBase : BindableBase, IMappable
     {
         public int ID { get { return GetProperty(() => ID); } set { SetProperty(() => ID, value); } }
@@ -38,14 +47,16 @@ namespace CharityManager.UI.Models
         public int? NationEntityID { get { return GetProperty(() => NationEntityID); } set { SetProperty(() => NationEntityID, value); } }
         public string MobileNo { get { return GetProperty(() => MobileNo); } set { SetProperty(() => MobileNo, value); } }
 
-        public BitmapImage Image { get; set; }
+        #region ExtraProperties
+        public BitmapImage Image { get { return GetProperty(() => Image); } set { SetProperty(() => Image, value); } }
         public string Name => $"{FirstName} {LastName}";
+        #endregion
 
         public override bool Validate()
         {
             ValidateProperty(nameof(NationalNo), NationalNo);
-            ValidateProperty(nameof(NationalNo), FirstName);
-            ValidateProperty(nameof(NationalNo), LastName);
+            ValidateProperty(nameof(FirstName), FirstName);
+            ValidateProperty(nameof(LastName), LastName);
             return !HasErrors;
         }
     }
@@ -60,6 +71,8 @@ namespace CharityManager.UI.Models
         public string SpecialDisease { get { return GetProperty(() => SpecialDisease); } set { SetProperty(() => SpecialDisease, value); } }
         public string Religion { get { return GetProperty(() => Religion); } set { SetProperty(() => Religion, value); } }
         public string Sect { get { return GetProperty(() => Sect); } set { SetProperty(() => Sect, value); } }
+        public int IntroducerID { get; set; }
+
 
         public override string[] IgnoreList => new string[] { nameof(Person) };
 
@@ -84,7 +97,8 @@ namespace CharityManager.UI.Models
     public class EntityModel
     {
         public int ID { get; set; }
-        public string Key { get; set; }
+        public string EntityKey { get; set; }
+        public string Title { get; set; }
         public string Value { get; set; }
     }
 
@@ -124,12 +138,12 @@ namespace CharityManager.UI.Models
         public int PatronID { get { return GetProperty(() => PatronID); } set { SetProperty(() => PatronID, value); } }
         public string FirstName { get { return GetProperty(() => FirstName); } set { SetProperty(() => FirstName, value); } }
         public string LastName { get { return GetProperty(() => LastName); } set { SetProperty(() => LastName, value); } }
-        public DateTime? BirthDate { get { return GetProperty(() => BirthDate); } set { SetProperty(() => BirthDate, value); } }
         public short? EmploymentStatus { get { return GetProperty(() => EmploymentStatus); } set { SetProperty(() => EmploymentStatus, value); } }
+        public short? EducationStatus { get { return GetProperty(() => EducationStatus); } set { SetProperty(() => EducationStatus, value); } }
         public int? Income { get { return GetProperty(() => Income); } set { SetProperty(() => Income, value); } }
         public int? RelationEntityID { get { return GetProperty(() => RelationEntityID); } set { SetProperty(() => RelationEntityID, value); } }
         public int? EducationEntityID { get { return GetProperty(() => EducationEntityID); } set { SetProperty(() => EducationEntityID, value); } }
-        public int? EducationStatus { get { return GetProperty(() => EducationStatus); } set { SetProperty(() => EducationStatus, value); } }
+        public DateTime? BirthDate { get { return GetProperty(() => BirthDate); } set { SetProperty(() => BirthDate, value); } }
     }
 
     public class DocumentModel : ModelBase
@@ -139,6 +153,92 @@ namespace CharityManager.UI.Models
         public string Path { get { return GetProperty(() => Path); } set { SetProperty(() => Path, value); } }
         public byte Type { get { return GetProperty(() => Type); } set { SetProperty(() => Type, value); } }
         public string Extension => System.IO.Path.GetExtension(Path).Replace(".", "").ToUpper();
-        public long Size => new FileInfo(Path).Length;
+        public long Size => File.Exists(Path) ? new FileInfo(Path).Length : -1;
     }
+
+    public class ResearchModel : ModelBase
+    {
+        public int RequestID { get; set; }
+        public int? UserID { get; set; }
+        public DateTime? ResearchDate { get; set; }
+        public int NeedTypeEntityID { get; set; }
+        public string Place { get; set; }
+        public int? Cost { get; set; }
+        public string Comment { get; set; }
+    }
+    public class ManagerViewPointModel : ModelBase
+    {
+        public int RequestID { get; set; }
+        public byte? ViewPoint { get; set; }
+        public string Comment { get; set; }
+    }
+
+    public class RequestModel : ModelBase
+    {
+        public int PatronID { get; set; }
+        public int TypeEntityID { get; set; }
+        public int EstimatedValue { get; set; }
+        public string No { get { return GetProperty(() => No); } set { SetProperty(() => No, value); } }
+        public string Comment { get; set; }
+        public DateTime IssueDate { get; set; }
+        public DateTime? ResearchDate { get; set; }
+        public RequestStatus Status { get; set; }
+
+        #region Extra
+        public string Name { get; set; }
+        #endregion
+    }
+
+    [JsonObject]
+    public class NotificationModel : BindableBase
+    {
+        public string Caption { get; set; }
+        public string Message { get; set; }
+        public NotificationType Type { get; set; }
+        public DateTime CreateDate { get; set; }
+        public NotificationStatus Status { get { return GetProperty(() => Status); } set { SetProperty(() => Status, value); } }
+
+        public NotificationModel(string caption, string message, NotificationType type = NotificationType.Normal)
+        {
+            Caption = caption;
+            Message = message;
+            Type = type;
+            CreateDate = DateTime.Now;
+            Status = NotificationStatus.New;
+        }
+        public void Seen() => Status = NotificationStatus.Seen;
+    }
+    [JsonObject]
+    public class NoteModel : BindableBase
+    {
+        public string Content { get { return GetProperty(() => Content); } set { SetProperty(() => Content, value); } }
+        public DateTime CreateDate { get; set; }
+        public Color Color { get { return GetProperty(() => Color); } set { SetProperty(() => Color, value); } }
+
+        public NoteModel(string content, Color? color = null)
+        {
+            Content = content;
+            Color = color ?? Colors.White;
+            CreateDate = DateTime.Now;
+        }
+    }
+    [JsonObject]
+    public class IntroducerModel : ModelBase
+    {
+        public string Title { get { return GetProperty(() => Title); } set { SetProperty(() => Title, value); } }
+        public int? PersonID { get; set; }
+        /// <summary>
+        /// false = Person, true = Company
+        /// </summary>
+        public bool Type { get { return GetProperty(() => Type); } set { SetProperty(() => Type, value); } }
+
+        public string Name => PersonID > 0 ? Person.Name : Title;
+
+        #region Navigate Properties
+        public PersonModel Person { get; set; }
+        #endregion
+        public override string[] IgnoreList => new string[] { nameof(Person) };
+    }
+
+
 }

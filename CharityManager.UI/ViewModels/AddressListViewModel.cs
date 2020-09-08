@@ -10,28 +10,22 @@ using System.Threading.Tasks;
 namespace CharityManager.UI.ViewModels
 {
     [POCOViewModel]
-    public class AddressListViewModel : ISupportParameter, AddressInputViewModel.IAddressInputListener
+    public class AddressListViewModel : ISupportParameter
     {
         public ObservableCollection<AddressModel> AddressList { get; set; } = new ObservableCollection<AddressModel>();
 
-        public void AddAddress() => SliderHelper.Open(AppModules.AddressInput, this);
-        public void OnAddressConfirm(AddressModel address)
+        public AddressListViewModel()
         {
-            address.PatronID = (int)Parameter;
-
-            var request = new AddressRequest { DTO = Mapper.Map(address, new AddressDTO()) };
-            var response = Helper.Call(s => s.AddressSet(request));
-
-            Task.Run(() => RefreshAddressList());
+            Messenger.Default.Register<Messages.Address>(this, OnMessageRecieved);
         }
-
+        private void OnMessageRecieved(Messages.Address message) => Task.Run(RefreshAddressList);
         private void RefreshAddressList()
         {
             AppUIManager.Application.Dispatcher.Invoke(() => AddressList.Clear());
             if (Parameter is int patronId && patronId > 0)
             {
                 int index = 1;
-                var request = new AddressRequest { Filter = new AddressFilter { PatronID = patronId } };
+                var request = new AddressRequest { Filter = new AddressFilter { PatronID = patronId, Active = true } };
                 var response = Helper.Call(s => s.AddressGetList(request));
                 if (response?.Success ?? false)
                     AppUIManager.Application.Dispatcher.Invoke(() =>

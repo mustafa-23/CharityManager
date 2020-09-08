@@ -12,6 +12,8 @@ namespace CharityManager.UI.Controls
         public double InitialIndicatorWidth { get; set; }
         private Border Indicator { get; set; }
 
+        public Thickness IndicatorMargin { get; set; }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();

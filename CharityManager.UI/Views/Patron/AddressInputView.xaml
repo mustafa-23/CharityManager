@@ -10,8 +10,9 @@
              xmlns:ui="clr-namespace:CharityManager.UI"
              mc:Ignorable="d"
              d:DataContext="{dxmvvm:ViewModelSource Type=vm:AddressInputViewModel}"
-             d:DesignHeight="450" d:DesignWidth="450"
-             Background="{DynamicResource Brushes.Main}">
+             d:DesignHeight="550" d:DesignWidth="450"
+             Background="{DynamicResource Brushes.Main}" 
+             Margin="{StaticResource Slider.ContentMargin}">
 
     <UserControl.Resources>
         <Thickness x:Key="first">0,24,16,0</Thickness>
@@ -24,15 +25,14 @@
 
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_left}" Grid.Row="3"
-                        Foreground="{DynamicResource Brushes.Level3}" Height="30"
-                        Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}" Grid.Row="3"
+                    Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
             <TextBlock Style="{StaticResource Header}" Text="افزودن نشانی" VerticalAlignment="Center"
                        Margin="10,0,0,0"/>
         </StackPanel>
                         
         <UniformGrid Columns="2" Margin="0,8,0,0">
-            <cc:Field Style="{StaticResource TextInput}" FieldTitle="وضعیت" Comment="ملک استیجاری است یا تحت تملک فرد متقاضی"
+            <cc:Field Style="{StaticResource Transformer}" FieldTitle="وضعیت" Comment="ملک استیجاری است یا تحت تملک فرد متقاضی"
                       Value="{Binding Model.Comment,Mode=TwoWay}"
                       Margin="{StaticResource first}">
                 <dxmvvm:Interaction.Behaviors>
@@ -45,21 +45,21 @@
                       Value="{Binding Model.CityEntityID,Mode=TwoWay}"
                       Margin="{StaticResource last}"/>
             
-            <cc:Field Style="{StaticResource TextInput}" FieldTitle="محله" 
+            <cc:Field Style="{StaticResource Transformer}" FieldTitle="محله" 
                       Value="{Binding Model.Neighbourhood,Mode=TwoWay}"
                       Margin="{StaticResource first}"/>
             
-            <cc:Field Style="{StaticResource TextInput}" FieldTitle="تلفن ثابت"
+            <cc:Field Style="{StaticResource Transformer}" FieldTitle="تلفن ثابت"
                       Value="{Binding Model.Phone,Mode=TwoWay}"
                       Margin="{StaticResource last}"/>
         </UniformGrid>
         
-        <cc:Field Style="{StaticResource TextInput}" FieldTitle="نشانی"
+        <cc:Field Style="{StaticResource Transformer}" FieldTitle="نشانی"
                   Margin="0,24,0,0"
                   Value="{Binding Model.Value,Mode=TwoWay}"/>
 
         <Button Content="ذخیره" Command="{Binding ConfirmCommand}"
-                Background="{DynamicResource Brushes.Level2}" Grid.Row="1"
+                Grid.Row="1"
                 HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
                 Margin="0,30,0,0" Height="42" Width="86"/>
     </StackPanel>

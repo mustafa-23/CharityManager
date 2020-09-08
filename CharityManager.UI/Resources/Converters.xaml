@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                    xmlns:cnv="clr-namespace:Araneo.WPF.Converters;assembly=Araneo.WPF">
+
+    <dx:NullableToVisibilityConverter x:Key="Visibility.FromNullable"/>
+    <dx:BooleanToVisibilityConverter x:Key="Visibility.FromBool"/>
+    <dx:VisibilityInverseConverter x:Key="Visibility.Inverse"/>
+    <cnv:NumToVisibility x:Key="Visibility.FromNumber"/>
+    <cnv:DateToRangeConverter x:Key="DateToRangeString"/>
+    <cnv:DateToPersianString x:Key="DateToPersianString" Format="yyyy/MM/dd"/>
+    <cnv:DateToPersianString x:Key="DateToLongPersianString" Format="yyyy/MM/dd dw"/>
+    
+</ResourceDictionary>

@@ -7,7 +7,7 @@ namespace CharityManager.Service
 {
     public static class Mapper
     {
-        public static TResult Map<T, TResult>(T source,params string[] ignore)
+        public static TResult Map<T, TResult>(T source, params string[] ignore)
         {
             if (source == null)
                 return default;
@@ -19,7 +19,7 @@ namespace CharityManager.Service
 
             foreach (var prop in destProps)
             {
-                if (ignore!= null && ignore.Contains(prop.Name))
+                if (ignore != null && ignore.Contains(prop.Name))
                     continue;
 
                 var sp = srcProps.FirstOrDefault(src => src.Name == prop.Name);
@@ -39,7 +39,7 @@ namespace CharityManager.Service
         public static Func<User, UserDTO> UserDTOMapper = new Func<User, UserDTO>(entity => Map<User, UserDTO>(entity));
 
         public static Func<PatronDTO, Patron> PatronMapper = new Func<PatronDTO, Patron>(dto => Map<PatronDTO, Patron>(dto));
-        public static Func<Patron, PatronDTO> PatronDTOMapper = new Func<Patron, PatronDTO>(entity => Map<Patron, PatronDTO>(entity,"Person"));
+        public static Func<Patron, PatronDTO> PatronDTOMapper = new Func<Patron, PatronDTO>(entity => Map<Patron, PatronDTO>(entity, "Person"));
 
         public static Func<AddressDTO, Address> AddressMapper = new Func<AddressDTO, Address>(dto => Map<AddressDTO, Address>(dto));
         public static Func<Address, AddressDTO> AddressDTOMapper = new Func<Address, AddressDTO>(entity => Map<Address, AddressDTO>(entity));
@@ -61,6 +61,18 @@ namespace CharityManager.Service
 
         public static Func<DocumentDTO, Document> DocumentMapper = new Func<DocumentDTO, Document>(entity => Map<DocumentDTO, Document>(entity));
         public static Func<Document, DocumentDTO> DocumentDTOMapper = new Func<Document, DocumentDTO>(entity => Map<Document, DocumentDTO>(entity));
+
+        public static Func<LoginDTO, Login> LoginMapper = new Func<LoginDTO, Login>(entity => Map<LoginDTO, Login>(entity));
+        public static Func<Login, LoginDTO> LoginDTOMapper = new Func<Login, LoginDTO>(entity => Map<Login, LoginDTO>(entity));
+
+        public static Func<IntroducerDTO, Introducer> IntroducerMapper = new Func<IntroducerDTO, Introducer>(entity => Map<IntroducerDTO, Introducer>(entity, nameof(Introducer.Person)));
+        public static Func<Introducer, IntroducerDTO> IntroducerDTOMapper = new Func<Introducer, IntroducerDTO>(entity => Map<Introducer, IntroducerDTO>(entity, nameof(Introducer.Person)));
+
+        public static Func<RequestDTO, Request> RequestMapper = new Func<RequestDTO, Request>(entity => Map<RequestDTO, Request>(entity));
+        public static Func<Request, RequestDTO> RequestDTOMapper = new Func<Request, RequestDTO>(entity => Map<Request, RequestDTO>(entity));
+
+        public static Func<ResearchDTO, Research> ResearchMapper = new Func<ResearchDTO, Research>(entity => Map<ResearchDTO, Research>(entity));
+        public static Func<Research, ResearchDTO> ResearchDTOMapper = new Func<Research, ResearchDTO>(entity => Map<Research, ResearchDTO>(entity));
 
     }
 }

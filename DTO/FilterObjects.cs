@@ -51,4 +51,22 @@ namespace CharityManager.DTO
     {
         public int PatronID { get; set; }
     }
+    public class IntroducerFilter : FilterBase
+    {
+        public int PersonID { get; set; }
+    }
+    public class RequestFilter : FilterBase
+    {
+        public string No { get; set; }
+        public int PatronID { get; set; }
+
+    }
+    public class ResearchFilter : FilterBase
+    {
+        public int RequestID { get; set; }
+    }
+    public class ManagerViewPointFilter : FilterBase
+    {
+        public int RequestID { get; set; }
+    }
 }

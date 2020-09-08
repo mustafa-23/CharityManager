@@ -6,6 +6,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
              xmlns:m="clr-namespace:CharityManager.UI.Models"
              xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:ui="clr-namespace:CharityManager.UI"
              mc:Ignorable="d"
              DataContext="{dxmvvm:ViewModelSource Type=vm:AssetListViewModel}"
              d:DesignHeight="600" d:DesignWidth="700">
@@ -17,32 +18,47 @@
         </x:Array>
 
         <DataTemplate DataType="{x:Type m:AssetModel}">
-            <DockPanel>
-                <TextBlock Style="{StaticResource Heading_5}" VerticalAlignment="Top" Text="{Binding Tag}"
+            <Grid>
+                <Border Background="Black" Opacity="0"/>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource Heading}" Tag="5" VerticalAlignment="Top" Text="{Binding Tag}"
                            Width="100" DockPanel.Dock="Left" Foreground="{DynamicResource Brushes.Level2}"/>
-                <Grid Margin="0,0,0,24">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Label Style="{StaticResource FieldValue}" Tag="نوع دارایی" Content="{Binding TypeEntityID}"/>
-                    <Label Style="{StaticResource FieldValue}" Tag="ارزش تخمینی" 
-                           Content="{Binding EstimatedValue,Converter={StaticResource MoneyWithUnit}}"
-                           Grid.Column="1"/>
-                    <Label Style="{StaticResource FieldValue}" Tag="میزان سهم متقاضی" Content="{Binding Share}"
-                           Grid.Column="2"/>
-                    <Label Style="{StaticResource FieldValue}" Tag="نشانی" Content="{Binding Address}"
-                           Grid.Row="1" Grid.ColumnSpan="3" Margin="0,12,0,0"/>
-                    <Border Grid.Row="2" Grid.ColumnSpan="4" Style="{StaticResource Separator}"
-                            Background="{DynamicResource Brushes.Level3}" Margin="0,12,0,0"/>
-                </Grid>
-            </DockPanel>
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Style="{StaticResource FieldValue}" Tag="نوع دارایی" Content="{Binding TypeEntityID}"/>
+                        <Label Style="{StaticResource FieldValue}" Tag="ارزش تخمینی" 
+                               Content="{Binding EstimatedValue,Converter={StaticResource MoneyWithUnit}}"
+                               Grid.Column="1"/>
+                        <Label Style="{StaticResource FieldValue}" Tag="میزان سهم متقاضی" Content="{Binding Share}"
+                               Grid.Column="2"/>
+                        <Label Style="{StaticResource FieldValue}" Tag="نشانی" Content="{Binding Address}"
+                               Grid.Row="1" Grid.ColumnSpan="3" Margin="0,12,0,0"/>
+                        <Border Grid.Row="2" Grid.ColumnSpan="4" Style="{StaticResource Separator}"
+                                Background="{DynamicResource Brushes.Level3}" Margin="0,12,0,0"/>
+                    </Grid>
+                </DockPanel>
+                <StackPanel x:Name="actionPanel" HorizontalAlignment="Right" Visibility="Hidden"
+                            Margin="0,0,12,0">
+                    <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_bin}"
+                            Command="{x:Static ui:Commands.DeleteAsset}" CommandParameter="{Binding}"/>
+                    <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_Pencil}"
+                            Command="{x:Static ui:Commands.EditAsset}" CommandParameter="{Binding}"/>
+                </StackPanel>
+            </Grid>
+            <DataTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="actionPanel" Property="Visibility" Value="Visible"/>
+                </Trigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
 
     </UserControl.Resources>
@@ -56,13 +72,15 @@
         <UniformGrid x:Name="actionPanel" Columns="2">
             <TextBlock Style="{StaticResource Header}" Text="اطلاعات دارایی" VerticalAlignment="Center"/>
             <Button Style="{StaticResource TextButton}" Content="افزودن دارایی"
-                    Command="{Binding AddCommand}"
-                    Grid.Column="1" HorizontalAlignment="Right" Tag="{StaticResource ic_Plus}"/>
+                    Command="{x:Static ui:Commands.AddAsset}" CommandParameter="{Binding Parameter}"
+                    Grid.Column="1" HorizontalAlignment="Right" 
+                    Tag="{StaticResource ic_Plus}"/>
         </UniformGrid>
 
         <ListView ItemsSource="{Binding AssetList}" Grid.Row="1" Grid.ColumnSpan="2"
-                  Margin="128,32,0,0" Style="{StaticResource Transparent}" ItemContainerStyle="{StaticResource Simple}"/>
+                  Margin="128,32,0,0" Style="{StaticResource Transparent}" 
+                  ItemContainerStyle="{StaticResource Simple}"/>
 
     </Grid>
-    
+
 </UserControl>

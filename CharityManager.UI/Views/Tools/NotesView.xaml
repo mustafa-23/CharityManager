@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.NotesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:m="clr-namespace:CharityManager.UI.Models"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type=vm:NotesViewModel}"
+             d:DesignHeight="300" d:DesignWidth="368">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="ColorTemplate">
+            <Ellipse Style="{StaticResource Circle}" Width="15"
+                     Margin="4,0">
+                <Ellipse.Fill>
+                    <SolidColorBrush Color="{Binding }"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </DataTemplate>
+
+        <x:Array x:Key="Colors" Type="{x:Type Color}">
+            <Color>White</Color>
+            <Color>Salmon</Color>
+            <Color>LightBlue</Color>
+            <Color>Gold</Color>
+            <Color>Lime</Color>
+            <Color>Cyan</Color>
+        </x:Array>
+
+        <DataTemplate DataType="{x:Type m:NoteModel}">
+            <Border Height="80" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource Brushes.Divider}"
+                    Margin="0,4">
+                <Border.Background>
+                    <SolidColorBrush Color="{Binding Color}" Opacity="0.3"/>
+                </Border.Background>
+                <Grid Margin="16,0,16,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_close_2}"
+                                Padding="0" Command="{x:Static ui:Commands.DeleteNote}" Height="30" Width="15"
+                                CommandParameter="{Binding}"/>
+                        <ToggleButton x:Name="tgbcolor" Tag="{StaticResource ic_palette}" Height="30" Width="15" Padding="0"
+                                      ce:Common.ExtraColor="Transparent"/>
+                    </StackPanel>
+                    <TextBox Text="{Binding Content}" Grid.Column="1" Margin="5,10,0,0" 
+                             Width="300" TextWrapping="Wrap"/>
+
+                    <Popup IsOpen="{Binding IsChecked,ElementName=tgbcolor,Mode=TwoWay}" StaysOpen="False"
+                           Placement="Relative" PlacementTarget="{Binding ElementName=tgbcolor}" Width="368"
+                           VerticalOffset="20" AllowsTransparency="True">
+                        <Border Height="30" VerticalAlignment="Bottom"
+                            BorderThickness="0" Grid.ColumnSpan="2">
+                            <Border.Background>
+                                <SolidColorBrush Color="White" Opacity="0.6"/>
+                            </Border.Background>
+                            <ListView Style="{StaticResource Transparent}" ItemsSource="{StaticResource Colors}" Tag="H"
+                                  ItemContainerStyle="{StaticResource Simple}" Margin="5"
+                                  SelectedItem="{Binding Color,Mode=TwoWay}"
+                                  ItemTemplate="{StaticResource ColorTemplate}"/>
+                        </Border>
+                    </Popup>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_sms}"
+                Content="برای ثبت یادداشت جدید کلیک کنید"
+                Command="{x:Static ui:Commands.AddNote}"
+                Width="Auto" Grid.Row="0" HorizontalAlignment="Left"/>
+        <ListView Grid.Row="1" ItemsSource="{x:Static ui:AppUIManager.Notes}" Margin="0,10,0,0"
+                  Style="{StaticResource Transparent}" ItemContainerStyle="{StaticResource Simple}"/>
+    </Grid>
+</UserControl>

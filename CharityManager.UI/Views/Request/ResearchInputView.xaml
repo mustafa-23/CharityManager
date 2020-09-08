@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.ResearchInputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels" 
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
+             mc:Ignorable="d"
+             d:DataContext="{dxmvvm:ViewModelSource Type=vm:ResearchInputViewModel}"
+             d:DesignHeight="770" d:DesignWidth="450"
+             Background="{DynamicResource Brushes.Main}" 
+             Margin="{StaticResource Slider.ContentMargin}">
+
+    <UserControl.Resources>
+        <Thickness x:Key="first">0,24,16,0</Thickness>
+        <Thickness x:Key="last">16,24,0,0</Thickness>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}" Grid.Row="3"
+                    Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
+            <TextBlock Style="{StaticResource Header}" Text="ثبت گزارش تحقیق" VerticalAlignment="Center"
+                       Margin="10,0,0,0"/>
+        </StackPanel>
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <cc:Field Style="{StaticResource Transformer}" Margin="{StaticResource first}"
+                      Grid.Row="0" Tag="{x:Static ui:GlobalVar.Users}"
+                      ce:ComboBox.DisplayPath="Person.Name"
+                      ce:ComboBox.ValuePath="ID"
+                      Value="{Binding Model.UserID,Mode=TwoWay}"
+                      InputType="ComboBox" FieldTitle="محقق"/>
+
+            <cc:Field Style="{StaticResource Transformer}" 
+                      Value="{Binding Model.ResearchDate,Mode=TwoWay}"
+                      Grid.Row="0" Grid.Column="1" Margin="{StaticResource last}"
+                      InputType="DateTime" FieldTitle="تاریخ انجام تحقیق"/>
+
+            <cc:Field Style="{StaticResource Transformer}" InputType="Text" Grid.Row="1"
+                      FieldTitle="محل تحقیق" Grid.ColumnSpan="2"
+                      Margin="0,24,0,0"
+                      Value="{Binding Model.Place,Mode=TwoWay}"/>
+
+            <cc:Field Style="{StaticResource ConfigCombo}" 
+                      Grid.Row="2" Margin="{StaticResource first}"
+                      Tag="{x:Static ui:AppConfigs.NeedTypes}"
+                      FieldTitle="نوع نیاز تشخیص شده"
+                      Value="{Binding Model.NeedTypeEntityID,Mode=TwoWay}"/>
+            
+            <cc:Field Style="{StaticResource Transformer}" 
+                  Grid.Row="2" Grid.Column="1" Tag="N0"
+                  InputType="Number" Value="{Binding Model.Cost,Mode=TwoWay}"
+                  Margin="{StaticResource last}"
+                  FieldTitle="مبلغ برآوردی نیاز"/>
+
+            <cc:Field Style="{StaticResource Transformer}" InputType="Text" 
+                      Grid.Row="3" Grid.ColumnSpan="2"
+                      FieldTitle="شرح بررسی"
+                      Margin="0,24,0,0" Value="{Binding Model.Comment,Mode=TwoWay}"/>
+        </Grid>
+
+        <Button Content="ذخیره" Command="{Binding ConfirmCommand}"
+                Grid.Row="1"
+                HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
+                Margin="0,84,0,0" Height="42" Width="86"/>
+    </StackPanel>
+</UserControl>

@@ -20,15 +20,18 @@ namespace CharityManager.UI.Converters
 
             if (int.TryParse(value.ToString(), out int id))
             {
+                if (id == 0) return "";
+
                 switch (parameter.ToString())
                 {
                     case nameof(IDToTitleEntity.Entity):
-                        return AppConfigs.All.FirstOrDefault(e => e.ID == id)?.Value ?? $"Invalid {parameter} ID";
-                    case nameof(IDToTitleEntity.EducationStatus):
-                    case nameof(IDToTitleEntity.EmploymentStatus):
-                        var list = (AppUIManager.Application.TryFindResource($"List.{parameter}") as ArrayList).ToArray();
+                        return AppConfigs.All.FirstOrDefault(e => e.ID == id)?.Title ?? $"Invalid {parameter} ID";
+                    case string str when str.StartsWith("$"):
+                        var list = (AppUIManager.Application.TryFindResource($"List.{parameter.ToString().Replace("$","")}") as ArrayList).ToArray();
                         var result = list.OfType<DictionaryEntry>().FirstOrDefault(e => e.Key.ToString() == id.ToString()).Value;
                         return result;
+                    case nameof(IDToTitleEntity.Introducer):
+                        return AppConfigs.Introducers.FirstOrDefault(i => i.Key == id).Value ?? $"شناسه {id} یافت نشد";
                 }
             }
             return $"Invalid value '{value}'";

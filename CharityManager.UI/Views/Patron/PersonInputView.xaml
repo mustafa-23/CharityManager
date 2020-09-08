@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
              xmlns:v="clr-namespace:CharityManager.UI.Views"
-             xmlns:m="clr-namespace:CharityManager.UI.Models"
-             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels" 
+             xmlns:ctrl="clr-namespace:CharityManager.UI.Controls"
+             xmlns:ce="clr-namespace:Araneo.WPF.ControlExtensions;assembly=Araneo.WPF"
+             xmlns:ui="clr-namespace:CharityManager.UI"
              mc:Ignorable="d"
              Name="parent"
              d:DataContext="{dxmvvm:ViewModelSource Type=vm:PersonInputViewModel}"
@@ -18,23 +19,25 @@
         <Thickness x:Key="TabItemMargin">28,24,32,0</Thickness>
     </UserControl.Resources>
 
-    <Grid Background="{DynamicResource Brushes.Main}">
-
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Border Style="{StaticResource Overlay}" Grid.RowSpan="2"/>
+
         <Border Height="76">
             <Button Content="ذخیره" Command="{Binding ApplyCommand}" Width="86" Height="42"
-                    Background="{DynamicResource Brushes.Level2}" HorizontalAlignment="Left"
+                    HorizontalAlignment="Left"
                     Margin="24,0,0,0"/>
         </Border>
 
-        <TabControl Name="tab" Margin="0,38,0,0" SelectionChanged="tab_SelectionChanged"
-                    Background="Red" Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex,Mode=TwoWay}">
+        <ctrl:AnimatedTabControl SelectedIndex="{Binding SelectedTabIndex,Mode=TwoWay}" 
+                                 IndicatorMargin="78,0,0,0"
+                                 Margin="0,38,0,0" Grid.Row="1">
 
-            <TabItem Header="{StaticResource PersonInput.Info}">
+            <TabItem Header="{StaticResource PersonInput.Info}" Margin="78,0,0,0">
                 <v:PatronInfoView Margin="{StaticResource TabItemMargin}"
                                   dxmvvm:ViewModelExtensions.ParentViewModel="{Binding DataContext,ElementName=parent}"/>
             </TabItem>
@@ -76,29 +79,29 @@
             <TabItem Header="{StaticResource PersonInput.Other}" Visibility="{Binding ExtraTabVisibility}">
                 <StackPanel Margin="{StaticResource TabItemMargin}">
                     <TextBlock Style="{StaticResource Header}" Text="نحوه آشنایی"/>
-                    <cc:Field Style="{StaticResource ComboBox}" FieldTitle="نحوه آشنایی و اطلاع از موسسه"
+                    <cc:Field Style="{StaticResource Transformer}" InputType="ComboBox" FieldTitle="نحوه آشنایی و اطلاع از موسسه"
                               Margin="0,24,0,0" Width="250" HorizontalAlignment="Left"
                               Comment="آیا تحت پوشش هر گونه نهاد دولتی یا خصوصی قرار دارد؟"/>
                     <Border Style="{StaticResource Separator}" Margin="0,32,0,24"/>
                     <TextBlock Style="{StaticResource Header}" Text="اطلاعات معرف"/>
                     <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
-                        <cc:Field Style="{StaticResource TextInput}" FieldTitle="نام معرف"
+                        <cc:Field Name="cmbIntro" Style="{StaticResource Transformer}" InputType="ComboBox" FieldTitle="نام معرف"
+                                  Value="{Binding IntroducerID,Mode=TwoWay}"
+                                  Tag="{x:Static ui:AppConfigs.Introducers}"
+                                  ce:ComboBox.DisplayPath="Value" ce:ComboBox.ValuePath="Key"
                                   Width="250" HorizontalAlignment="Left"/>
-                        <cc:Field Style="{StaticResource TextInput}" FieldTitle="شماره نامه"
-                              Margin="24,0,0,0" Width="250" HorizontalAlignment="Left"/>
+                        <cc:Field Style="{StaticResource Transformer}" FieldTitle="شماره نامه"
+                                  Width="250" HorizontalAlignment="Left"/>
+                        
                     </StackPanel>
                 </StackPanel>
             </TabItem>
 
-        </TabControl>
+        </ctrl:AnimatedTabControl>
 
-        <Border x:Name="border" Height="6" Background="Blue" VerticalAlignment="Top"
-                Margin="0,65,0,0" HorizontalAlignment="Left" Width="0" Grid.Row="1">
-            <Border.RenderTransform>
-                <TranslateTransform X="0"/>
-            </Border.RenderTransform>
-        </Border>
-
+        <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}"
+                Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Margin="24,34,0,0" Command="{Binding BackCommand}"/>
     </Grid>
 
 </UserControl>

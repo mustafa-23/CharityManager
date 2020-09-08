@@ -11,27 +11,22 @@ using System.Collections.ObjectModel;
 namespace CharityManager.UI.ViewModels
 {
     [POCOViewModel]
-    public class FamilyListViewModel : ISupportParameter, FamilyInputViewModel.IFamilyInputListener
+    public class FamilyListViewModel : ISupportParameter
     {
         public ObservableCollection<FamilyModel> FamilyList { get; set; } = new ObservableCollection<FamilyModel>();
 
-        public void AddFamily() => SliderHelper.Open(AppModules.FamilyInput, this);
-        public void OnFamilyConfirm(FamilyModel family)
+        public FamilyListViewModel()
         {
-            family.PatronID = (int)Parameter;
-
-            var request = new FamilyRequest { DTO = Mapper.Map(family, new FamilyDTO()) };
-            var response = Helper.Call(s => s.FamilySet(request));
-
-            Task.Run(() => RefreshFamilyList());
+            Messenger.Default.Register<Messages.Family>(this, OnMessageRecieved);
         }
+        private void OnMessageRecieved(Messages.Family message) => Task.Run(RefreshFamilyList);
         private void RefreshFamilyList()
         {
             AppUIManager.Application.Dispatcher.Invoke(() => FamilyList.Clear());
             if (Parameter is int patronId && patronId > 0)
             {
                 int index = 1;
-                var request = new FamilyRequest { Filter = new FamilyFilter { PatronID = patronId } };
+                var request = new FamilyRequest { Filter = new FamilyFilter { PatronID = patronId, Active = true } };
                 var response = Helper.Call(s => s.FamilyGetList(request));
                 if (response?.Success ?? false)
                     AppUIManager.Application.Dispatcher.Invoke(() =>

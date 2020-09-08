@@ -49,4 +49,11 @@ namespace CharityManager.Service
     public class AssetResponse : ResponseTemplate<AssetDTO> { }
     public class EntityResponse : ResponseTemplate<EntityDTO> { }
     public class DocumentResponse : ResponseTemplate<DocumentDTO> { }
+    public class LoginResponse : ResponseTemplate<LoginDTO> { }
+    public class IntroducerResponse : ResponseTemplate<IntroducerDTO> { }
+    public class RequestResponse : ResponseTemplate<RequestDTO> {
+        public int MaxNo { get; set; }
+    }
+    public class ResearchResponse : ResponseTemplate<ResearchDTO> {
+    }
 }

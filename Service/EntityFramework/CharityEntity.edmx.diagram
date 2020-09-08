@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4cfc2832f5c24f0d9cd3941d788d49cd" Name="Diagram1" ShowGrid="false" ZoomLevel="97">
-        <EntityTypeShape EntityType="CharityModel.Package" Width="1.5" PointX="6" PointY="2.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="CharityModel.PackageItem" Width="1.5" PointX="6" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="CharityModel.Package" Width="1.5" PointX="11.25" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="CharityModel.PackageItem" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="CharityModel.Permission" Width="1.5" PointX="11.375" PointY="2.75" IsExpanded="false" FillColor="192, 192, 0" />
         <EntityTypeShape EntityType="CharityModel.Person" Width="1.5" PointX="5.875" PointY="4.375" IsExpanded="false" FillColor="255, 255, 192" />
         <EntityTypeShape EntityType="CharityModel.User" Width="1.5" PointX="8" PointY="4.375" IsExpanded="false" FillColor="255, 255, 128" />
@@ -22,14 +22,6 @@
         <EntityTypeShape EntityType="CharityModel.Address" Width="1.5" PointX="1.5" PointY="3.25" IsExpanded="false" FillColor="Yellow" />
         <AssociationConnector Association="CharityModel.FK_Address_Patron" ManuallyRouted="false" >
         </AssociationConnector>
-        <EntityTypeShape EntityType="CharityModel.Entity" Width="1.5" PointX="4.25" PointY="1.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="CharityModel.Family" Width="1.5" PointX="1.5" PointY="4" IsExpanded="false" FillColor="Yellow" />
-        <AssociationConnector Association="CharityModel.FK_Sponsorship_Patron" ManuallyRouted="true" >
-          <ConnectorPoint PointX="3.75" PointY="4.5375" />
-          <ConnectorPoint PointX="3.2637458036078217" PointY="4.5375" />
-          <ConnectorPoint PointX="3.2637458036078217" PointY="4.2" />
-          <ConnectorPoint PointX="3" PointY="4.2" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="CharityModel.Asset" Width="1.5" PointX="1.5" PointY="4.625" IsExpanded="false" FillColor="Yellow" />
         <EntityTypeShape EntityType="CharityModel.Job" Width="1.5" PointX="1.5" PointY="5.375" IsExpanded="false" FillColor="Yellow" />
         <AssociationConnector Association="CharityModel.FK_Asset_Patron" />
@@ -38,6 +30,21 @@
         <AssociationConnector Association="CharityModel.FK_Picture_Person" />
         <EntityTypeShape EntityType="CharityModel.Document" Width="1.5" PointX="3.375" PointY="3.25" IsExpanded="false" FillColor="Yellow" />
         <AssociationConnector Association="CharityModel.FK_Document_Patron" />
+        <EntityTypeShape EntityType="CharityModel.Entity" Width="1.5" PointX="7.875" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="CharityModel.Introducer" Width="1.5" PointX="5.125" PointY="6.625" IsExpanded="false" />
+        <AssociationConnector Association="CharityModel.FK_Patron_Introducer" />
+        <AssociationConnector Association="CharityModel.FK_Introducer_Person" />
+        <EntityTypeShape EntityType="CharityModel.Family" Width="1.5" PointX="2.75" PointY="6.25" IsExpanded="false" />
+        <AssociationConnector Association="CharityModel.FK_Sponsorship_Patron" />
+        <EntityTypeShape EntityType="CharityModel.Request" Width="1.5" PointX="5" PointY="0.5" IsExpanded="false" />
+        <AssociationConnector Association="CharityModel.FK_Request_Entity" />
+        <AssociationConnector Association="CharityModel.FK_Request_Patron" />
+        <EntityTypeShape EntityType="CharityModel.Research" Width="1.5" PointX="6.625" PointY="1.75" IsExpanded="false" />
+        <AssociationConnector Association="CharityModel.FK_Research_Entity" />
+        <AssociationConnector Association="CharityModel.FK_Research_Request" />
+        <AssociationConnector Association="CharityModel.FK_Research_User" />
+        <EntityTypeShape EntityType="CharityModel.ManagerViewpoint" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="false" />
+        <AssociationConnector Association="CharityModel.FK_ManagerViewpoint_Request" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -57,8 +57,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\Introducer.cs">
+      <DependentUpon>CharityEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ManagerViewpoint.cs">
+      <DependentUpon>CharityEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Request.cs">
+      <DependentUpon>CharityEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Research.cs">
+      <DependentUpon>CharityEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceImp\DocumentService.cs" />
     <Compile Include="ServiceImp\Charity.cs" />
+    <Compile Include="ServiceImp\RequestService.cs" />
+    <Compile Include="ServiceImp\UserService.cs" />
     <Compile Include="WindowsService\CharityInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

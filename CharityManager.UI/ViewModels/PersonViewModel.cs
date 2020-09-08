@@ -46,7 +46,7 @@ namespace CharityManager.UI.ViewModels
             if (SelectedModel != null)
                 AppUIManager.Manager.Clear(AppRegions.Person);
         }
-
+        public void Back() => SelectedModel = null;
         private void RefreshModels()
         {
             var request = new PatronRequest { Filter = new PatronFilter(), LoadPerson = true };

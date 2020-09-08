@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="CharityManager.UI.Views.ManagerViewPointInputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:cc="clr-namespace:Araneo.WPF.CustomControls;assembly=Araneo.WPF"
+             xmlns:ui="clr-namespace:CharityManager.UI"
+             xmlns:v="clr-namespace:CharityManager.UI.Views"
+             d:DataContext="{mvvm:ViewModelSource Type={x:Type vm:ManagerViewPointInputViewModel}}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300"
+             Margin="{StaticResource Slider.ContentMargin}">
+    
+    <UserControl.Resources>
+        <Thickness x:Key="first">0,24,16,0</Thickness>
+        <Thickness x:Key="last">16,24,0,0</Thickness>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}" Grid.Row="3"
+                    Padding="4" Cursor="Hand" Command="{x:Static ui:Commands.CloseSlider}"/>
+            <TextBlock Style="{StaticResource Header}" Text="ثبت نظر مدیریت" VerticalAlignment="Center"
+                       Margin="10,0,0,0"/>
+        </StackPanel>
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <cc:Field Style="{StaticResource KeyValueCombo}" Margin="{StaticResource first}"
+                      Grid.Row="0" Tag="{StaticResource List.ManagerViewPoint}"
+                      FieldTitle="نظر" Value="{Binding Model.ViewPoint,Mode=TwoWay}"/>
+
+            <cc:Field Style="{StaticResource Transformer}" InputType="Text" 
+                      Grid.Row="3" Grid.ColumnSpan="2"
+                      FieldTitle="توضیحات"
+                      Margin="0,24,0,0" Value="{Binding Model.Comment,Mode=TwoWay}"/>
+        </Grid>
+
+        <Button Content="ذخیره" Command="{Binding ConfirmCommand}"
+                Grid.Row="1"
+                HorizontalAlignment="Left" ToolTip="Ctrl+Enter"
+                Margin="0,84,0,0" Height="42" Width="86"/>
+    </StackPanel>
+</UserControl>

@@ -2,36 +2,36 @@
 using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm;
 using CharityManager.UI.Models;
+using CharityManager.UI.CharityService;
+using Araneo.Common;
 
 namespace CharityManager.UI.ViewModels
 {
     [POCOViewModel]
-    public class AddressInputViewModel:ISupportParameter
+    public class AddressInputViewModel : ISupportParameter
     {
         public virtual AddressModel Model { get; set; }
-        public AddressInputViewModel()
-        {
-            Model = new AddressModel();
-        }
+
+        #region Commands
         public void Confirm()
         {
-            if (Parameter is IAddressInputListener listener)
-            {
-                listener.OnAddressConfirm(Model);
-                SliderHelper.Close();
-            }
-        }
-
-
-        #region ISupportParameter
-        public virtual object Parameter { get; set; } 
+            var request = new AddressRequest { DTO = Mapper.Map(Model, new AddressDTO()) };
+            var response = Helper.Call(s => s.AddressSet(request));
+            ServiceResponseHelper.CheckServiceResponse(response, "AddressSet", request);
+            Messenger.Default.Send(Messages.Address.Refresh);
+            SliderHelper.Close();
+        } 
         #endregion
 
-        #region Interfaces
-        public interface IAddressInputListener
+        #region ISupportParameter
+        public virtual object Parameter { get; set; }
+        protected void OnParameterChanged()
         {
-            void OnAddressConfirm(AddressModel address);
-        } 
+            if (Parameter is int patronID)
+                Model = new AddressModel { PatronID = patronID };
+            else if (Parameter is AddressModel model)
+                Model = model;
+        }
         #endregion
     }
 }

@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
              xmlns:vm="clr-namespace:CharityManager.UI.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
              d:DataContext="{dxmvvm:ViewModelSource Type=vm:QuicAddUserViewModel}"
              d:DesignHeight="400" d:DesignWidth="700">
@@ -20,32 +22,199 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                       Opacity="0.5">
+                            <TextBlock x:Name="txtTitle" Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                       Opacity="1" RenderTransformOrigin=".5,.5" HorizontalAlignment="Center">
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>
-                                        <TranslateTransform/>
+                                        <TranslateTransform Y="35"/>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
                                     </TransformGroup>
                                 </TextBlock.RenderTransform>
                             </TextBlock>
-                            <ScrollViewer x:Name="PART_ContentHost" Grid.Row="1"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Grid.Row="1" HorizontalAlignment="Center"/>
                             <Border Height="1" Background="White"
+                                    Margin="0,10,0,0"
                                     Grid.Row="2"/>
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="Tag" Value="{x:Null}">
-                                
+                            <Trigger Property="Text" Value="">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(ScaleTransform.ScaleX)"
+                                                             To="1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(ScaleTransform.ScaleY)"
+                                                             To="1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(TranslateTransform.Y)"
+                                                             To="35" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0.5" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(ScaleTransform.ScaleX)"
+                                                             To="0.5" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(ScaleTransform.ScaleY)"
+                                                             To="0.5" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetName="txtTitle"
+                                                             Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(TranslateTransform.Y)"
+                                                             To="0" Duration="0:0:0.3"/>
+
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="Visibility" Value="Visible">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0" To="1" Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button" x:Key="Circle">
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Focusable" Value="False"/>
+            <!--<Setter Property="Background" Value="{DXBinding 'Page > (int)@s.Tag?`Aqua`:`White`'}"/>
+            <Setter Property="Opacity" Value="{DXBinding 'Page >= (int)@s.Tag?1:0.2'}"/>-->
+            <Setter Property="Command" Value="{Binding SetPageCommand}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Ellipse Width="{TemplateBinding Width}" Height="{TemplateBinding Width}"
+                                 Fill="{TemplateBinding Background}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
-    
-    <Grid Background="{StaticResource Brushes.Accent}">
-        <TextBox Text="محمد باقر رضایی" Tag="نام شما چیست" VerticalAlignment="Center"
-                 HorizontalAlignment="Center" Foreground="White"
-                 FontSize="24"/>
+
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="FormStates">
+                <VisualState x:Name="Input"/>
+                <VisualState x:Name="Message">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="inputPanel" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="msgPanel" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Storyboard.TargetName="msgPanel" 
+                                         Storyboard.TargetProperty="Opacity" 
+                                         From="0" To="1" Duration="0:0:0.5"
+                                         EasingFunction="{StaticResource CubicEaseOut}"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <i:Interaction.Triggers>
+            <ie:PropertyChangedTrigger Binding="{Binding FormState}">
+                <ie:GoToStateAction StateName="{Binding FormState}"/>
+            </ie:PropertyChangedTrigger>
+        </i:Interaction.Triggers>
+        
+        <Grid x:Name="inputPanel" Margin="24">
+            <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Button Style="{StaticResource Circle}" CommandParameter="0" Tag="0"/>
+                <Button Style="{StaticResource Circle}" CommandParameter="1" Tag="1"/>
+                <Button Style="{StaticResource Circle}" CommandParameter="2" Tag="2"/>
+                <Button Style="{StaticResource Circle}" CommandParameter="3" Tag="3"/>
+                <Button Style="{StaticResource Circle}" CommandParameter="4" Tag="4"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button Style="{StaticResource Button.Iconic}" Tag="{StaticResource ic_back}"
+                    Focusable="False"
+                    Command="{Binding BackCommand}" Foreground="White" Margin="0,0,10,0"/>
+                <TextBlock Style="{StaticResource Heading}" Tag="3" Text="ساخت حساب کاربری"
+                       Foreground="White"/>
+            </StackPanel>
+
+            <TextBox x:Name="txtNationalNo" Text="{Binding Person.NationalNo,UpdateSourceTrigger=PropertyChanged}" Tag="کد ملی" VerticalAlignment="Center"
+                 HorizontalAlignment="Center" Foreground="White" FontSize="24"
+                 Visibility="{DXBinding 'Page == 0?`Visible`:`Collapsed`'}">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="KeyDown" Command="{Binding InputCommand}" 
+                                       PassEventArgsToCommand="True"/>
+                    <dxmvvm:FocusBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox x:Name="txtName" Text="{Binding Person.FirstName}" Tag="نام شما چیست" VerticalAlignment="Center"
+                 HorizontalAlignment="Center" Foreground="White" FontSize="24"
+                 Visibility="{DXBinding 'Page == 1?`Visible`:`Collapsed`'}">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="KeyDown" Command="{Binding InputCommand}" 
+                                       PassEventArgsToCommand="True"/>
+                    <dxmvvm:FocusBehavior PropertyName="Page" SourceObject="{Binding }"/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox x:Name="txtFamily" Text="{Binding Person.LastName}" Tag="نام خانوادگی شما چیست " VerticalAlignment="Center"
+                 HorizontalAlignment="Center" Foreground="White" FontSize="24"
+                 Visibility="{DXBinding 'Page == 2?`Visible`:`Collapsed`'}">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="KeyDown" Command="{Binding InputCommand}" 
+                                       PassEventArgsToCommand="True"/>
+                    <dxmvvm:FocusBehavior PropertyName="Page" SourceObject="{Binding }"/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox x:Name="txtUserName" Text="{Binding UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Tag="نام کاربری را وارد کنید" VerticalAlignment="Center"
+                 HorizontalAlignment="Center" Foreground="White" FontSize="24"
+                 Visibility="{DXBinding 'Page == 3?`Visible`:`Collapsed`'}">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="KeyDown" Command="{Binding InputCommand}" 
+                                       PassEventArgsToCommand="True"/>
+                    <dxmvvm:FocusBehavior PropertyName="Page" SourceObject="{Binding }"/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox x:Name="txtPassword" Text="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Tag="رمز عبور را وارد کنید" VerticalAlignment="Center"
+                 HorizontalAlignment="Center" Foreground="White" FontSize="24"
+                 Visibility="{DXBinding 'Page == 4?`Visible`:`Collapsed`'}">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand EventName="KeyDown" Command="{Binding InputCommand}" 
+                                       PassEventArgsToCommand="True"/>
+                    <dxmvvm:FocusBehavior PropertyName="Page" SourceObject="{Binding }"/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+        </Grid>
+        <StackPanel x:Name="msgPanel" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Visibility="Collapsed" Opacity="0">
+            <Image Source="..\Images\congrates.png" Height="134"/>
+            <TextBlock Text="{StaticResource QuickAddUser.SuccessMessage}"
+                       Foreground="White" Style="{StaticResource Heading}" Tag="2"
+                       HorizontalAlignment="Center" Margin="0,24,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>
